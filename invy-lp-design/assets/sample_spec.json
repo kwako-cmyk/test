@@ -1,47 +1,185 @@
 {
   "project": "サンプル美容室",
-  "theme": {"mode": "wire"},
-  "offer": {"inviter": "次回カット500円OFF", "guest": "初回カット20%OFF"},
+  "theme": {
+    "mode": "wire"
+  },
+  "offer": {
+    "inviter": "次回カット500円OFF",
+    "guest": "初回カット20%OFF"
+  },
   "pages": [
     {
       "pageType": "inviter",
       "title": "サンプル美容室 お友だち紹介",
       "blocks": [
-        {"type": "brand-logo", "state": "keep", "note": "既存ヘッダーを流用", "data": {"cta": "紹介する"}},
-        {"type": "kv-image", "state": "mod", "note": "施術後の満足直後に開く前提で、仕上がり写真を主役にする"},
-        {"type": "benefits", "state": "mod", "note": "特典は金額を大きく。条件は注記で必ず併記",
-         "data": {"title": "ご紹介で\nおふたりに特典をお届け", "a": "次回カット500円OFF", "b": "初回カット20%OFF",
-                  "note": "※ご紹介を受けた方のご来店が確認できた時点で付与します。", "cta": "お友だちに紹介する"}},
-        {"type": "flow", "state": "keep", "note": "",
-         "data": {"steps": ["このページからお友だちに紹介URLを送る", "お友だちがURLから予約して来店する", "来店確認後、おふたりに特典が届く"]}},
-        {"type": "hint", "state": "new", "note": "紹介の場面を具体化して、送る心理的ハードルを下げる",
-         "data": {"slides": [{"text": "髪型をほめられたときに、このページを送ってみてください。"},
-                             {"text": "LINEのトーク画面から、そのまま送れます。"},
-                             {"text": "「担当の◯◯さんがおすすめ」と一言添えると伝わりやすくなります。"}]}},
-        {"type": "invite-form", "state": "keep", "note": "初期メッセージは口調を店舗に合わせて修正",
-         "data": {"msg": "いつも行ってる美容室、初回20%OFFで行けるよ。よかったら使ってみて！"}},
-        {"type": "faq", "state": "keep", "note": ""},
-        {"type": "please-read", "state": "keep", "note": ""},
-        {"type": "footer", "state": "keep", "note": ""},
-        {"type": "invitation-banner", "state": "keep", "note": "", "data": {"cta": "お友だちに紹介する"}}
-      ]
+        {
+          "type": "brand-logo",
+          "state": "keep",
+          "note": "既存ヘッダーを流用",
+          "data": {
+            "cta": "紹介する"
+          }
+        },
+        {
+          "type": "kv-image",
+          "state": "mod",
+          "note": "施術後の満足直後に開く前提で、仕上がり写真を主役にする"
+        },
+        {
+          "type": "benefits",
+          "state": "mod",
+          "note": "特典は金額を大きく。条件は注記で必ず併記",
+          "data": {
+            "title": "ご紹介で\nおふたりに特典をお届け",
+            "a": "次回カット500円OFF",
+            "b": "初回カット20%OFF",
+            "note": "※ご紹介を受けた方のご来店が確認できた時点で付与します。",
+            "cta": "お友だちに紹介する"
+          }
+        },
+        {
+          "type": "flow",
+          "state": "keep",
+          "note": "",
+          "data": {
+            "steps": [
+              "このページからお友だちに紹介URLを送る",
+              "お友だちがURLから予約して来店する",
+              "来店確認後、おふたりに特典が届く"
+            ]
+          }
+        },
+        {
+          "type": "hint",
+          "state": "new",
+          "note": "紹介の場面を具体化して、送る心理的ハードルを下げる",
+          "data": {
+            "slides": [
+              {
+                "text": "髪型をほめられたときに、このページを送ってみてください。"
+              },
+              {
+                "text": "LINEのトーク画面から、そのまま送れます。"
+              },
+              {
+                "text": "「担当の◯◯さんがおすすめ」と一言添えると伝わりやすくなります。"
+              }
+            ]
+          }
+        },
+        {
+          "type": "invite-form",
+          "state": "keep",
+          "note": "初期メッセージは口調を店舗に合わせて修正",
+          "data": {
+            "msg": "いつも行ってる美容室、初回20%OFFで行けるよ。よかったら使ってみて！"
+          }
+        },
+        {
+          "type": "faq",
+          "state": "keep",
+          "note": ""
+        },
+        {
+          "type": "please-read",
+          "state": "keep",
+          "note": ""
+        },
+        {
+          "type": "footer",
+          "state": "keep",
+          "note": ""
+        },
+        {
+          "type": "invitation-banner",
+          "state": "keep",
+          "note": "",
+          "data": {
+            "cta": "お友だちに紹介する"
+          }
+        }
+      ],
+      "settings": {
+        "theme": "ゴシック／フォント標準",
+        "title": "サンプル美容室 お友だち紹介",
+        "description": "お友だちを紹介すると、おふたりに特典をお届けします。",
+        "ogp": "",
+        "index": "無効"
+      }
     },
     {
       "pageType": "guest",
       "title": "サンプル美容室 ご紹介特典",
       "blocks": [
-        {"type": "brand-logo", "state": "keep", "note": "", "data": {"cta": "予約する"}},
-        {"type": "kv-image", "state": "mod", "note": ""},
-        {"type": "coupon-message", "state": "keep", "note": "",
-         "data": {"title": "お友だちから\n初回20%OFFクーポンが届いています", "lead": "ご予約時にクーポンコードをお伝えください。"}},
-        {"type": "invitation-code", "state": "keep", "note": ""},
-        {"type": "client-site-link", "state": "new", "note": "予約は既存の予約サイトへ送る（invy上では予約できない）",
-         "data": {"title": "ご予約はこちら", "cta": "予約サイトで空き状況を見る", "href": "既存の予約サイト", "measure": "来店（店内QR）"}},
-        {"type": "faq", "state": "keep", "note": ""},
-        {"type": "notice-list", "state": "keep", "note": ""},
-        {"type": "footer", "state": "keep", "note": ""},
-        {"type": "invitation-banner", "state": "keep", "note": "", "data": {"cta": "予約サイトへ進む"}}
-      ]
+        {
+          "type": "brand-logo",
+          "state": "keep",
+          "note": "",
+          "data": {
+            "cta": "予約する"
+          }
+        },
+        {
+          "type": "kv-image",
+          "state": "mod",
+          "note": ""
+        },
+        {
+          "type": "coupon-message",
+          "state": "keep",
+          "note": "",
+          "data": {
+            "title": "お友だちから\n初回20%OFFクーポンが届いています",
+            "lead": "ご予約時にクーポンコードをお伝えください。"
+          }
+        },
+        {
+          "type": "invitation-code",
+          "state": "keep",
+          "note": ""
+        },
+        {
+          "type": "client-site-link",
+          "state": "new",
+          "note": "予約は既存の予約サイトへ送る（invy上では予約できない）",
+          "data": {
+            "title": "ご予約はこちら",
+            "cta": "予約サイトで空き状況を見る",
+            "href": "既存の予約サイト",
+            "measure": "来店（店内QR）"
+          }
+        },
+        {
+          "type": "faq",
+          "state": "keep",
+          "note": ""
+        },
+        {
+          "type": "notice-list",
+          "state": "keep",
+          "note": ""
+        },
+        {
+          "type": "footer",
+          "state": "keep",
+          "note": ""
+        },
+        {
+          "type": "invitation-banner",
+          "state": "keep",
+          "note": "",
+          "data": {
+            "cta": "予約サイトへ進む"
+          }
+        }
+      ],
+      "settings": {
+        "theme": "ゴシック／フォント標準",
+        "title": "サンプル美容室 ご紹介特典",
+        "description": "お友だちからの紹介特典で、初回カットが20%OFFになります。",
+        "ogp": "",
+        "index": "無効"
+      }
     }
   ],
   "outOfCms": []

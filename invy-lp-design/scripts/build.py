@@ -14,7 +14,7 @@
 import argparse, copy, csv, datetime, html, io, json, os, re, sys, zipfile
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from catalog import BLOCKS, PAGE_LABEL, image_slots, defaults  # noqa: E402
+from catalog import BLOCKS, PAGE_LABEL, PAGE_SETTINGS, COLOR_HOWTO, image_slots, defaults  # noqa: E402
 from render import render_page, svg_doc  # noqa: E402
 
 STATE = {'keep': 'KEEP（既存のまま）', 'mod': 'MOD（既存を修正）', 'new': 'NEW（新規追加）', 'plain': '—'}
@@ -55,6 +55,10 @@ def normalize(spec):
             if t in ('button', 'client-site-link') and (not d.get('href') or not d.get('measure')):
                 warns.append(f'{where}: CTA の遷移先（href）と計測方法（measure）が未確定です')
         p['blocks'] = [b for b in p.get('blocks') or [] if b.get('type') in BLOCKS]
+        ps = p.get('settings') or {}
+        miss = [n for k, n in (('description', 'description'), ('ogp', 'OGP画像')) if not ps.get(k)]
+        if miss:
+            warns.append(f"{PAGE_LABEL[pt]}: ページ設定の必須項目が未定（{'・'.join(miss)}）")
     return errors, warns
 
 
@@ -64,7 +68,7 @@ def field_lines(b):
     for key, name, kind in BLOCKS[b['type']]['fields']:
         v = d.get(key)
         if kind in ('text', 'multi'):
-            out.append((name, '' if v is None else str(v)))
+            out.append((name, '' if v is None else 'あり' if v is True else 'なし' if v is False else str(v)))
         elif kind == 'list':
             for i, s in enumerate(v or []):
                 out.append((f'{name} {i + 1}', str(s)))
@@ -82,6 +86,24 @@ def field_lines(b):
     return out
 
 
+def style_lines(b):
+    st = b.get('style') or {}; out = []
+    if st.get('bg'):
+        out.append(('スタイル設定：背景色', st['bg'] + (f"（透明度 {st['bgOpacity']}%）" if st.get('bgOpacity') not in (None, 100) else '')))
+    if st.get('border'):
+        out.append(('スタイル設定：枠線で囲う', 'ON'))
+    if st.get('padding') is not None:
+        out.append(('スタイル設定：余白（全体）', f"{st['padding']}px"))
+    if st.get('textColor'):
+        out.append(('リッチテキスト：文字色', st['textColor']))
+    for k, lab in (('id', 'コンポーネントのID'), ('label', 'コンポーネントのラベル')):
+        if b.get(k):
+            out.append((lab, str(b[k])))
+    if b.get('hidden'):
+        out.append(('非表示にする', 'ON'))
+    return out
+
+
 def image_lines(b, scale):
     imgs = b.get('images') or {}; out = []
     for slot, name, w, h in image_slots(b['type'], b['data']):
@@ -96,8 +118,21 @@ def sheet_md(spec, scale):
          f"- 生成日時：{datetime.datetime.now():%Y-%m-%d %H:%M}",
          f"- 配色：{'ブランド配色' if (spec.get('theme') or {}).get('mode') == 'brand' else 'ワイヤー（無彩色）'}",
          '- 画像サイズはツール上の比率。CMS 側の推奨入稿サイズで最終確認すること', '']
+    th = spec.get('theme') or {}
+    if th.get('mode') == 'brand':
+        L += ['## 配色の入れ方（CMS 上の手段）', '',
+              f"基調色 `{th.get('primary', '')}` をボタン・バナー等に当てている。CMS では次の手段で入れる。", '',
+              '| 変えたいもの | CMS でのやり方 |', '|---|---|']
+        L += [f'| {a} | {b} |' for a, b in COLOR_HOWTO]
+        L += ['']
     for p in spec['pages']:
-        L += [f"## {PAGE_LABEL[p['pageType']]}：{p.get('title', '')}", '',
+        L += [f"## {PAGE_LABEL[p['pageType']]}：{p.get('title', '')}", '']
+        ps = p.get('settings') or {}
+        L += ['### ページ設定', '', '| CMS の項目 | 内容 |', '|---|---|']
+        for k, n, m in PAGE_SETTINGS:
+            v = ps.get(k, p.get('title') if k == 'title' else None)
+            L.append(f"| {n} | {str(v).replace(chr(10), '<br>').replace('|', '／') if v not in (None, '') else '（未定・' + m + '）'} |")
+        L += ['', '### ブロック一覧', '',
               '| No | CMSパーツ | CMSクラス | 状態 | 意図 |', '|---|---|---|---|---|']
         for i, b in enumerate(p['blocks']):
             cat = BLOCKS[b['type']]
@@ -106,11 +141,11 @@ def sheet_md(spec, scale):
         L.append('')
         for i, b in enumerate(p['blocks']):
             cat = BLOCKS[b['type']]
-            L += [f"### {i + 1:02d}. {cat['label']}（{STATE[b['state']]}）", '']
+            L += [f"#### {i + 1:02d}. {cat['label']}（{STATE[b['state']]}）", '']
             if b.get('note'):
                 L += [f"> 意図：{b['note']}", '']
             L += ['| 入力項目 | 内容 |', '|---|---|']
-            for k, v in field_lines(b):
+            for k, v in field_lines(b) + style_lines(b):
                 L.append(f"| {k} | {v.replace(chr(10), '<br>').replace('|', '／') or '（空欄）'} |")
             il = image_lines(b, scale)
             if il:
@@ -129,11 +164,17 @@ def sheet_csv(spec, scale):
     w = csv.writer(buf)
     w.writerow(['ページ', 'No', 'CMSパーツ', 'CMSクラス', '状態', '区分', '項目', '内容', 'サイズ', '意図'])
     for p in spec['pages']:
+        ps = p.get('settings') or {}
+        for k, n, m in PAGE_SETTINGS:
+            v = ps.get(k, p.get('title') if k == 'title' else '')
+            w.writerow([PAGE_LABEL[p['pageType']], 0, 'ページ設定', '', '', '設定', n, v or '', '', m])
         for i, b in enumerate(p['blocks']):
             cat = BLOCKS[b['type']]
             base = [PAGE_LABEL[p['pageType']], i + 1, cat['label'], 'invyBlockEditor-' + cat['cms'][0], STATE[b['state']]]
             for k, v in field_lines(b):
                 w.writerow(base + ['テキスト', k, v, '', b.get('note', '')])
+            for k, v in style_lines(b):
+                w.writerow(base + ['設定', k, v, '', b.get('note', '')])
             for a, f, s in image_lines(b, scale):
                 w.writerow(base + ['画像', a, f, s, b.get('note', '')])
     return '﻿' + buf.getvalue()   # Excel で文字化けしないよう BOM 付き

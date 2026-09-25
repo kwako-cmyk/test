@@ -13,10 +13,14 @@
     {
       "pageType": "inviter",
       "title": "ページタイトル（フッターの表示名の既定値）",
+      "settings": {"theme": "ゴシック／フォント標準", "description": "ページのdescription", "ogp": "OGP画像のファイル名",
+                   "headScript": "", "index": "無効"},
       "blocks": [
         {"type": "benefits", "state": "mod", "note": "このブロックで伝える1点",
          "data": {"title": "ご紹介で\nおふたりに特典", "a": "500円OFF", "b": "20%OFF", "note": "※条件"},
-         "images": {"ico1": "assets/icon_a.png"}}
+         "images": {"ico1": "assets/icon_a.png"},
+         "style": {"bg": "#FBE3EF", "bgOpacity": 100, "border": false, "padding": 0, "textColor": "#8A0048"},
+         "id": "benefits", "label": "特典"}
       ]
     }
   ],
@@ -31,7 +35,10 @@
 | `note` | このブロックで伝える1点・修正意図。入稿シートの「意図」列になる |
 | `data` | 入力項目。書かなかった項目はカタログの初期値が入る。カタログに無い項目は警告して無視 |
 | `images` | 画像枠のスロット名 → 画像ファイルのパス（spec.json からの相対）。無い枠は比率つきの枠で描く |
+| `style` | CMS の「スタイル設定」とリッチテキストの文字色。`bg`（背景色）・`bgOpacity`（透明度%）・`border`（枠線で囲う）・`padding`（余白 px。シートに出すだけで描画には反映しない）・`textColor`（ブロック内の文字色） |
+| `id` / `label` / `hidden` | CMS のコンポーネントID（ページ内リンクの飛び先）・ラベル・非表示。入稿シートに出る |
 | `minH` | 任意。ブロックの最低の高さ（pt）。余白を広げたいときだけ使う |
+| ページの `settings` | CMS のページ設定（テーマ・タイトル・description・OGP・背景画像・head/body スクリプト・3ステップフォーム・インデックス）。キーは `03-cms-blocks.md`「ページ全体の設定」。description と OGP は必須なので、空だと警告が出る |
 
 項目の形：
 - 箇条書き・行・ステップ（`bullets` / `rows` / `steps`）は文字列の配列
@@ -43,7 +50,9 @@
 - ワイヤー（既定）：`{"mode": "wire"}`。無彩色
 - ブランド：`{"mode": "brand", "primary": "#E4007F", "accent": "#E4007F"}`。変えられるキーは `primary`（ボタン・バナー・ステップ番号の地色）、`onPrimary`（その上の文字色）、`accent`（Q/A 記号）、`ink`、`body`、`sub`、`line`、`bg`、`footer`、`onFooter`、`radius`（ボタンの角丸 pt）、`font`、`headFont`
 - LINE ボタンの緑、必須バッジの赤は CMS 固定の色として変えない
-- **CMS の管理画面でどこの色を変えられるかは要確認。** ブランド配色で作るときは、CMS で再現できない色の当て方をしていないか【7】で確認事項にする
+- **色は CMS で入れられる手段（`03-cms-blocks.md`「色の変え方」）の範囲だけで当てる。** 背景色はコンポーネントのスタイル設定、文字色はリッチテキスト、ボタンの色は head に書く CSS。ボタンの CSS クラスで確認できているのは `.formBtn--mailto`（メールで送る）だけなので、それ以外のボタン色を変えるデザインは【7】で要確認にする
+- KV や装飾の多い見出しは画像で作って入れる前提。CMS の部品で色や装飾を作り込まない
+- ブランド配色のときは、入稿シートの冒頭に「配色の入れ方」の表が出る
 
 ## 2. ビルド
 

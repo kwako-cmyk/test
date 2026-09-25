@@ -184,7 +184,7 @@ class Canvas:
             fs = 12 if w >= 140 else 9
             lw = min(w - 12, text_w(label, fs) + 18)
             self.rect(x + (w - lw) / 2, y + h / 2 - fs, lw, fs * 2, fill=t['soft'], stroke=t['phLine'], sw=0.7, rx=3)
-            self.text(x + (w - lw) / 2, y + h / 2 - fs, lw, label, fs, 400, t['sub'], 'center', lh=2, maxlines=1)
+            self.text(x + (w - lw) / 2, y + h / 2 - fs, lw, label, fs, 400, WIRE['sub'], 'center', lh=2, maxlines=1)
         self.close()
 
 
@@ -234,14 +234,24 @@ def slides_of(d):
 # 各関数は (canvas, block, page, y) を受け取り、ブロックの高さ（pt）を返す
 
 def b_header(c, b, p, y):
+    """CMS の設定：ロゴ表示位置（左寄せ/中央）、紹介CTA（あり/なし）、バナー種類（テキスト/画像）、ボタンスタイル（角丸/四角）"""
     t, d = c.t, b['data']
     h = 50
-    c.rect(0, y, W, h, fill=t['bg'])
     c.line(0, y + h - 0.5, W, y + h - 0.5, t['ph'], 1)
-    c.image(12, y + 8, 140, 34, img_of(b, 'logo'), 'ロゴ', name='ロゴ', fit='contain')
-    c.rect(W - 120, y, 120, h - 1, fill=t['primary'], name='ヘッダーボタン_背景')
-    c.text(W - 116, y + (h - 1 - 14 * 1.4) / 2, 112, d.get('cta'), 14, 500, t['onPrimary'], 'center', 1.4,
-           name='ヘッダーボタン_文言', maxlines=1)
+    center = d.get('logoPos') == 'center'
+    has_cta = d.get('ctaOn', True) not in (False, 'off', 'なし')
+    lx = (W - 140) / 2 if center or not has_cta else 12
+    c.image(lx, y + 8, 140, 34, img_of(b, 'logo'), 'ロゴ', name='ロゴ', fit='contain')
+    if not has_cta:
+        return h
+    if d.get('ctaType') == 'image':
+        c.image(W - 126, y + 7, 116, 36, img_of(b, 'ctaImg'), 'ボタン画像', name='ヘッダーボタン画像', fit='contain')
+    elif d.get('btnShape') == 'round':
+        button(c, W - 128, y + 8, 118, 34, d.get('cta'), name='ヘッダーボタン', pill=True, size=11)
+    else:
+        c.rect(W - 120, y, 120, h - 1, fill=t['primary'], name='ヘッダーボタン_背景')
+        c.text(W - 116, y + (h - 1 - 14 * 1.4) / 2, 112, d.get('cta'), 14, 500, t['onPrimary'], 'center', 1.4,
+               name='ヘッダーボタン_文言', maxlines=1)
     return h
 
 
@@ -664,17 +674,25 @@ def render_page(page, spec, scale=3, base_dir='.', x_offset=0):
     y = 0; spans = []
     for i, b in enumerate(page['blocks']):
         label = BLOCKS[b['type']]['label']
+        st = b.get('style') or {}          # CMS の「スタイル設定」（背景色・透明度・枠線）とリッチテキストの文字色
+        c.t = dict(theme)
+        if st.get('textColor'):
+            c.t.update(ink=st['textColor'], body=st['textColor'], sub=st['textColor'])
         c.open(f"{i + 1:02d}_{label}")
         mark = len(c.out)
         h = SHAPES[b['type']](c, b, page, y)
         if b.get('minH') and b['minH'] > h:
             h = b['minH']
         body = c.out[mark:]; del c.out[mark:]
-        c.rect(0, y, W, h, fill=theme['bg'], name='背景')
+        op = st.get('bgOpacity')
+        c.rect(0, y, W, h, fill=st.get('bg') or theme['bg'], name='背景', opacity=None if op in (None, 100) else op / 100)
         c.out += body
+        if st.get('border'):
+            c.rect(0.5, y + 0.5, W - 1, h - 1, stroke=st.get('borderColor') or theme['line'], sw=1, name='枠線')
         c.close()
         spans.append((y, h))
         y += h
+    c.t = theme
     return c.out, W, y, c.warn, spans
 
 

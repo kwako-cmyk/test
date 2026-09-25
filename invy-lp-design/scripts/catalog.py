@@ -16,9 +16,14 @@ CATS = ['ヘッダー・KV', '訴求', '説明', 'アクション', '規約・�
 # images: (slot, 表示名, w, h)  w/h は pt（ツール上の既定比率。CMS側の推奨サイズは要確認）
 BLOCKS = {
   'brand-logo': dict(label='ヘッダー（ロゴ＋ボタン）', cat='ヘッダー・KV', page='both', cms=['brand-logo'],
-    fields=[('cta', 'ヘッダーボタン文言', 'text')],
-    images=[('logo', 'ロゴ', 140, 34)],
-    data={'cta': 'クーポンをシェア'}),
+    fields=[('logoPos', 'ロゴ画像表示位置（left=左寄せ / center=中央）', 'text'),
+            ('ctaOn', '紹介CTA（右上）あり／なし（true / false）', 'text'),
+            ('ctaType', 'バナー種類（text=テキスト / image=画像）', 'text'),
+            ('cta', 'ヘッダーボタン文言（リッチテキスト）', 'text'),
+            ('btnShape', 'ボタンスタイル（round=角丸 / square=四角）', 'text'),
+            ('href', 'CTAのリンク先（空白なら #invy-form ＝紹介フォームへ移動）', 'text')],
+    images=[('logo', 'ブランドロゴ画像', 140, 34), ('ctaImg', 'ヘッダーボタン画像（バナー種類＝画像のとき）', 116, 36)],
+    data={'logoPos': 'left', 'ctaOn': True, 'ctaType': 'text', 'cta': 'クーポンをシェア', 'btnShape': 'square', 'href': ''}),
   'kv-image': dict(label='キービジュアル（画像）', cat='ヘッダー・KV', page='both', cms=['keyvisual'],
     fields=[('alt', '画像の説明（代替テキスト）', 'text')],
     images=[('kv', 'KV画像', 375, 500)],
@@ -156,6 +161,39 @@ BLOCKS = {
     fields=[('cta', 'バナー文言', 'text')], data={'cta': '今すぐクーポンをシェア'}),
 }
 
+# 全コンポーネント共通の設定（CMS のコンポーネント編集欄。スクリーンショットで確認できたもの）
+COMMON_SETTINGS = [
+    ('id', 'コンポーネントのID', 'ページ内リンクの飛び先に使える（CTA のリンク先に #ID を書く）'),
+    ('label', 'コンポーネントのラベル', '管理用の名前'),
+    ('hidden', '非表示にする', '一時的に隠す'),
+    ('style.border', 'スタイル設定：枠線で囲う', 'true / false'),
+    ('style.bg', 'スタイル設定：背景色', 'カラーコード。style.bgOpacity で透明度（0〜100%）'),
+    ('style.padding', 'スタイル設定：余白（全体）', 'px'),
+]
+# リッチテキスト欄（見出し・本文・ボタン文言など）で指定できるもの
+RICH_TEXT = 'H1〜H6、太字・斜体・取り消し線・下線、画像、リンク、箇条書き・番号付き、左右中央揃え、フォント、サイズ、文字色、背景色'
+# ページ全体の設定（CMS のページ設定欄）
+PAGE_SETTINGS = [
+    ('theme', 'テーマ選択', '例：ゴシック／フォント標準。ページ全体のフォントが決まる'),
+    ('title', 'ページのタイトル', '必須'),
+    ('description', 'ページのdescription', '必須'),
+    ('ogp', 'OGP画像', '必須。シェア時に表示される画像'),
+    ('bgImage', '背景画像', 'ページの背景画像（表示のされ方は要確認）'),
+    ('headScript', 'スクリプト（head）に挿入', 'ボタン色などの CSS 調整もここに入れる'),
+    ('bodyScript', 'スクリプト（</body>の直前）に挿入', '任意のスクリプト'),
+    ('threeStepForm', '3ステップフォームを使用する', 'ON / OFF（挙動は要確認）'),
+    ('index', 'インデックスを許可する', '有効 / 無効'),
+]
+# 色の変え方（CMS 上の手段）。セレクタは確認できたものだけ載せる
+COLOR_HOWTO = [
+    ('背景色', '各コンポーネントの「スタイル設定」→ 背景色・透明度'),
+    ('文字色・文字の背景色', 'リッチテキスト欄の「文字色」「背景色」'),
+    ('ボタンの形', 'ヘッダーは「ボタンスタイル」で角丸／四角を選択（他コンポーネントは要確認）'),
+    ('ボタンの色', 'ページ設定の「スクリプト（head）に挿入」に CSS を書く。確認済みのクラス：'
+               '`.formBtn--mailto`（紹介フォームの「メールで送る」）。他のボタンのクラス名は要確認'),
+    ('KV・装飾の多い見出し', '画像で作って画像コンポーネントに入れる（CMS の部品で色や装飾を作り込まない）'),
+]
+
 # CMS には存在するが、このスキルの構成では使わないと決めたもの（使う場合は担当者に相談）
 EXCLUDED = {'table': '表', 'video': 'ビデオ（YouTube埋め込みで代替）', 'pdf': 'PDFファイル',
             'download-button': 'ダウンロードボタン'}
@@ -188,6 +226,8 @@ def image_slots(t, data):
         if '{i}' in slot:
             n = len(data.get('rows') or data.get('slides') or data.get('steps') or []) or data.get('count', 0)
             out += [(slot.format(i=i), f'{name}{i + 1}', w, h) for i in range(n)]
+        elif slot == 'ctaImg' and data.get('ctaType') != 'image':
+            continue
         else:
             out.append((slot, name, w, h))
     return out
@@ -211,6 +251,14 @@ def to_md():
             if b.get('images'):
                 L.append('- 画像：' + '、'.join(f"`{s}` {n}（{w}×{h}pt）" for s, n, w, h in b['images']))
             L.append('')
+    L += ['## 全コンポーネント共通の設定', '', '| spec のキー | CMS の項目 | メモ |', '|---|---|---|']
+    L += [f'| `{k}` | {n} | {m} |' for k, n, m in COMMON_SETTINGS]
+    L += ['', f'リッチテキスト欄で指定できるもの：{RICH_TEXT}', '']
+    L += ['## ページ全体の設定', '', '| spec のキー（pageSettings） | CMS の項目 | メモ |', '|---|---|---|']
+    L += [f'| `{k}` | {n} | {m} |' for k, n, m in PAGE_SETTINGS]
+    L += ['', '## 色の変え方（CMS 上の手段）', '', '| 変えたいもの | CMS でのやり方 |', '|---|---|']
+    L += [f'| {a} | {b} |' for a, b in COLOR_HOWTO]
+    L += ['', 'ここに無い手段で色を当てたデザインは、CMS で再現できない前提で扱う。', '']
     L += ['## カタログ外（CMSにはあるが、このスキルでは使わない）', '']
     L += [f'- `{k}`：{v}' for k, v in EXCLUDED.items()]
     L += ['', '## 新規作成時の標準構成', '']
