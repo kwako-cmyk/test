@@ -22,7 +22,7 @@ LP はこのカタログのブロックだけで組む。`type` は spec.json �
 ### キービジュアル（画像）　`kv-image`
 - ページ：both　／　CMSクラス：`keyvisual`
 - 入力項目：`sub` KV内の小見出し（画像に入れる文言）、`copy` KV内のメインコピー（画像に入れる文言）、`bubble` KV内の吹き出し（特典の訴求。画像に入れる文言）、`alt` 画像の説明（代替テキスト）
-- 画像：`kv` KV画像（支給があれば差し替え）（375×500pt）
+- 画像：`kv` KV画像（完成画像が支給されたとき。これ1枚で置き換える）（375×500pt）、`photo` KV内の写真（色面のヒーローの中に入れる写真）（375×327pt）
 
 ### キービジュアル（コピー＋画像）　`keyvisual`
 - ページ：both　／　CMSクラス：`keyvisual`
@@ -140,7 +140,7 @@ LP はこのカタログのブロックだけで組む。`type` は spec.json �
 
 ### 紹介フォーム　`invite-form`
 - ページ：inviter　／　CMSクラス：`invite-form`
-- 入力項目：`eyebrow` 見出しラベル（英字）、`title` 見出し、`f1` 項目1、`f2` 項目2、`f3` メッセージ欄の見出し、`msg` 初期メッセージ（送信文テンプレート）、`cta` LINEボタン文言
+- 入力項目：`eyebrow` 見出しラベル（英字）、`title` 見出し、`f1` 項目1、`f2` 項目2、`f3` メッセージ欄の見出し、`msg` 初期メッセージ（送信文テンプレート）、`privacy` 個人情報についての説明、`methodTitle` 紹介方法の見出し、`cta` LINEボタン文言、`mailCta` メールボタン文言、`mailNote` メールボタン下の注記、`snsLead` リンクシェアの前の見出し、`linkCta` リンクボタン文言
 
 ### ゲストフォーム　`guest-form`
 - ページ：guest　／　CMSクラス：`guest-form`
@@ -170,7 +170,7 @@ LP はこのカタログのブロックだけで組む。`type` は spec.json �
 
 ### フッター（規約リンク）　`footer`
 - ページ：both　／　CMSクラス：`footer`
-- 入力項目：`name` 表示名、`a` リンク1、`b` リンク2
+- 入力項目：`a` リンク1、`b` リンク2、`copyright` コピーライト表記
 
 ### フローティングバナー　`invitation-banner`
 - ページ：both　／　CMSクラス：`invitation-banner`, `guest-banner`, `floating-banner-with-timer`, `floating-banner-with-timer2`

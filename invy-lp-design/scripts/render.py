@@ -64,7 +64,8 @@ def theme_of(spec):
         ink='#1C1E22', body='#3B3F45', mute='#767C83', line='#E4E7EA',
         bg='#FFFFFF', field='#F6F7F8', note='#F4F5F6', footer='#1C1E22', onFooter='#C4C9CE',
         ph=mix(secondary, '#FFFFFF', 0.82), phInk=mix(secondary, '#FFFFFF', 0.35),
-        radius=10, font='Noto Sans JP', headFont='Noto Sans JP')
+        radius=10, font='Noto Sans JP', headFont='Noto Sans JP',
+        lineBtn=LINE_GREEN, mail=primary, link=mix(primary, '#FFFFFF', 0.28))
     for k, v in th.items():
         if k in t and v:
             t[k] = v
@@ -233,14 +234,17 @@ class Canvas:
         if not parts:
             return 0
         big = max(p[1] for p in parts)
-        x = cx - sum(text_w(p[0], p[1]) for p in parts) / 2
+        # 太字の大きな数字はフォント差で幅が読みにくいので、広めに見積もり、要素の間にすき間を取る（重なり防止）
+        wd = lambda s, size: text_w(s, size) * 1.12
+        gap = big * 0.12
+        x = cx - (sum(wd(p[0], p[1]) for p in parts) + gap * (len(parts) - 1)) / 2
         base = y + big * 0.95
         self.open(name or '文字組み')
         for s, size, weight, color in parts:
             self.out.append(f'<text font-family="{xesc(self.t["headFont"])}" font-size="{self.n(size)}" '
                             f'font-weight="{weight}" fill="{color}" xml:space="preserve">'
                             f'<tspan x="{self.n(x)}" y="{self.n(base)}">{xesc(s)}</tspan></text>')
-            x += text_w(s, size)
+            x += wd(s, size) + gap
         self.close()
         return big * 1.2
 
@@ -286,9 +290,30 @@ def slot_size(b, prefix):
     return CW, 200
 
 
+def icon(c, kind, cx, cy, col):
+    """ボタン用の小さなアイコン（LINE／メール／リンク）"""
+    if kind == 'line':
+        c.circle(cx, cy, 10, fill='#FFFFFF')
+        c.ellipse(cx, cy - 0.5, 6.5, 5, LINE_GREEN)
+        c.path([('M', cx - 2.5, cy + 3.5), ('L', cx - 3.5, cy + 6.5), ('L', cx + 0.5, cy + 4), ('Z',)], fill=LINE_GREEN)
+    elif kind == 'mail':
+        c.rect(cx - 8, cy - 6, 16, 12, stroke=col, sw=1.5, rx=1.5)
+        c.path([('M', cx - 7, cy - 5), ('L', cx, cy + 1), ('L', cx + 7, cy - 5)], stroke=col, sw=1.5)
+    elif kind == 'link':
+        c.rect(cx - 9, cy - 4, 10, 8, stroke=col, sw=1.5, rx=4)
+        c.rect(cx - 1, cy - 4, 10, 8, stroke=col, sw=1.5, rx=4)
+
+
+def is_line(label):
+    return 'LINE' in str(label or '').upper()
+
+
 def button(c, x, y, w, h, label, name='ボタン', fill=None, color=None, size=None, outline=False, pill=False,
-           arrow=True, rx=None):
+           arrow=True, rx=None, ico=None):
     t = c.t
+    if fill is None and not outline and is_line(label):   # LINE で送る動きのボタンは、どこでも同じ LINE の緑にそろえる
+        fill = t.get('lineBtn', LINE_GREEN)
+        ico = ico or ('line' if h >= 48 else None)
     fill = fill or t['primary']
     r = h / 2 if pill else (t['radius'] if rx is None else rx)
     if outline:
@@ -298,8 +323,10 @@ def button(c, x, y, w, h, label, name='ボタン', fill=None, color=None, size=N
         c.rect(x, y, w, h, fill=fill, rx=r, name=name + '_背景')
         col = color or on(fill)
     fs = size or max(11, min(17, round(h * 0.25)))
-    c.text(x + 14, y + (h - fs * 1.4) / 2, w - 28, label, fs, 700, col, 'center', lh=1.4, name=name + '_文言',
-           maxlines=1)
+    if ico:
+        icon(c, ico, x + 28, y + h / 2, col)
+    c.text(x + 14 + (26 if ico else 0), y + (h - fs * 1.4) / 2, w - 28 - (52 if ico else 0), label, fs, 700, col,
+           'center', lh=1.4, name=name + '_文言', maxlines=1)
     if arrow and h >= 40:
         ax, ay = x + w - 20, y + h / 2
         c.path([('M', ax - 3, ay - 5), ('L', ax + 2, ay), ('L', ax - 3, ay + 5)], stroke=col, sw=1.8,
@@ -514,11 +541,13 @@ def ribbon_col(c, x, y, w, label, value, note):
         if k:
             cy += c.text(x, cy, w, '＋', 14, 900, t['primary'], 'center', 1.3, name='プラス', warn=False)
         sp = split_amount(val)
-        if sp and text_w(sp[1], 34) + text_w(sp[2], 13) <= w + 4:
+        big = next((z for z in (34, 30, 27, 24) if sp and (text_w(sp[1], z) + text_w(sp[2], 13)) * 1.12 + z * 0.12 <= w),
+                   None)                                      # 列の幅に収まる大きさまで数字を下げる
+        if big:
             pre, num, post = sp
             if pre:
                 cy += c.text(x, cy, w, pre, 12, 700, t['deep'], 'center', 1.4, name='特典の前置き')
-            cy += c.runs(x + w / 2, cy, [(num, 34, 900, t['deep']), (post, 13, 700, t['deep'])], name='特典の金額')
+            cy += c.runs(x + w / 2, cy, [(num, big, 900, t['deep']), (post, 13, 700, t['deep'])], name='特典の金額')
         else:                                                 # 1行に収まる大きさまで下げる
             fs = 20
             while fs > 13 and text_w(val, fs) > w:
@@ -814,13 +843,28 @@ def b_inviteform(c, b, p, y):
         yy += field(c, x, yy, w, d.get('f3'), h=120, name='メッセージ欄', content=d.get('msg'))
         yy += 6 + c.text(x, yy + 6, w, 'このメッセージが紹介URLと一緒に届きます', 10.5, 400, t['mute'], lh=1.6,
                          name='注記') + 18
-        yy += c.text(x, yy, w, '紹介方法を選ぶ', 13.5, 700, t['ink'], lh=1.5) + 10
-        yy += button(c, x, yy, w, 60, d.get('cta'), name='LINEで送る', fill=LINE_GREEN, size=15) + 10
-        half = (w - 10) / 2
-        button(c, x, yy, half, 52, 'メールで送る', name='メールで送る', fill=t['secondary'], size=13, arrow=False)
-        button(c, x + half + 10, yy, half, 52, 'リンクをコピー', name='リンクでシェア', outline=True, fill=t['secondary'],
-               size=13, arrow=False)
-        return yy + 52 - s
+        # 個人情報の同意
+        c.open('個人情報について')
+        lh = c.text(x, yy, w - 50, '個人情報について', 13.5, 700, t['ink'], lh=1.5, name='項目名')
+        c.rect(x + text_w('個人情報について', 13.5) + 8, yy + 2.5, 32, 16, fill=REQ_RED, rx=8, name='必須')
+        c.text(x + text_w('個人情報について', 13.5) + 8, yy + 2.5, 32, '必須', 9.5, 700, '#FFFFFF', 'center', 1.7, warn=False)
+        yy += lh + 6
+        yy += c.text(x, yy, w, d.get('privacy'), 12, 400, t['body'], lh=1.7, name='個人情報の説明') + 10
+        c.rect(x, yy + 1, 18, 18, fill=t['bg'], stroke=t['mute'], sw=1.2, rx=3, name='チェックボックス')
+        c.text(x + 26, yy, w - 26, '同意する', 13.5, 400, t['body'], lh=1.5, name='同意する')
+        c.close()
+        yy += 22 + 26
+        # 紹介方法：LINE → メール → リンク を縦に並べる（ページ上部の CTA と同じ大きさ・形）
+        yy += c.text(x, yy, w, d.get('methodTitle') or '紹介方法選択', 16, 700, t['ink'], 'center', 1.5, name='紹介方法の見出し') + 12
+        yy += button(c, x, yy, w, 60, d.get('cta'), name='LINEで送る') + 12
+        yy += button(c, x, yy, w, 60, d.get('mailCta') or 'メールで送る', name='メールで送る', fill=t['mail'], ico='mail')
+        if d.get('mailNote'):
+            yy += 6 + c.text(x, yy + 6, w, d['mailNote'], 10.5, 400, t['mute'], lh=1.6, name='メールの注記')
+        yy += 22
+        if d.get('snsLead'):
+            yy += c.text(x, yy, w, d['snsLead'], 15, 700, t['ink'], 'center', 1.55, name='SNSシェアの見出し') + 12
+        yy += button(c, x, yy, w, 60, d.get('linkCta') or 'リンクでシェア', name='リンクでシェア', fill=t['link'], ico='link')
+        return yy - s
     cy += card(c, PAD_X, cy, CW, draw, pad=18, name='紹介フォーム')
     return cy + PAD_Y - y
 
@@ -878,28 +922,37 @@ def b_terms(c, b, p, y):
 
     def draw(x, yy, w):
         s = yy
-        c.circle(x + 9, yy + 10, 9, fill=t['mute'])
+        c.circle(x + 9, yy + 10, 9, fill=t['ink'])
         c.text(x, yy + 3, 18, '!' if warn else 'i', 11, 700, '#FFFFFF', 'center', 1.3, warn=False)
         yy += c.text(x + 26, yy, w - 26, d.get('title'), 14.5, 700, t['ink'], lh=1.4, name='見出し') + 10
         for i, s_ in enumerate(d.get('bullets') or []):
-            c.circle(x + 4, yy + 11.5 * 1.8 / 2, 2, fill=t['mute'])
-            yy += c.text(x + 14, yy, w - 14, s_, 11.5, 400, t['body'], lh=1.8, name=f'項目{i + 1}') + 4
+            c.circle(x + 4, yy + 12 * 1.8 / 2, 2.2, fill=t['ink'])
+            yy += c.text(x + 14, yy, w - 14, s_, 12, 400, t['body'], lh=1.8, name=f'項目{i + 1}') + 4
         return yy - s - 4
-    cy += card(c, PAD_X, cy, CW, draw, pad=18, fill=t['note'], stroke='', name='規約')
+    m = c.mark()                                          # 背景なし：アイコン＋見出し＋箇条書きだけ
+    cy += draw(PAD_X, cy, CW)
+    body = c.cut(m)
+    c.open('規約'); c.out += body; c.close()
     return cy + 28 - y
 
 
 def b_footer(c, b, p, y):
+    """invy 標準のフッター：規約リンクを枠で区切って並べ、下に黒帯のコピーライト"""
     d, t = b['data'], c.t
-    c.rect(0, y, W, 96, fill=t['footer'])
     links = [s for s in (d.get('a'), d.get('b')) if s]
-    x = (W - (sum(text_w(s, 11) for s in links) + 24 * (len(links) - 1))) / 2
-    for s in links:
-        c.text(x, y + 24, text_w(s, 11) + 2, s, 11, 400, t['onFooter'], lh=1.6, name='リンク')
-        x += text_w(s, 11) + 24
-    c.text(PAD_X, y + 56, CW, '© ' + (d.get('name') or p.get('_project') or p.get('title', '')), 10, 400,
-           mix(t['onFooter'], t['footer'], 0.35), 'center', 1.6, name='表示名', maxlines=1)
-    return 96
+    h1 = 48
+    c.open('規約リンク')
+    c.line(0, y + 0.5, W, y + 0.5, t['line'], 1)
+    cw_ = W / max(1, len(links))
+    for k, s in enumerate(links):
+        if k:
+            c.line(cw_ * k, y, cw_ * k, y + h1, t['line'], 1)
+        c.text(cw_ * k, y + (h1 - 12 * 1.6) / 2, cw_, s, 12, 400, t['ink'], 'center', 1.6, name='リンク', maxlines=1)
+    c.close()
+    c.rect(0, y + h1, W, 28, fill=t['footer'], name='コピーライト帯')
+    c.text(0, y + h1 + 6, W, d.get('copyright') or 'Copyright © 2026 INVY All Rights Reserved.', 9.5, 700,
+           '#FFFFFF', 'center', 1.6, name='コピーライト', maxlines=1)
+    return h1 + 28
 
 
 def b_floating(c, b, p, y):
