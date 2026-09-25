@@ -422,8 +422,45 @@ def hero(c, y, copy, sub, bubble):
     return cy + ih - y
 
 
+def hero_photo(c, b, y):
+    """写真入りのヒーロー：色面にコピー → 写真 → 写真の上端にまたがる吹き出し。高さを返す"""
+    t, d = c.t, b['data']
+    cy = y + 28
+    if d.get('sub'):
+        sw_ = min(CW, text_w(d['sub'], 11.5) + 30)
+        c.rect((W - sw_) / 2, cy, sw_, 24, fill='#000000', rx=12, opacity=0.16, name='小見出し_地')
+        c.text((W - sw_) / 2, cy + 3.5, sw_, d['sub'], 11.5, 700, t['onSecondary'], 'center', 1.5, name='小見出し')
+        cy += 34
+    cy += c.text(PAD_X, cy, CW, d.get('copy'), 29, 900, t['onSecondary'], 'center', 1.4, head=True, name='メインコピー')
+    cy += 64 if d.get('bubble') else 22
+    pw, ph = slot_size(b, 'photo')
+    h = W * ph / pw
+    c.image(0, cy, W, h, img_of(b, 'photo'), 'KV写真', name='KV写真')
+    if d.get('bubble'):
+        bw, bh = 170, 96
+        bx, by = W / 2, cy - 4
+        c.open('吹き出し')
+        c.path([('M', bx - 14, by + bh / 2 - 8), ('L', bx - 2, by + bh / 2 + 14), ('L', bx + 14, by + bh / 2 - 8), ('Z',)],
+               fill=t['cream'])
+        c.ellipse(bx, by, bw / 2, bh / 2, t['cream'])
+        lines = wrap(d['bubble'], 15, bw - 44)
+        th_ = len(lines) * 15 * 1.35
+        c.text(bx - bw / 2 + 22, by - th_ / 2, bw - 44, d['bubble'], 15, 900, t['deep'], 'center', 1.35,
+               name='吹き出しの文言')
+        c.close()
+    return cy + h - y
+
+
 def b_kvimg(c, b, p, y):
     d = b['data']
+    if img_of(b, 'photo'):
+        m = c.mark()
+        h = hero_photo(c, b, y)
+        body = c.cut(m)
+        c.rect(0, y, W, h + 12, fill=c.t['secondary'], name='ヒーロー背景')
+        c.out += body
+        c.rect(0, y + h, W, 12, fill=c.t['cream'], name='帯')
+        return h + 12
     if img_of(b, 'kv'):
         c.image(0, y, W, 500, img_of(b, 'kv'), 'KV画像', name='KV画像')
         return 500
@@ -473,17 +510,20 @@ def ribbon_col(c, x, y, w, label, value, note):
            fill=t['secondary'])
     c.out += txt
     cy += lh + 10 + 12
-    sp = split_amount(value)
-    if sp and text_w(sp[1], 34) + text_w(sp[2], 13) <= w + 4:
-        pre, num, post = sp
-        if pre:
-            cy += c.text(x, cy, w, pre, 12, 700, t['deep'], 'center', 1.4, name='特典の前置き')
-        cy += c.runs(x + w / 2, cy, [(num, 34, 900, t['deep']), (post, 13, 700, t['deep'])], name='特典の金額')
-    else:                                                     # 1行に収まる大きさまで下げる
-        fs = 20
-        while fs > 13 and text_w(value or '', fs) > w:
-            fs -= 1
-        cy += c.text(x, cy + 4, w, value, fs, 900, t['deep'], 'center', 1.35, name='特典の内容') + 4
+    for k, val in enumerate(str(value or '').split('\n')):   # 改行で特典を複数並べる（2つ目以降は「＋」でつなぐ）
+        if k:
+            cy += c.text(x, cy, w, '＋', 14, 900, t['primary'], 'center', 1.3, name='プラス', warn=False)
+        sp = split_amount(val)
+        if sp and text_w(sp[1], 34) + text_w(sp[2], 13) <= w + 4:
+            pre, num, post = sp
+            if pre:
+                cy += c.text(x, cy, w, pre, 12, 700, t['deep'], 'center', 1.4, name='特典の前置き')
+            cy += c.runs(x + w / 2, cy, [(num, 34, 900, t['deep']), (post, 13, 700, t['deep'])], name='特典の金額')
+        else:                                                 # 1行に収まる大きさまで下げる
+            fs = 20
+            while fs > 13 and text_w(val, fs) > w:
+                fs -= 1
+            cy += c.text(x, cy + 4, w, val, fs, 900, t['deep'], 'center', 1.35, name='特典の内容') + 4
     if note:
         cy += 4 + c.text(x, cy + 4, w, note, 10, 400, t['mute'], 'center', 1.6, name='特典の条件')
     return cy - y
@@ -498,10 +538,13 @@ def b_benefits(c, b, p, y):
         s = yy
         if d.get('lead'):
             yy += c.text(x, yy, w, d['lead'], 14, 700, t['ink'], 'center', 1.6, name='カード見出し') + 14
+        cols = [(d.get(f'cap{k}'), d.get(k.lower()), d.get(f'sub{k}')) for k in 'AB' if d.get(k.lower())]
+        if len(cols) == 1:                                    # 片側だけ（ゲストページなど）は1列で大きく
+            cw_ = min(w, 230)
+            return yy + ribbon_col(c, x + (w - cw_) / 2, yy, cw_, *cols[0]) - s
         cw_ = (w - 12) / 2
-        ha = ribbon_col(c, x, yy, cw_, d.get('capA'), d.get('a'), d.get('subA'))
-        hb = ribbon_col(c, x + cw_ + 12, yy, cw_, d.get('capB'), d.get('b'), d.get('subB'))
-        return yy + max(ha, hb) - s
+        hs = [ribbon_col(c, x + i * (cw_ + 12), yy, cw_, *col) for i, col in enumerate(cols)]
+        return yy + max(hs or [0]) - s
     cy += card(c, PAD_X, cy, CW, draw, pad=16, name='特典カード') + 14
     if d.get('note'):
         cy += c.text(PAD_X, cy, CW, d['note'], 10.5, 400, t['mute'], 'center', 1.7, name='特典の条件') + 14
@@ -933,7 +976,7 @@ def kv_data(spec):
 
 
 def offers(spec):
-    for pt in ('inviter', 'guest'):
+    for pt in ('guest', 'inviter'):              # OGP を見るのはシェアを受け取る側なので、ゲストページの特典を優先
         for b in (page_of(spec, pt) or {}).get('blocks', []):
             if b['type'] == 'benefits':
                 return b['data']
@@ -957,23 +1000,29 @@ def draw_ogp(c, x0, y0, spec, u=1.0):
                      maxlines=1, warn=False) + 4 * u
     c.text(x0 + 22 * u, yy, 216 * u, kv.get('copy') or spec.get('project', ''), 21 * u, 900, t['onSecondary'],
            lh=1.38, head=True, name='メインコピー', maxlines=3, warn=False)
-    cx, cy, cw, ch = x0 + 252 * u, y0 + 26 * u, 128 * u, 158 * u        # 右側の特典カード
+    cx, cy, cw, ch = x0 + 252 * u, y0 + 26 * u, 128 * u, 158 * u        # 右側の特典カード（シェアを受け取る側の特典）
     c.rect(cx, cy, cw, ch, fill='#FFFFFF', rx=12 * u, name='特典カード')
-    yy = cy + 12 * u
-    for cap, val in ((of.get('capA'), of.get('a')), (of.get('capB'), of.get('b'))):
-        c.rect(cx + 10 * u, yy, cw - 20 * u, 15 * u, fill=t['secondary'], rx=2 * u, name='リボン')
-        c.text(cx + 10 * u, yy + 1.5 * u, cw - 20 * u, cap, 7.5 * u, 700, t['onSecondary'], 'center', 1.6, maxlines=1,
-               warn=False)
-        yy += 21 * u
-        sp = split_amount(val)
-        if sp and text_w(sp[1], 20 * u) + text_w(sp[2], 8 * u) < cw - 16 * u:
+    cap = of.get('capB') or of.get('capA') or '紹介特典'
+    vals = [v for v in str(of.get('b') or of.get('a') or '').split('\n') if v][:2]
+    c.rect(cx + 10 * u, cy + 14 * u, cw - 20 * u, 16 * u, fill=t['secondary'], rx=2 * u, name='リボン')
+    c.text(cx + 10 * u, cy + 15.5 * u, cw - 20 * u, cap, 8 * u, 700, t['onSecondary'], 'center', 1.6, maxlines=1, warn=False)
+    blocks = []
+    for v in vals:
+        sp = split_amount(v)
+        blocks.append(sp if sp and text_w(sp[1], 22 * u) + text_w(sp[2], 8.5 * u) < cw - 14 * u else None)
+    each = 44 * u if len(vals) > 1 else 60 * u
+    yy = cy + 38 * u + (ch - 38 * u - each * len(vals) - (12 * u if len(vals) > 1 else 0)) / 2
+    for k, (v, sp) in enumerate(zip(vals, blocks)):
+        if k:
+            c.text(cx, yy - 2 * u, cw, '＋', 10 * u, 900, t['primary'], 'center', 1.2, warn=False)
+            yy += 12 * u
+        if sp:
             if sp[0]:
-                yy += c.text(cx + 6 * u, yy, cw - 12 * u, sp[0], 7.5 * u, 700, t['deep'], 'center', 1.4, maxlines=1,
-                             warn=False)
-            yy += c.runs(cx + cw / 2, yy, [(sp[1], 20 * u, 900, t['deep']), (sp[2], 8 * u, 700, t['deep'])]) + 6 * u
+                c.text(cx + 6 * u, yy, cw - 12 * u, sp[0], 8 * u, 700, t['deep'], 'center', 1.4, maxlines=1, warn=False)
+            c.runs(cx + cw / 2, yy + 13 * u, [(sp[1], 22 * u, 900, t['deep']), (sp[2], 8.5 * u, 700, t['deep'])])
         else:
-            yy += c.text(cx + 6 * u, yy, cw - 12 * u, val, 11 * u, 900, t['deep'], 'center', 1.35, maxlines=2,
-                         warn=False) + 8 * u
+            c.text(cx + 6 * u, yy + 8 * u, cw - 12 * u, v, 11 * u, 900, t['deep'], 'center', 1.35, maxlines=2, warn=False)
+        yy += each
     c.close()
     return Wd, Hd
 
