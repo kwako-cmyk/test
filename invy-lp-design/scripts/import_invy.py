@@ -226,7 +226,7 @@ def main():
         with open(a.spec, encoding='utf-8') as f:
             spec = json.load(f)
     else:
-        spec = {'project': a.project or page['title'] or '案件名', 'theme': {'mode': 'wire'}, 'pages': [], 'outOfCms': []}
+        spec = {'project': a.project or page['title'] or '案件名', 'theme': {'mode': 'brand'}, 'pages': [], 'outOfCms': []}
     spec['pages'] = [p for p in spec.get('pages', []) if p.get('pageType') != page['pageType']] + [page]
     out = a.out or a.spec
     body = json.dumps(spec, ensure_ascii=False, indent=2)

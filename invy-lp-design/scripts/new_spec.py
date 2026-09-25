@@ -2,7 +2,8 @@
 """標準構成の spec.json を作る（壁打ちの叩き台）。
 
 使い方:
-  python3 scripts/new_spec.py <出力.json> --project "案件名" [--pages inviter,guest] [--brand "#E4007F"]
+  python3 scripts/new_spec.py <出力.json> --project "案件名" [--slug client] [--pages inviter,guest]
+                               [--primary "#D9546E"] [--secondary "#2F5D62"]
 """
 import argparse, json, os, sys
 
@@ -13,19 +14,22 @@ ap = argparse.ArgumentParser()
 ap.add_argument('out')
 ap.add_argument('--project', default='案件名')
 ap.add_argument('--pages', default='inviter,guest')
-ap.add_argument('--brand', help='ブランド配色にする場合の基調色（例 #E4007F）')
+ap.add_argument('--slug', default='client', help='invy の URL のクライアント部分')
+ap.add_argument('--primary', help='CTA などの色（省略時は既定の配色）')
+ap.add_argument('--secondary', help='ヒーロー・リボンの色（省略時は既定の配色）')
 a = ap.parse_args()
 
 spec = {
     'project': a.project,
-    'theme': {'mode': 'brand', 'primary': a.brand} if a.brand else {'mode': 'wire'},
+    'slug': a.slug,
+    'theme': {k: v for k, v in (('mode', 'brand'), ('primary', a.primary), ('secondary', a.secondary)) if v},
     'offer': {'inviter': '', 'guest': ''},
     'pages': [],
     'outOfCms': [],
 }
 for pt in a.pages.split(','):
     pt = pt.strip()
-    spec['pages'].append({'pageType': pt, 'title': a.project,
+    spec['pages'].append({'pageType': pt, 'title': a.project, 'settings': {'description': '', 'ogp': ''},
                           'blocks': [{'type': t, 'state': 'new', 'note': '', 'data': {}} for t in TEMPLATE[pt]]})
 with open(a.out, 'w', encoding='utf-8') as f:
     json.dump(spec, f, ensure_ascii=False, indent=2)

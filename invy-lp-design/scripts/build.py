@@ -5,8 +5,10 @@
   python3 scripts/build.py <spec.json> [--out <出力フォルダ>] [--scale 3] [--zip]
 
 出力（<出力フォルダ>/ 以下）:
-  <案件>_<ページ>_figma.svg   … ページ単体。Figma にドラッグ＆ドロップで取り込む
-  <案件>_figma_all.svg        … 全ページを横並びにしたもの（ペアで渡すとき用）
+  <案件>_<ページ>_figma.svg   … 紹介者ページ／ゲストページ単体。Figma にドラッグ＆ドロップで取り込む
+  <案件>_OGP_figma.svg        … OGP 画像（1200×630px）
+  <案件>_LINE表示イメージ_figma.svg … LINE で送ったときの見え方（イメージ）
+  <案件>_figma_all.svg        … 上の4枚を横並びにしたもの（まとめて取り込む用）
   <案件>_cms_sheet.md / .csv  … CMS 入稿シート（ブロック順・CMSパーツ・入力内容・画像）
   <案件>_preview.html         … 壁打ち用のプレビュー（デザイン＋構成表）
   <案件>_handoff.zip          … --zip 指定時。上記一式
@@ -15,7 +17,7 @@ import argparse, copy, csv, datetime, html, io, json, os, re, sys, zipfile
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from catalog import BLOCKS, PAGE_LABEL, PAGE_SETTINGS, COLOR_HOWTO, image_slots, defaults  # noqa: E402
-from render import render_page, svg_doc  # noqa: E402
+from render import render_page, render_ogp, render_line, svg_doc  # noqa: E402
 
 STATE = {'keep': 'KEEP（既存のまま）', 'mod': 'MOD（既存を修正）', 'new': 'NEW（新規追加）', 'plain': '—'}
 
@@ -56,7 +58,7 @@ def normalize(spec):
                 warns.append(f'{where}: CTA の遷移先（href）と計測方法（measure）が未確定です')
         p['blocks'] = [b for b in p.get('blocks') or [] if b.get('type') in BLOCKS]
         ps = p.get('settings') or {}
-        miss = [n for k, n in (('description', 'description'), ('ogp', 'OGP画像')) if not ps.get(k)]
+        miss = [n for k, n in (('description', 'description'),) if not ps.get(k)]
         if miss:
             warns.append(f"{PAGE_LABEL[pt]}: ページ設定の必須項目が未定（{'・'.join(miss)}）")
     return errors, warns
@@ -144,6 +146,9 @@ def sheet_md(spec, scale):
             L += [f"#### {i + 1:02d}. {cat['label']}（{STATE[b['state']]}）", '']
             if b.get('note'):
                 L += [f"> 意図：{b['note']}", '']
+            if b['type'] == 'kv-image' and not (b.get('images') or {}).get('kv'):
+                L += [f"> 入稿方法：Figma の「{i + 1:02d}_{cat['label']}」をデザイナーが仕上げて PNG（幅1125px）で書き出し、"
+                      'このコンポーネントに画像1枚で入れる。下の「KV内の◯◯」は画像に入れる文言', '']
             L += ['| 入力項目 | 内容 |', '|---|---|']
             for k, v in field_lines(b) + style_lines(b):
                 L.append(f"| {k} | {v.replace(chr(10), '<br>').replace('|', '／') or '（空欄）'} |")
@@ -152,6 +157,9 @@ def sheet_md(spec, scale):
                 L += ['', '| 画像 | ファイル | サイズ |', '|---|---|---|']
                 L += [f'| {a} | {f} | {s} |' for a, f, s in il]
             L.append('')
+    L += ['## OGP画像', '', '- Figma の「OGP画像」（1200×630px）を仕上げて PNG で書き出し、各ページのページ設定「OGP画像」に入れる',
+          '- LINE などでシェアしたときの見え方は「LINEでの見え方」を参照（イメージ。実際の見え方はアプリ・端末で変わる）',
+          '- 推奨サイズは一般的な OGP の 1200×630px で作っている。invy 側の推奨サイズは要確認', '']
     if spec.get('outOfCms'):
         L += ['## CMS外の要望（テンプレートパーツで実現できないもの）', '']
         L += [f'- {x}' for x in spec['outOfCms']]
@@ -182,61 +190,73 @@ def sheet_csv(spec, scale):
 
 # ---------------------------------------------------------------- プレビュー HTML
 PREVIEW_CSS = """
-:root{--bg:#F5F2EF;--panel:#FFFFFF;--ink:#231D1C;--muted:#7A6E6B;--line:#E2D9D5;--accent:#DE5C5C;
-  --keep:#8C817D;--mod:#DE5C5C;--new:#2F7367;}
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#1A1616;--panel:#231E1D;--ink:#F0E9E6;
-  --muted:#A79995;--line:#3A3130;--accent:#F27B76;--keep:#A79995;--mod:#F27B76;--new:#63A99B;}}
-:root[data-theme="dark"]{--bg:#1A1616;--panel:#231E1D;--ink:#F0E9E6;--muted:#A79995;--line:#3A3130;--accent:#F27B76;
-  --keep:#A79995;--mod:#F27B76;--new:#63A99B;}
+:root{--bg:#EEF0F2;--panel:#FFFFFF;--ink:#1C1E22;--muted:#767C83;--line:#D9DDE1;--accent:#D8232A;
+  --keep:#767C83;--mod:#D8232A;--new:#2F7367;--shadow:0 14px 40px rgba(28,30,34,.14);}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#15171A;--panel:#1F2226;--ink:#EEF0F2;
+  --muted:#A2A8AE;--line:#33373C;--accent:#F0666B;--keep:#A2A8AE;--mod:#F0666B;--new:#63A99B;--shadow:0 14px 40px rgba(0,0,0,.5);}}
+:root[data-theme="dark"]{--bg:#15171A;--panel:#1F2226;--ink:#EEF0F2;--muted:#A2A8AE;--line:#33373C;--accent:#F0666B;
+  --keep:#A2A8AE;--mod:#F0666B;--new:#63A99B;--shadow:0 14px 40px rgba(0,0,0,.5);}
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.7 'Noto Sans JP',system-ui,sans-serif}
-header{padding:20px 16px 8px;max-width:1180px;margin:0 auto}
-h1{font-size:20px;margin:0 0 4px} .sub{color:var(--muted);font-size:12.5px}
-nav{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0 0} nav a{color:var(--ink);text-decoration:none;border:1px solid var(--line);
-  background:var(--panel);padding:5px 12px;border-radius:999px;font-size:12.5px} nav a:hover{border-color:var(--accent);color:var(--accent)}
-section.page{max-width:1180px;margin:0 auto;padding:16px;display:grid;grid-template-columns:minmax(0,375px) minmax(0,1fr);gap:24px;align-items:start}
-section.page h2{grid-column:1/-1;font-size:16px;margin:12px 0 0}
-.phone{background:#fff;box-shadow:0 12px 36px rgba(35,29,28,.16);border-radius:4px;overflow:hidden}
-.phone svg{display:block;width:100%;height:auto}
+body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.7 'Noto Sans JP',system-ui,sans-serif;font-feature-settings:"palt" 1}
+.wrap{max-width:1400px;margin:0 auto;padding:28px 16px 80px}
+header h1{font-size:22px;margin:0 0 4px;letter-spacing:.01em} .sub{color:var(--muted);font-size:12.5px}
+.bar{width:48px;height:4px;background:var(--accent);border-radius:2px;margin:14px 0 0}
+.board{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:28px;margin-top:28px;align-items:start}
+.col h2{font-size:14px;margin:0 0 10px;text-align:center} .col h2 span{color:var(--accent);margin-right:6px;font-family:ui-monospace,monospace}
+.col .cap{font-size:11.5px;color:var(--muted);text-align:center;margin-top:8px;line-height:1.6}
+.art{background:#fff;border-radius:14px;overflow:hidden;box-shadow:var(--shadow)}
+.art svg{display:block;width:100%;height:auto}
+.stack{display:flex;flex-direction:column;gap:28px}
+.warn{margin-top:22px;padding:12px 16px;border-left:3px solid var(--accent);background:var(--panel);font-size:12.5px;border-radius:0 8px 8px 0}
+.tables{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:28px;margin-top:40px}
+.tables h3{font-size:14px;margin:0 0 8px}
 table{width:100%;border-collapse:collapse;background:var(--panel);border:1px solid var(--line);border-radius:10px;overflow:hidden;font-size:12.5px}
 th,td{text-align:left;padding:8px 10px;border-top:1px solid var(--line);vertical-align:top}
-th{background:transparent;color:var(--muted);font-weight:700;border-top:0}
+th{color:var(--muted);font-weight:700;border-top:0}
 .no{font-family:ui-monospace,monospace;color:var(--muted);white-space:nowrap}
-.cls{font-family:ui-monospace,monospace;font-size:11px;color:var(--muted);word-break:break-all}
-.st{font-size:11px;font-weight:700;padding:2px 8px;border-radius:999px;border:1px solid currentColor;white-space:nowrap}
+.cls{font-family:ui-monospace,monospace;font-size:10.5px;color:var(--muted);word-break:break-all}
+.st{font-size:10.5px;font-weight:700;padding:1px 7px;border-radius:999px;border:1px solid currentColor;white-space:nowrap}
 .st.keep{color:var(--keep)} .st.mod{color:var(--mod)} .st.new{color:var(--new)} .st.plain{color:var(--muted)}
-.warn{max-width:1180px;margin:8px auto 0;padding:10px 14px;border-left:3px solid var(--accent);background:var(--panel);font-size:12.5px}
-.side{position:sticky;top:12px}
-@media (max-width:760px){section.page{grid-template-columns:1fr}.side{position:static}}
+@media (max-width:1100px){.board{grid-template-columns:repeat(2,minmax(0,1fr))}.tables{grid-template-columns:1fr}}
+@media (max-width:640px){.board{grid-template-columns:1fr}}
 """
 
 
-def preview_html(spec, page_svgs, warns):
+def _inline(svg):
+    return svg.split('?>', 1)[-1]
+
+
+def preview_html(spec, arts, warns):
+    """arts = [(番号, 見出し, 補足, svg)]。デザインを横に並べ、下に構成表を置く"""
     proj = html.escape(spec.get('project', '構成案'))
-    parts = [f'<!doctype html><html lang="ja"><head><meta charset="utf-8">'
-             f'<meta name="viewport" content="width=device-width,initial-scale=1"><title>{proj} LP構成案</title>'
-             '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900'
-             '&family=Zen+Kaku+Gothic+New:wght@500;700;900&display=swap">'
-             f'<style>{PREVIEW_CSS}</style></head><body>',
-             f'<header><h1>{proj}：紹介LP構成案</h1><div class="sub">生成 {datetime.datetime.now():%Y-%m-%d %H:%M}'
-             f'／表示は実機375pt幅。Figma用SVGは幅{round(375 * spec.get("_scale", 3))}px</div><nav>']
-    for i, p in enumerate(spec['pages']):
-        parts.append(f'<a href="#p{i}">{PAGE_LABEL[p["pageType"]]}</a>')
-    parts.append('</nav></header>')
+    P = [f'<!doctype html><html lang="ja"><head><meta charset="utf-8">'
+         f'<meta name="viewport" content="width=device-width,initial-scale=1"><title>{proj} 紹介LP</title>'
+         '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap">'
+         f'<style>{PREVIEW_CSS}</style></head><body><div class="wrap">',
+         f'<header><h1>{proj}：紹介LPデザイン案</h1><div class="sub">生成 {datetime.datetime.now():%Y-%m-%d %H:%M}'
+         f'／ページは実機375pt幅（Figma用SVGは幅{round(375 * spec.get("_scale", 3))}px）</div><div class="bar"></div></header>']
     if warns:
-        parts.append('<div class="warn"><b>未確定・要確認</b><br>' + '<br>'.join(html.escape(w) for w in warns) + '</div>')
-    for i, (p, svg) in enumerate(zip(spec['pages'], page_svgs)):
+        P.append('<div class="warn"><b>未確定・要確認</b><br>' + '<br>'.join(html.escape(w) for w in warns) + '</div>')
+    pages = [a for a in arts if a[4] == 'page']
+    extras = [a for a in arts if a[4] != 'page']
+    P.append('<div class="board">')
+    for no, title, cap, svg, _ in pages:
+        P.append(f'<div class="col"><h2><span>{no}</span>{html.escape(title)}</h2><div class="art">{_inline(svg)}</div>'
+                 f'<div class="cap">{html.escape(cap)}</div></div>')
+    for no, title, cap, svg, _ in extras:
+        P.append(f'<div class="col"><h2><span>{no}</span>{html.escape(title)}</h2><div class="art">{_inline(svg)}</div>'
+                 f'<div class="cap">{html.escape(cap)}</div></div>')
+    P.append('</div><div class="tables">')
+    for p in spec['pages']:
         rows = ''.join(
             f'<tr><td class="no">{j + 1:02d}</td><td>{html.escape(BLOCKS[b["type"]]["label"])}'
             f'<div class="cls">invyBlockEditor-{BLOCKS[b["type"]]["cms"][0]}</div></td>'
             f'<td><span class="st {b["state"]}">{b["state"].upper() if b["state"] != "plain" else "—"}</span></td>'
             f'<td>{html.escape(b.get("note") or "")}</td></tr>' for j, b in enumerate(p['blocks']))
-        parts.append(f'<section class="page" id="p{i}"><h2>{PAGE_LABEL[p["pageType"]]}：{html.escape(p.get("title", ""))}</h2>'
-                     f'<div class="phone">{svg.split("?>", 1)[-1]}</div>'
-                     f'<div class="side"><table><thead><tr><th>No</th><th>CMSパーツ</th><th>状態</th><th>意図</th></tr></thead>'
-                     f'<tbody>{rows}</tbody></table></div></section>')
-    parts.append('</body></html>')
-    return ''.join(parts)
+        P.append(f'<div><h3>{PAGE_LABEL[p["pageType"]]}の構成（CMSパーツ）</h3><table><thead><tr><th>No</th>'
+                 f'<th>CMSパーツ</th><th>状態</th><th>意図</th></tr></thead><tbody>{rows}</tbody></table></div>')
+    P.append('</div></div></body></html>')
+    return ''.join(P)
 
 
 # ---------------------------------------------------------------- メイン
@@ -252,28 +272,46 @@ def build(spec_path, out_dir=None, scale=3, make_zip=False):
         print('エラー（書き出しを中止）:', *errors, sep='\n  - ')
         sys.exit(1)
     proj = safe(spec.get('project'))
-    files, page_svgs, all_groups, x = [], [], [], 0
-    GAP = 100
-    heights = []
+    files, arts, boards, sizes = [], [], [], []
+
+    def emit(name, groups, w, h):
+        svg = svg_doc(groups, w, h, scale)
+        with open(os.path.join(out_dir, name), 'w', encoding='utf-8') as f:
+            f.write(svg)
+        files.append(name)
+        return svg
+
+    no = 0
     for p in spec['pages']:
         groups, w, h, rwarn, _ = render_page(p, spec, scale, base)
         warns += [f"{PAGE_LABEL[p['pageType']]}: {m}" for m in rwarn]
-        svg = svg_doc(groups, w, h, scale)
-        name = f"{proj}_{PAGE_LABEL[p['pageType']]}_figma.svg"
-        with open(os.path.join(out_dir, name), 'w', encoding='utf-8') as f:
-            f.write(svg)
-        files.append(name); page_svgs.append(svg); heights.append(h)
-        all_groups.append(f'<g id="{PAGE_LABEL[p["pageType"]]}" transform="translate({round(x * scale)},0)">')
-        all_groups += groups
-        all_groups.append('</g>')
+        label = PAGE_LABEL[p['pageType']]
+        svg = emit(f'{proj}_{label}_figma.svg', groups, w, h)
+        no += 1
+        arts.append((f'{no:02d}', label, f'{len(p["blocks"])}ブロック／{round(w * scale)}×{round(h * scale)}px', svg, 'page'))
+        boards.append((label, groups, w, h)); sizes.append((label, w, h))
+    g, w, h, _ = render_ogp(spec, scale, base)
+    no += 1
+    svg = emit(f'{proj}_OGP_figma.svg', g, w, h)
+    arts.append((f'{no:02d}', 'OGP画像', f'{round(w * scale)}×{round(h * scale)}px。ページ設定の「OGP画像」にPNGで入れる', svg, 'ogp'))
+    boards.append(('OGP画像', g, w, h))
+    if any(p['pageType'] == 'inviter' for p in spec['pages']):
+        g, w, h, _ = render_line(spec, scale, base)
+        no += 1
+        svg = emit(f'{proj}_LINE表示イメージ_figma.svg', g, w, h)
+        arts.append((f'{no:02d}', 'LINEでの見え方', '紹介フォームの初期メッセージとOGPが、受け取った側にこう届く（イメージ）',
+                     svg, 'line'))
+        boards.append(('LINEでの見え方', g, w, h))
+    # 全部を横に並べた1枚（Figma にまとめて取り込む用）
+    GAP, x, allg = 80, 0, []
+    for label, groups, w, h in boards:
+        allg.append(f'<g id="{label}" transform="translate({round(x * scale)},0)">')
+        allg += groups
+        allg.append('</g>')
         x += w + GAP
-    if len(spec['pages']) > 1:
-        name = f'{proj}_figma_all.svg'
-        with open(os.path.join(out_dir, name), 'w', encoding='utf-8') as f:
-            f.write(svg_doc(all_groups, x - GAP, max(heights), scale))
-        files.append(name)
+    emit(f'{proj}_figma_all.svg', allg, x - GAP, max(b[3] for b in boards))
     for name, body in ((f'{proj}_cms_sheet.md', sheet_md(spec, scale)), (f'{proj}_cms_sheet.csv', sheet_csv(spec, scale)),
-                       (f'{proj}_preview.html', preview_html(spec, page_svgs, warns))):
+                       (f'{proj}_preview.html', preview_html(spec, arts, warns))):
         with open(os.path.join(out_dir, name), 'w', encoding='utf-8') as f:
             f.write(body)
         files.append(name)
@@ -287,8 +325,8 @@ def build(spec_path, out_dir=None, scale=3, make_zip=False):
     print('書き出し先:', out_dir)
     for n in files:
         print('  -', n)
-    for p, h in zip(spec['pages'], heights):
-        print(f"  {PAGE_LABEL[p['pageType']]}: {len(p['blocks'])}ブロック / {round(375 * scale)}×{round(h * scale)}px")
+    for label, w, h in sizes:
+        print(f'  {label}: {round(w * scale)}×{round(h * scale)}px')
     if warns:
         print('要確認:', *warns, sep='\n  - ')
     return out_dir, files, warns

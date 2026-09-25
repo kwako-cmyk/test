@@ -1,33 +1,73 @@
-"""spec.json のページを SVG に描画するレイアウトエンジン。
+"""spec.json を SVG に描画するレイアウトエンジン。
 
 - ブラウザ不要（標準ライブラリのみ）。プレビューも Figma 書き出しも同じ SVG を使うので、見た目が食い違わない
 - 座標はすべて実機 375pt 幅の pt。出力時に scale を掛ける（既定 3 → 1125px）
-- 数値は invy 実機 CSS に合わせる（本文14 / 見出し24 / CTA高さ69 / 左右余白20）。ここを崩さない
+- 実機の寸法（本文14 / 左右余白20）は invy の実機 CSS に合わせる
+- 見た目は campaign-design-dip の紹介ページ画面に揃える：色面のヒーロー、白の角丸カード、
+  リボン見出し＋大きな数字の特典、チェック付きの箇条書き、番号付きのステップ、塗りの CTA
 - テキストは行ごとに改行位置を確定させて出す（Figma 側でフォント差による折り返しズレが起きない）
+- 出力は4種類：紹介者ページ／ゲストページ（ブロックを縦に積む）、OGP 画像、LINE での表示イメージ
 """
 import base64, mimetypes, os, re
-from catalog import BLOCKS, image_slots
+from catalog import BLOCKS
 
 W = 375            # 実機幅（pt）
 PAD_X = 20         # 左右余白
-PAD_Y = 32         # ブロック上下余白
+PAD_Y = 36         # セクション上下余白
 CW = W - PAD_X * 2  # 335
 
-WIRE = dict(primary='#332C2B', onPrimary='#FFFFFF', ink='#1B1717', body='#332C2B', sub='#8C817D',
-            line='#E2D9D5', soft='#F5F2EF', ph='#EDE8E5', phLine='#D2C9C5', accent='#B8443F',
-            bg='#FFFFFF', footer='#2A2423', onFooter='#CFC6C2', radius=2, pill=999,
-            font='Noto Sans JP', headFont='Zen Kaku Gothic New')
-LINE_GREEN = '#1BB71F'   # invy 紹介フォームの LINE ボタン色（CMS 固定）
-REQ_RED = '#C0392B'
+LINE_GREEN = '#06C755'   # LINE ボタン
+REQ_RED = '#E0474C'
+
+
+# ---------------------------------------------------------------- 色
+def _rgb(h):
+    h = h.lstrip('#')
+    if len(h) == 3:
+        h = ''.join(c * 2 for c in h)
+    return tuple(int(h[i:i + 2], 16) for i in (0, 2, 4))
+
+
+def mix(a, b, t):
+    """a と b を t（0=a, 1=b）で混ぜる"""
+    ra, rb = _rgb(a), _rgb(b)
+    return '#' + ''.join(f'{round(x + (y - x) * t):02X}' for x, y in zip(ra, rb))
+
+
+def lum(h):
+    r, g, b = (v / 255 for v in _rgb(h))
+    f = lambda c: c / 12.92 if c <= 0.03928 else ((c + 0.055) / 1.055) ** 2.4
+    return 0.2126 * f(r) + 0.7152 * f(g) + 0.0722 * f(b)
+
+
+def on(h):
+    """地色の上に載せる文字色（白か墨）"""
+    return '#FFFFFF' if lum(h) < 0.45 else '#1C1E22'
+
+
+DEFAULT_PRIMARY, DEFAULT_SECONDARY = '#D8232A', '#3E6C8F'   # campaign-design-dip の scarlet / sky
 
 
 def theme_of(spec):
-    t = dict(WIRE)
-    th = spec.get('theme') or {}
-    if th.get('mode') == 'brand':
-        for k in WIRE:
-            if k in th:
-                t[k] = th[k]
+    th = dict(spec.get('theme') or {})
+    wire = th.get('mode') == 'wire'
+    primary = th.get('primary') or ('#3B3F45' if wire else DEFAULT_PRIMARY)
+    secondary = th.get('secondary') or ('#8A9096' if wire else DEFAULT_SECONDARY)
+    t = dict(
+        primary=primary, secondary=secondary,
+        onPrimary=on(primary), onSecondary=on(secondary),
+        deep=mix(primary, '#000000', 0.28),               # 大きな数字・強調見出し
+        tint=mix(primary, '#FFFFFF', 0.9),                # 淡い面（クーポン枠）
+        soft=mix(secondary, '#FFFFFF', 0.91),             # セクションの交互背景
+        point=mix(primary, '#FFFFFF', 0.92),              # ポイント（チェック箇条書き）の面
+        cream='#EEF0F2' if wire else '#FFF3D6',           # 吹き出し・帯
+        ink='#1C1E22', body='#3B3F45', mute='#767C83', line='#E4E7EA',
+        bg='#FFFFFF', field='#F6F7F8', note='#F4F5F6', footer='#1C1E22', onFooter='#C4C9CE',
+        ph=mix(secondary, '#FFFFFF', 0.82), phInk=mix(secondary, '#FFFFFF', 0.35),
+        radius=10, font='Noto Sans JP', headFont='Noto Sans JP')
+    for k, v in th.items():
+        if k in t and v:
+            t[k] = v
     return t
 
 
@@ -47,24 +87,24 @@ def char_w(ch, size):
         if ch in 'mwMW':
             return size * 0.82
         if ch.isdigit():
-            return size * 0.56
+            return size * 0.58
         if ch.isupper():
-            return size * 0.64
-        return size * 0.53
+            return size * 0.66
+        return size * 0.55
     if 0xFF61 <= o <= 0xFF9F:
         return size * 0.5
     return size * 1.0
 
 
 def text_w(s, size, ls=0):
-    return sum(char_w(c, size) + ls for c in s)
+    return sum(char_w(c, size) + ls for c in str(s))
 
 
 def wrap(text, size, maxw, ls=0):
     lines = []
-    for para in str(text or '').split('\n'):
+    for para_ in str(text or '').split('\n'):
         line = ''
-        for tok in TOKEN.findall(para):
+        for tok in TOKEN.findall(para_):
             tw = text_w(tok, size, ls)
             if text_w(line, size, ls) + tw <= maxw or not line:
                 if tw > maxw and len(tok) > 1:          # 長い英数字は文字単位で割る
@@ -98,7 +138,7 @@ class Canvas:
 
     def n(self, v):
         v = v * self.S
-        return str(int(v)) if abs(v - round(v)) < 1e-6 else f'{v:.1f}'
+        return str(int(round(v))) if abs(v - round(v)) < 1e-6 else f'{v:.1f}'
 
     def uid(self, name):
         if not name:
@@ -106,13 +146,21 @@ class Canvas:
         k = self.ids.get(name, 0) + 1; self.ids[name] = k
         return f' id="{xesc(name if k == 1 else f"{name}-{k}")}"'
 
-    def open(self, name):
-        self.out.append(f'<g{self.uid(name)}>')
+    def open(self, name, transform=None):
+        tr = f' transform="{transform}"' if transform else ''
+        self.out.append(f'<g{self.uid(name)}{tr}>')
 
     def close(self):
         self.out.append('</g>')
 
-    def rect(self, x, y, w, h, fill=None, stroke=None, sw=1, rx=0, name=None, opacity=None):
+    def mark(self):
+        return len(self.out)
+
+    def cut(self, m):
+        body = self.out[m:]; del self.out[m:]
+        return body
+
+    def rect(self, x, y, w, h, fill=None, stroke=None, sw=1, rx=0, name=None, opacity=None, dash=None):
         a = f'<rect{self.uid(name)} x="{self.n(x)}" y="{self.n(y)}" width="{self.n(w)}" height="{self.n(h)}"'
         if rx:
             a += f' rx="{self.n(min(rx, h / 2, w / 2))}"'
@@ -121,31 +169,48 @@ class Canvas:
             a += f' fill-opacity="{opacity}"'
         if stroke:
             a += f' stroke="{stroke}" stroke-width="{self.n(sw)}"'
+            if dash:
+                a += f' stroke-dasharray="{self.n(dash)} {self.n(dash)}"'
         self.out.append(a + '/>')
 
-    def line(self, x1, y1, x2, y2, stroke, sw=1):
+    def line(self, x1, y1, x2, y2, stroke, sw=1, dash=None):
+        d = f' stroke-dasharray="{self.n(dash)} {self.n(dash)}"' if dash else ''
         self.out.append(f'<line x1="{self.n(x1)}" y1="{self.n(y1)}" x2="{self.n(x2)}" y2="{self.n(y2)}" '
-                        f'stroke="{stroke}" stroke-width="{self.n(sw)}"/>')
+                        f'stroke="{stroke}" stroke-width="{self.n(sw)}" stroke-linecap="round"{d}/>')
 
-    def circle(self, cx, cy, r, fill=None, stroke=None, sw=1):
-        a = f'<circle cx="{self.n(cx)}" cy="{self.n(cy)}" r="{self.n(r)}" fill="{fill or "none"}"'
+    def circle(self, cx, cy, r, fill=None, stroke=None, sw=1, name=None, opacity=None):
+        a = f'<circle{self.uid(name)} cx="{self.n(cx)}" cy="{self.n(cy)}" r="{self.n(r)}" fill="{fill or "none"}"'
+        if opacity is not None:
+            a += f' fill-opacity="{opacity}"'
         if stroke:
             a += f' stroke="{stroke}" stroke-width="{self.n(sw)}"'
         self.out.append(a + '/>')
 
+    def ellipse(self, cx, cy, rx, ry, fill, name=None):
+        self.out.append(f'<ellipse{self.uid(name)} cx="{self.n(cx)}" cy="{self.n(cy)}" rx="{self.n(rx)}" '
+                        f'ry="{self.n(ry)}" fill="{fill}"/>')
+
+    def path(self, d, fill='none', stroke=None, sw=1, name=None):
+        """d は pt 座標の [('M', x, y), ('L', x, y), ('Z',)] のリスト"""
+        seg = [p[0] + ' '.join(self.n(v) for v in p[1:]) for p in d]
+        s = (f' stroke="{stroke}" stroke-width="{self.n(sw)}" stroke-linecap="round" stroke-linejoin="round"'
+             if stroke else '')
+        self.out.append(f'<path{self.uid(name)} d="{" ".join(seg)}" fill="{fill}"{s}/>')
+
     def text(self, x, y, w, s, size=14, weight=400, color=None, align='left', lh=1.75, head=False,
-             name=None, ls=0, maxlines=None):
+             name=None, ls=0, maxlines=None, warn=True):
         """折り返して描画し、使った高さ（pt）を返す。空文字なら 0。"""
         if s is None or str(s).strip() == '':
             return 0
         lines = wrap(s, size, w, ls)
         if maxlines and len(lines) > maxlines:
             lines = lines[:maxlines]; lines[-1] = lines[-1][:-1] + '…'
-        for ln in lines:
-            if text_w(ln, size, ls) > w + size * 1.2:
-                self.warn.append(f'はみ出し: 「{ln[:16]}…」')
-        if head and len(lines) > 1 and 0 < len(lines[-1].strip()) <= 2:
-            self.warn.append(f'見出しの泣き別れ: 「…{lines[-2][-6:]}／{lines[-1]}」→ 改行位置（\\n）か文言を調整')
+        if warn:
+            for ln in lines:
+                if text_w(ln, size, ls) > w + size * 1.2:
+                    self.warn.append(f'はみ出し: 「{ln[:16]}…」')
+            if head and len(lines) > 1 and 0 < len(lines[-1].strip()) <= 2:
+                self.warn.append(f'見出しの泣き別れ: 「…{lines[-2][-6:]}／{lines[-1]}」→ 改行位置（\\n）か文言を調整')
         fam = self.t['headFont'] if head else self.t['font']
         lhp = size * lh
         anchor, tx = 'start', x
@@ -162,7 +227,24 @@ class Canvas:
                         f'xml:space="preserve">{spans}</text>')
         return len(lines) * lhp
 
-    def image(self, x, y, w, h, src, label, name=None, fit='cover'):
+    def runs(self, cx, y, parts, name=None):
+        """1行に大きさの違う文字を中央揃えで並べる（例：5,000 ＋ 円分）。parts = [(文字, size, weight, color)]。高さを返す"""
+        parts = [p for p in parts if p[0]]
+        if not parts:
+            return 0
+        big = max(p[1] for p in parts)
+        x = cx - sum(text_w(p[0], p[1]) for p in parts) / 2
+        base = y + big * 0.95
+        self.open(name or '文字組み')
+        for s, size, weight, color in parts:
+            self.out.append(f'<text font-family="{xesc(self.t["headFont"])}" font-size="{self.n(size)}" '
+                            f'font-weight="{weight}" fill="{color}" xml:space="preserve">'
+                            f'<tspan x="{self.n(x)}" y="{self.n(base)}">{xesc(s)}</tspan></text>')
+            x += text_w(s, size)
+        self.close()
+        return big * 1.2
+
+    def image(self, x, y, w, h, src, label, name=None, fit='cover', rx=None):
         if src:
             p = src if os.path.isabs(src) else os.path.join(self.base, src)
             if os.path.exists(p):
@@ -177,14 +259,18 @@ class Canvas:
             self.warn.append(f'画像が見つからない: {src}')
         t = self.t
         self.open(name or f'画像枠_{label}')
-        self.rect(x, y, w, h, fill=t['ph'], stroke=t['phLine'], sw=1)
-        self.line(x, y, x + w, y + h, t['phLine'], 0.7)
-        self.line(x, y + h, x + w, y, t['phLine'], 0.7)
-        if w >= 60 and h >= 24:
-            fs = 12 if w >= 140 else 9
-            lw = min(w - 12, text_w(label, fs) + 18)
-            self.rect(x + (w - lw) / 2, y + h / 2 - fs, lw, fs * 2, fill=t['soft'], stroke=t['phLine'], sw=0.7, rx=3)
-            self.text(x + (w - lw) / 2, y + h / 2 - fs, lw, label, fs, 400, WIRE['sub'], 'center', lh=2, maxlines=1)
+        self.rect(x, y, w, h, fill=t['ph'], rx=t['radius'] if rx is None else rx)
+        if w >= 40 and h >= 30:                                   # 画像アイコン（枠＋太陽＋山）
+            s = min(26, w * 0.3, h * 0.36)
+            ix, iy = x + w / 2 - s / 2, y + h / 2 - s / 2 - (7 if h >= 70 else 0)
+            self.rect(ix, iy, s, s * 0.8, stroke=t['phInk'], sw=1.3, rx=s * 0.12)
+            self.circle(ix + s * 0.3, iy + s * 0.28, s * 0.09, fill=t['phInk'])
+            self.path([('M', ix + s * 0.12, iy + s * 0.68), ('L', ix + s * 0.4, iy + s * 0.44),
+                       ('L', ix + s * 0.6, iy + s * 0.6), ('L', ix + s * 0.72, iy + s * 0.5),
+                       ('L', ix + s * 0.88, iy + s * 0.66)], stroke=t['phInk'], sw=1.3)
+            if h >= 70 and w >= 90:
+                self.text(x + 6, iy + s * 0.8 + 6, w - 12, label, 10, 500, t['phInk'], 'center', 1.5,
+                          maxlines=1, warn=False)
         self.close()
 
 
@@ -193,378 +279,482 @@ def img_of(b, slot):
     return (b.get('images') or {}).get(slot)
 
 
-def slot_size(b, slot_prefix):
+def slot_size(b, prefix):
     for s, _, w, h in BLOCKS[b['type']].get('images', []):
-        if s.replace('{i}', '') == slot_prefix:
+        if s.replace('{i}', '') == prefix:
             return w, h
     return CW, 200
 
 
-def button(c, x, y, w, h, label, name='ボタン', fill=None, color=None, size=None, outline=False, pill=False):
+def button(c, x, y, w, h, label, name='ボタン', fill=None, color=None, size=None, outline=False, pill=False,
+           arrow=True, rx=None):
     t = c.t
-    rx = h / 2 if pill else t['radius']
+    fill = fill or t['primary']
+    r = h / 2 if pill else (t['radius'] if rx is None else rx)
     if outline:
-        c.rect(x, y, w, h, fill=t['bg'], stroke=fill or t['primary'], sw=2 if not pill else 1, rx=rx, name=name + '_背景')
+        c.rect(x, y, w, h, fill=t['bg'], stroke=fill, sw=1.5, rx=r, name=name + '_背景')
+        col = color or fill
     else:
-        c.rect(x, y, w, h, fill=fill or t['primary'], rx=rx, name=name + '_背景')
-    fs = size or max(10, round(h * 0.26))
-    c.text(x + 8, y + (h - fs * 1.4) / 2, w - 16, label, fs, 500, color or (t['primary'] if outline else t['onPrimary']),
-           'center', lh=1.4, name=name + '_文言', maxlines=1)
+        c.rect(x, y, w, h, fill=fill, rx=r, name=name + '_背景')
+        col = color or on(fill)
+    fs = size or max(11, min(17, round(h * 0.25)))
+    c.text(x + 14, y + (h - fs * 1.4) / 2, w - 28, label, fs, 700, col, 'center', lh=1.4, name=name + '_文言',
+           maxlines=1)
+    if arrow and h >= 40:
+        ax, ay = x + w - 20, y + h / 2
+        c.path([('M', ax - 3, ay - 5), ('L', ax + 2, ay), ('L', ax - 3, ay + 5)], stroke=col, sw=1.8,
+               name=name + '_矢印')
     return h
 
 
-def heading(c, x, y, w, s, size=24, align='left', mb=16, name='見出し', weight=500):
-    h = c.text(x, y, w, s, size, weight, c.t['ink'], align, lh=1.5 if size >= 20 else 1.6, head=True, name=name)
-    return h + (mb if h else 0)
+def sec_head(c, x, y, w, title, eyebrow=None, align='center', size=21, color=None, bar=True):
+    """セクション見出し：小さな英字ラベル＋太字見出し＋短いバー。下の余白まで含めた高さを返す"""
+    t = c.t; cy = y
+    if eyebrow:
+        cy += c.text(x, cy, w, eyebrow, 10.5, 700, t['primary'], align, 1.5, name='見出しラベル', ls=1.2) + 2
+    h = c.text(x, cy, w, title, size, 700, color or t['ink'], align, 1.5, head=True, name='見出し')
+    if not h:
+        return cy - y
+    cy += h
+    if bar:
+        bx = x + (w - 32) / 2 if align == 'center' else x
+        c.rect(bx, cy + 8, 32, 3, fill=t['primary'], rx=1.5, name='見出しバー')
+        cy += 11
+    return cy - y + 18
 
 
-def paragraph(c, x, y, w, s, size=14, mb=10, align='left', name='本文', color=None):
-    h = c.text(x, y, w, s, size, 400, color or c.t['body'], align, lh=1.75, name=name)
-    return h + (mb if h else 0)
+def para(c, x, y, w, s, size=14, align='left', name='本文', color=None, lh=1.8):
+    return c.text(x, y, w, s, size, 400, color or c.t['body'], align, lh=lh, name=name)
+
+
+def card(c, x, y, w, draw, pad=18, fill=None, stroke=None, rx=None, name='カード'):
+    """中身を描いてから下に角丸カードを敷く。draw(x, y, w) -> 中身の高さ。stroke='' で枠線なし"""
+    t = c.t
+    m = c.mark()
+    h = draw(x + pad, y + pad, w - pad * 2) + pad * 2
+    body = c.cut(m)
+    c.rect(x, y, w, h, fill=fill or t['bg'], stroke=t['line'] if stroke is None else stroke, sw=1,
+           rx=t['radius'] + 4 if rx is None else rx, name=name)
+    c.out += body
+    return h
+
+
+def check(c, x, y, size=16, color=None):
+    col = color or c.t['primary']
+    c.circle(x + size / 2, y + size / 2, size / 2, fill=col)
+    c.path([('M', x + size * 0.28, y + size * 0.52), ('L', x + size * 0.44, y + size * 0.68),
+            ('L', x + size * 0.74, y + size * 0.34)], stroke=on(col), sw=1.6)
+
+
+def num_badge(c, cx, cy, n, r=14, fill=None):
+    fill = fill or c.t['primary']
+    c.circle(cx, cy, r, fill=fill, name=f'番号{n}')
+    c.text(cx - r, cy - r * 0.72, r * 2, str(n), r * 1.05, 700, on(fill), 'center', 1.4, warn=False)
+
+
+def split_amount(s):
+    """「Amazonギフト券1,000円分」→ ('Amazonギフト券', '1,000', '円分')。数字が無ければ None"""
+    m = re.search(r'([\d０-９][\d０-９,，.．]*)', s or '')
+    if not m:
+        return None
+    return s[:m.start()], m.group(1), s[m.end():]
 
 
 def slides_of(d):
-    out = []
-    for s in d.get('slides') or []:
-        out.append(s if isinstance(s, dict) else {'text': str(s)})
-    return out or [{'text': ''}]
+    return [s if isinstance(s, dict) else {'text': str(s)} for s in d.get('slides') or []] or [{'text': ''}]
 
 
 # ---------------------------------------------------------------- ブロック描画
 # 各関数は (canvas, block, page, y) を受け取り、ブロックの高さ（pt）を返す
 
 def b_header(c, b, p, y):
-    """CMS の設定：ロゴ表示位置（左寄せ/中央）、紹介CTA（あり/なし）、バナー種類（テキスト/画像）、ボタンスタイル（角丸/四角）"""
     t, d = c.t, b['data']
     h = 50
-    c.line(0, y + h - 0.5, W, y + h - 0.5, t['ph'], 1)
-    center = d.get('logoPos') == 'center'
+    c.line(0, y + h - 0.5, W, y + h - 0.5, t['line'], 1)
     has_cta = d.get('ctaOn', True) not in (False, 'off', 'なし')
-    lx = (W - 140) / 2 if center or not has_cta else 12
-    c.image(lx, y + 8, 140, 34, img_of(b, 'logo'), 'ロゴ', name='ロゴ', fit='contain')
+    center = d.get('logoPos') == 'center' or not has_cta
+    if img_of(b, 'logo'):
+        c.image((W - 140) / 2 if center else 14, y + 8, 140, 34, img_of(b, 'logo'), 'ロゴ', name='ロゴ', fit='contain')
+    else:                                                          # ロゴ未支給：案件名の文字ロゴで仮置き
+        c.text(20 if center else 16, y + 14, CW if center else 190, p.get('_project') or 'LOGO', 15, 900, t['ink'],
+               'center' if center else 'left', 1.4, name='ロゴ（画像に差し替え）', maxlines=1, warn=False)
     if not has_cta:
         return h
     if d.get('ctaType') == 'image':
-        c.image(W - 126, y + 7, 116, 36, img_of(b, 'ctaImg'), 'ボタン画像', name='ヘッダーボタン画像', fit='contain')
-    elif d.get('btnShape') == 'round':
-        button(c, W - 128, y + 8, 118, 34, d.get('cta'), name='ヘッダーボタン', pill=True, size=11)
-    else:
-        c.rect(W - 120, y, 120, h - 1, fill=t['primary'], name='ヘッダーボタン_背景')
-        c.text(W - 116, y + (h - 1 - 14 * 1.4) / 2, 112, d.get('cta'), 14, 500, t['onPrimary'], 'center', 1.4,
+        c.image(W - 126, y + 8, 116, 34, img_of(b, 'ctaImg'), 'ボタン画像', name='ヘッダーボタン画像', fit='contain')
+    elif d.get('btnShape') == 'square':
+        c.rect(W - 110, y, 110, h - 1, fill=t['primary'], name='ヘッダーボタン_背景')
+        c.text(W - 106, y + (h - 1 - 12 * 1.4) / 2, 102, d.get('cta'), 12, 700, t['onPrimary'], 'center', 1.4,
                name='ヘッダーボタン_文言', maxlines=1)
+    else:
+        bw = min(150, max(96, text_w(d.get('cta', ''), 11) + 30))
+        button(c, W - bw - 12, y + 10, bw, 30, d.get('cta'), name='ヘッダーボタン', pill=True, size=11, arrow=False)
     return h
 
 
+def hero(c, y, copy, sub, bubble):
+    """色面のヒーロー（campaign-design-dip の紹介ページ画面と同じ構造）。背景は呼び出し側で敷く。高さを返す"""
+    t = c.t
+    cy = y + 30
+    if sub:
+        sw_ = min(CW, text_w(sub, 11.5) + 30)
+        c.rect((W - sw_) / 2, cy, sw_, 24, fill='#000000', rx=12, opacity=0.14, name='小見出し_地')
+        c.text((W - sw_) / 2, cy + 3.5, sw_, sub, 11.5, 700, t['onSecondary'], 'center', 1.5, name='小見出し')
+        cy += 36
+    cy += c.text(PAD_X, cy, CW, copy, 30, 900, t['onSecondary'], 'center', 1.4, head=True, name='メインコピー') + 18
+    ih = 150
+    c.open('イラスト枠')
+    for dx in (-122, 122):
+        c.circle(W / 2 + dx, cy + ih / 2 + 16, 42, fill='#FFFFFF', opacity=0.18)
+        c.text(W / 2 + dx - 42, cy + ih / 2 + 8, 84, '人物イラスト', 9, 500, t['onSecondary'], 'center', 1.5, warn=False)
+    c.close()
+    if bubble:
+        bw, bh = 156, 106
+        bx, by = W / 2, cy + 6 + bh / 2
+        c.open('吹き出し')
+        c.path([('M', bx - 14, by + bh / 2 - 8), ('L', bx - 4, by + bh / 2 + 12), ('L', bx + 12, by + bh / 2 - 8), ('Z',)],
+               fill=t['cream'])
+        c.ellipse(bx, by, bw / 2, bh / 2, t['cream'])
+        lines = wrap(bubble, 14.5, bw - 40)
+        th_ = len(lines) * 14.5 * 1.4
+        c.text(bx - bw / 2 + 20, by - th_ / 2, bw - 40, bubble, 14.5, 900, t['deep'], 'center', 1.4, name='吹き出しの文言')
+        c.close()
+    return cy + ih - y
+
+
 def b_kvimg(c, b, p, y):
-    c.image(0, y, W, 500, img_of(b, 'kv'), 'KV画像 375×500pt', name='KV画像')
-    return 500
+    d = b['data']
+    if img_of(b, 'kv'):
+        c.image(0, y, W, 500, img_of(b, 'kv'), 'KV画像', name='KV画像')
+        return 500
+    m = c.mark()
+    h = hero(c, y, d.get('copy'), d.get('sub'), d.get('bubble'))
+    body = c.cut(m)
+    c.rect(0, y, W, h + 12, fill=c.t['secondary'], name='ヒーロー背景')
+    c.out += body
+    c.rect(0, y + h, W, 12, fill=c.t['cream'], name='帯')
+    return h + 12
 
 
 def b_kv(c, b, p, y):
     d, t = b['data'], c.t
-    cy = y + PAD_Y
-    cy += paragraph(c, PAD_X, cy, CW, d.get('eyebrow'), 12, 8, 'center', '小見出し', t['sub'])
-    h = c.text(PAD_X, cy, CW, d.get('title'), 32, 900, t['ink'], 'center', 1.35, head=True, name='メインコピー')
-    cy += h + (12 if h else 0)
-    cy += paragraph(c, PAD_X, cy, CW, d.get('lead'), 16, 16, 'center', 'リード文')
-    c.image(PAD_X, cy, CW, 250, img_of(b, 'kv'), 'KVメイン画像', name='KVメイン画像'); cy += 250 + 16
-    cy += button(c, PAD_X, cy, CW, 69, d.get('cta'))
-    return cy + PAD_Y - y
+    m = c.mark()
+    cy = y + 30
+    cy += c.text(PAD_X, cy, CW, d.get('eyebrow'), 12, 700, t['onSecondary'], 'center', 1.5, name='小見出し', ls=1) + 8
+    cy += c.text(PAD_X, cy, CW, d.get('title'), 30, 900, t['onSecondary'], 'center', 1.4, head=True, name='メインコピー') + 12
+    cy += c.text(PAD_X, cy, CW, d.get('lead'), 14, 400, t['onSecondary'], 'center', 1.8, name='リード文') + 18
+    c.image(PAD_X, cy, CW, 220, img_of(b, 'kv'), 'KVメイン画像', name='KVメイン画像', rx=14); cy += 220 + 18
+    cy += button(c, PAD_X, cy, CW, 60, d.get('cta')) + 30
+    body = c.cut(m)
+    c.rect(0, y, W, cy - y, fill=t['secondary'], name='ヒーロー背景')
+    c.out += body
+    return cy - y
 
 
 def b_timer(c, b, p, y):
     d, t = b['data'], c.t
-    cy = y + PAD_Y
-    cy += heading(c, PAD_X, cy, CW, d.get('title'), 18, 'center', 10)
-    tw = min(CW, text_w(d.get('lead', ''), 20) + 40)
-    c.rect((W - tw) / 2, cy, tw, 52, fill='#F7F4F2', stroke=t['line'], name='タイマー枠')
-    c.text((W - tw) / 2, cy + 10, tw, d.get('lead'), 20, 500, t['ink'], 'center', 1.6, name='タイマー')
-    return cy + 52 + PAD_Y - y
+    cy = y + 24
+    cy += c.text(PAD_X, cy, CW, d.get('title'), 13, 700, t['deep'], 'center', 1.5, name='見出し') + 8
+    tw = min(CW, text_w(d.get('lead', ''), 22) + 48)
+    c.rect((W - tw) / 2, cy, tw, 52, fill=t['bg'], stroke=t['primary'], sw=1.5, rx=26, name='タイマー枠')
+    c.text((W - tw) / 2, cy + 11, tw, d.get('lead'), 22, 700, t['primary'], 'center', 1.35, name='タイマー')
+    return cy + 52 + 24 - y
+
+
+def ribbon_col(c, x, y, w, label, value, note):
+    """リボン見出し＋大きな数字の特典1列。高さを返す"""
+    t = c.t
+    cy = y
+    m = c.mark()
+    lh = c.text(x + 4, cy + 5, w - 8, label, 11, 700, t['onSecondary'], 'center', 1.4, name='リボンの文言', warn=False)
+    txt = c.cut(m)
+    c.rect(x, cy, w, lh + 10, fill=t['secondary'], rx=3, name='リボン')
+    c.path([('M', x + w / 2 - 5, cy + lh + 10), ('L', x + w / 2, cy + lh + 15), ('L', x + w / 2 + 5, cy + lh + 10), ('Z',)],
+           fill=t['secondary'])
+    c.out += txt
+    cy += lh + 10 + 12
+    sp = split_amount(value)
+    if sp and text_w(sp[1], 34) + text_w(sp[2], 13) <= w + 4:
+        pre, num, post = sp
+        if pre:
+            cy += c.text(x, cy, w, pre, 12, 700, t['deep'], 'center', 1.4, name='特典の前置き')
+        cy += c.runs(x + w / 2, cy, [(num, 34, 900, t['deep']), (post, 13, 700, t['deep'])], name='特典の金額')
+    else:                                                     # 1行に収まる大きさまで下げる
+        fs = 20
+        while fs > 13 and text_w(value or '', fs) > w:
+            fs -= 1
+        cy += c.text(x, cy + 4, w, value, fs, 900, t['deep'], 'center', 1.35, name='特典の内容') + 4
+    if note:
+        cy += 4 + c.text(x, cy + 4, w, note, 10, 400, t['mute'], 'center', 1.6, name='特典の条件')
+    return cy - y
 
 
 def b_benefits(c, b, p, y):
     d, t = b['data'], c.t
     cy = y + PAD_Y
-    x0, w0 = PAD_X, CW
-    top = cy
-    cy += 20
-    body = []  # カードは中身の高さが決まってから描くため、先に中身を別バッファへ
-    mark = len(c.out)
-    cy += heading(c, x0 + 16, cy, w0 - 32, d.get('title'), 24, 'center', 12)
-    for ico, cap, val in (('ico1', d.get('capA'), d.get('a')), ('ico2', d.get('capB'), d.get('b'))):
-        c.image(x0 + 16, cy, 50, 50, img_of(b, ico), 'アイコン', name='特典アイコン', fit='contain')
-        tx = x0 + 16 + 50 + 12
-        hh = c.text(tx, cy, w0 - 32 - 62, cap, 11, 400, t['sub'], lh=1.6, name='特典ラベル')
-        hv = c.text(tx, cy + hh + 3, w0 - 32 - 62, val, 18, 700, t['ink'], lh=1.4, head=True, name='特典内容')
-        cy += max(50, hh + 3 + hv) + 12
+    cy += sec_head(c, PAD_X, cy, CW, d.get('title'), d.get('eyebrow') or 'PRESENT')
+
+    def draw(x, yy, w):
+        s = yy
+        if d.get('lead'):
+            yy += c.text(x, yy, w, d['lead'], 14, 700, t['ink'], 'center', 1.6, name='カード見出し') + 14
+        cw_ = (w - 12) / 2
+        ha = ribbon_col(c, x, yy, cw_, d.get('capA'), d.get('a'), d.get('subA'))
+        hb = ribbon_col(c, x + cw_ + 12, yy, cw_, d.get('capB'), d.get('b'), d.get('subB'))
+        return yy + max(ha, hb) - s
+    cy += card(c, PAD_X, cy, CW, draw, pad=16, name='特典カード') + 14
     if d.get('note'):
-        cy += paragraph(c, x0 + 16, cy, w0 - 32, d.get('note'), 11, 4, name='特典の条件', color=t['sub'])
-    cy += 8
-    body = c.out[mark:]; del c.out[mark:]
-    c.rect(x0, top, w0, cy - top, fill=t['bg'], stroke=t['line'], name='特典カード')
-    c.out += body
-    cy += 16
-    cy += button(c, PAD_X, cy, CW, 69, d.get('cta'))
+        cy += c.text(PAD_X, cy, CW, d['note'], 10.5, 400, t['mute'], 'center', 1.7, name='特典の条件') + 14
+    cy += button(c, PAD_X, cy, CW, 60, d.get('cta'))
     return cy + PAD_Y - y
 
 
 def b_headline(c, b, p, y):
-    return PAD_Y + heading(c, PAD_X, y + PAD_Y, CW, b['data'].get('title'), 24, mb=0) + PAD_Y
+    return PAD_Y + sec_head(c, PAD_X, y + PAD_Y, CW, b['data'].get('title'), b['data'].get('eyebrow')) - 18 + PAD_Y
 
 
 def b_text(c, b, p, y):
-    d = b['data']; cy = y + PAD_Y
-    cy += heading(c, PAD_X, cy, CW, d.get('title'), 18, mb=10)
-    cy += paragraph(c, PAD_X, cy, CW, d.get('lead'), mb=0)
-    return max(cy - y, PAD_Y) + PAD_Y
+    d, t = b['data'], c.t
+    if b['type'] == 'coupon-message':                             # 紹介者からのメッセージカード
+        cy = y + 28
+
+        def draw(x, yy, w):
+            s = yy
+            yy += c.text(x, yy, w, d.get('title'), 16, 700, t['deep'], 'center', 1.55, head=True, name='見出し')
+            if d.get('lead'):
+                yy += 8 + para(c, x, yy + 8, w, d.get('lead'), 13.5, 'center')
+            return yy - s
+        cy += card(c, PAD_X, cy, CW, draw, pad=20, stroke=t['primary'], name='メッセージカード')
+        return cy + 28 - y
+    cy = y + PAD_Y
+    cy += sec_head(c, PAD_X, cy, CW, d.get('title'), d.get('eyebrow'), align=d.get('align', 'center'), size=19)
+    h = para(c, PAD_X, cy, CW, d.get('lead'))
+    return (cy + h if h else cy - 18) + PAD_Y - y
 
 
 def b_image(c, b, p, y):
     w, h = slot_size(b, 'img')
-    c.image(PAD_X, y + PAD_Y, CW, h * CW / w, img_of(b, 'img'), '画像', name='画像')
-    return PAD_Y * 2 + h * CW / w
-
-
-def framed(c, y, draw, pad=(16, 12)):
-    """枠付きカードの中身を描いてから枠を敷く。draw(x, y, w) -> 高さ"""
-    mark = len(c.out)
-    x, w = PAD_X + pad[1], CW - pad[1] * 2
-    h = draw(x, y + pad[0], w) + pad[0] * 2
-    body = c.out[mark:]; del c.out[mark:]
-    c.rect(PAD_X, y, CW, h, fill=c.t['bg'], stroke='#D8CFCB', name='フレーム')
-    c.out += body
-    return h
+    hh = h * CW / w
+    c.image(PAD_X, y + 24, CW, hh, img_of(b, 'img'), '画像', name='画像', rx=14)
+    return 48 + hh
 
 
 def b_frame(c, b, p, y):
-    d = b['data']
+    d, t = b['data'], c.t
 
     def draw(x, cy, w):
         s = cy
-        cy += heading(c, x, cy, w, d.get('title'), 18, 'center', 10)
-        cy += paragraph(c, x, cy, w, d.get('lead'))
-        c.image(x, cy, w, 200, img_of(b, 'img'), 'フレーム内の画像', name='画像'); cy += 200
-        return cy - s
-    return PAD_Y + framed(c, y + PAD_Y, draw) + PAD_Y
+        cy += c.text(x, cy, w, d.get('title'), 16, 700, t['deep'], 'center', 1.55, head=True, name='見出し') + 10
+        cy += para(c, x, cy, w, d.get('lead'), 13.5) + 12
+        c.image(x, cy, w, 180, img_of(b, 'img'), 'フレーム内の画像', name='画像')
+        return cy + 180 - s
+    return PAD_Y + card(c, PAD_X, y + PAD_Y, CW, draw, pad=18, name='フレーム') + PAD_Y
 
 
 def b_framelist(c, b, p, y):
-    d = b['data']; rows = d.get('rows') or []
+    """紹介者がすすめるポイント（チェック付きの箇条書き）。画像は支給された項目か showImages のときだけ入れる"""
+    d, t = b['data'], c.t; rows = d.get('rows') or []
 
     def draw(x, cy, w):
         s = cy
-        cy += heading(c, x, cy, w, d.get('title'), 18, 'center', 6)
+        cy += c.text(x, cy, w, d.get('title'), 15, 700, t['deep'], 'center', 1.55,
+                     head=True, name='見出し') + 12
         for i, r in enumerate(rows):
-            if i:
-                c.line(x, cy, x + w, cy, c.t['ph'], 1)
-            cy += 12
             c.open(f'項目{i + 1}')
-            cy += paragraph(c, x, cy, w, r)
-            c.image(x, cy, w, 160, img_of(b, f'r{i}'), f'画像{i + 1}'); cy += 160 + 12
+            check(c, x, cy + 3, 17)
+            cy += max(c.text(x + 26, cy, w - 26, r, 14, 500, t['body'], lh=1.7, name='項目の文言'), 22)
+            if img_of(b, f'r{i}') or d.get('showImages'):
+                c.image(x + 26, cy + 8, w - 26, 140, img_of(b, f'r{i}'), f'画像{i + 1}')
+                cy += 148
+            cy += 12
             c.close()
-        return cy - s
-    return PAD_Y + framed(c, y + PAD_Y, draw) + PAD_Y
+        return cy - s - 12
+    return PAD_Y + card(c, PAD_X, y + PAD_Y, CW, draw, pad=18, fill=t['point'], stroke='', name='ポイント') + PAD_Y
 
 
 def b_gallery(c, b, p, y):
     d = b['data']; n = int(d.get('count') or 4)
-    cy = y + PAD_Y + heading(c, PAD_X, y + PAD_Y, CW, d.get('title'), 24, 'center', 12)
-    gw = (CW - 8) / 2
+    cy = y + PAD_Y + sec_head(c, PAD_X, y + PAD_Y, CW, d.get('title'), d.get('eyebrow') or 'GALLERY')
+    gw = (CW - 10) / 2
     for i in range(n):
-        c.image(PAD_X + (i % 2) * (gw + 8), cy + (i // 2) * (gw + 8), gw, gw, img_of(b, f'g{i}'), f'画像{i + 1}')
-    cy += ((n + 1) // 2) * (gw + 8) - 8
+        c.image(PAD_X + (i % 2) * (gw + 10), cy + (i // 2) * (gw + 10), gw, gw, img_of(b, f'g{i}'), f'画像{i + 1}', rx=12)
+    cy += ((n + 1) // 2) * (gw + 10) - 10
     return cy + PAD_Y - y
 
 
 def b_reviewlist(c, b, p, y):
     d, t = b['data'], c.t; rows = d.get('rows') or []
-    cy = y + PAD_Y + heading(c, PAD_X, y + PAD_Y, CW, d.get('title'), 24, 'center', 12)
-
-    def draw(x, yy, w):
-        s = yy
-        for i, r in enumerate(rows):
-            if i:
-                c.line(x, yy, x + w, yy, t['ph'], 1)
-            yy += 10
-            c.open(f'口コミ{i + 1}')
-            c.image(x, yy, 100, 80, img_of(b, f'rv{i}'), '画像')
-            hh = c.text(x + 110, yy, w - 110, r, 14, 400, t['body'], lh=1.75, name='口コミ本文')
-            c.close()
-            yy += max(80, hh) + 10
-        return yy - s
-    cy += framed(c, cy, draw, pad=(2, 12)) + 14
-    bw = min(280, CW)
-    button(c, (W - bw) / 2, cy, bw, 50, (d.get('cta') or '') + '　＋', name='もっと見る', outline=True, pill=True,
-           fill='#D8CFCB', color=t['body'], size=15)
+    cy = y + PAD_Y + sec_head(c, PAD_X, y + PAD_Y, CW, d.get('title'), d.get('eyebrow') or 'VOICE')
+    for i, r in enumerate(rows):
+        def draw(x, yy, w, r=r, i=i):
+            c.image(x, yy, 64, 64, img_of(b, f'rv{i}'), '画像', rx=32)
+            return max(64, c.text(x + 78, yy + 2, w - 78, r, 13.5, 400, t['body'], lh=1.75, name='口コミ本文'))
+        cy += card(c, PAD_X, cy, CW, draw, pad=16, name=f'口コミ{i + 1}') + 12
+    bw = 240
+    button(c, (W - bw) / 2, cy + 4, bw, 46, d.get('cta'), name='もっと見る', outline=True, pill=True, size=13)
     return cy + 50 + PAD_Y - y
 
 
 def b_modal(c, b, p, y):
     d, t = b['data'], c.t
-    top = y + PAD_Y
-    mark = len(c.out)
-    x, w = PAD_X + 16 + 16, CW - 64
-    cy = top + 30 + 20
-    cy += heading(c, x, cy, w, d.get('title'), 18, 'center', 10)
-    cy += paragraph(c, x, cy, w, d.get('lead'))
-    cy += 6
-    bw = min(200, w)
-    button(c, x + (w - bw) / 2, cy, bw, 40, d.get('cta'), name='閉じる', outline=True, pill=True, fill='#D8CFCB',
-           color='#57504E', size=14)
-    cy += 40 + 20
-    body = c.out[mark:]; del c.out[mark:]
-    c.rect(PAD_X, top, CW, cy + 30 - top, fill='#1E1A19', opacity=0.62, name='モーダル背景')
-    c.rect(PAD_X + 16, top + 30, CW - 32, cy - top - 30, fill=t['bg'], name='モーダル')
+    top = y + 24
+    m = c.mark()
+
+    def draw(x, yy, w):
+        s = yy
+        yy += c.text(x, yy, w, d.get('title'), 16, 700, t['ink'], 'center', 1.55, head=True, name='見出し') + 10
+        yy += para(c, x, yy, w, d.get('lead'), 13.5) + 16
+        bw = min(200, w)
+        button(c, x + (w - bw) / 2, yy, bw, 42, d.get('cta'), name='閉じる', outline=True, pill=True, size=13,
+               fill=t['mute'], arrow=False)
+        return yy + 42 - s
+    ch = card(c, PAD_X + 18, top + 30, CW - 36, draw, pad=20, stroke='', name='モーダル')
+    body = c.cut(m)
+    c.rect(PAD_X, top, CW, ch + 60, fill='#1C1E22', opacity=0.6, rx=14, name='モーダル背景')
     c.out += body
-    return cy + 30 + PAD_Y - y
+    return ch + 60 + 48
 
 
 def slider(c, b, y, has_text):
     t = c.t; d = b['data']; slides = slides_of(d)
-    iw = CW * 0.74; ix = PAD_X + CW * 0.13
+    iw = CW * 0.78; ix = PAD_X + (CW - iw) / 2
     sw, sh = slot_size(b, 's')
-    imh = (iw - 24) * sh / sw
-    s0 = slides[0]
-    mark = len(c.out)
-    cy = y + 12
-    c.image(ix + 12, cy, iw - 24, imh, img_of(b, 's0'), 'スライド1 画像', name='スライド画像'); cy += imh
-    if has_text and s0.get('text'):
-        cy += 10 + c.text(ix + 12, cy + 10, iw - 24, s0.get('text'), 12, 400, t['body'], lh=1.75, name='スライド説明文')
-    if s0.get('btn'):
-        cy += 10 + button(c, ix + 12, cy + 10, iw - 24, 44, s0['btn'], name='スライドボタン', size=13)
-    cy += 12
-    body = c.out[mark:]; del c.out[mark:]
-    h = cy - y
-    c.open('スライド1')
-    c.rect(ix, y, iw, h, fill='#FCFAF9', stroke=t['line'])
+    imh = (iw - 28) * sh / sw
+
+    def draw(x, yy, w):
+        s0 = slides[0]; s = yy
+        c.image(x, yy, w, imh, img_of(b, 's0'), 'スライド1 画像', name='スライド画像'); yy += imh
+        if has_text and s0.get('text'):
+            yy += 12 + c.text(x, yy + 12, w, s0['text'], 13, 400, t['body'], lh=1.75, name='スライド説明文')
+        if s0.get('btn'):
+            yy += 12 + button(c, x, yy + 12, w, 44, s0['btn'], name='スライドボタン', size=13)
+        return yy - s
+    m = c.mark()
+    h = card(c, ix, y, iw, draw, pad=14, name='スライド1')
+    body = c.cut(m)
+    if len(slides) > 1:                                          # 前後スライドのチラ見せ
+        c.rect(ix + iw + 10, y + 16, 40, h - 32, fill=t['bg'], stroke=t['line'], rx=14, name='次のスライド（チラ見せ）')
+        c.rect(ix - 50, y + 16, 40, h - 32, fill=t['bg'], stroke=t['line'], rx=14, name='前のスライド（チラ見せ）')
     c.out += body
-    c.close()
-    if len(slides) > 1:                                       # 次スライドのチラ見せ
-        px = ix + iw + 8; pw = PAD_X + CW - px
-        c.open('スライド2（チラ見せ）')
-        c.rect(px, y, pw + 2, h, fill='#FCFAF9', stroke=t['line'])
-        c.rect(px + 8, y + 12, pw - 6, imh, fill=t['ph'])
-        c.close()
-    cy = y + h + 14
+    cy = y + h + 16
     c.open('ページ送り')
-    n = len(slides); dots_w = n * 12 + (n - 1) * 8
-    total = 32 + 14 + dots_w + 14 + 32; x0 = (W - total) / 2
-    for xx, ch in ((x0, '‹'), (x0 + total - 32, '›')):
-        c.circle(xx + 16, cy + 16, 15.5, fill=t['bg'], stroke='#DCD4D0', sw=1)
-        c.text(xx, cy + 4, 32, ch, 16, 400, '#57504E', 'center', 1.5)
+    n = len(slides)
+    x0 = (W - (24 + (n - 1) * 16)) / 2
     for i in range(n):
-        c.circle(x0 + 46 + i * 20 + 6, cy + 16, 6, fill='#57504E' if i == 0 else '#D2C9C5')
+        if i == 0:
+            c.rect(x0, cy, 24, 8, fill=t['primary'], rx=4); x0 += 32
+        else:
+            c.circle(x0 + 4, cy + 4, 4, fill=t['line']); x0 += 16
     c.close()
-    return cy + 32 - y
+    return cy + 8 - y
 
 
 def b_slider(c, b, p, y):
     d = b['data']; cy = y + PAD_Y
-    cy += heading(c, PAD_X, cy, CW, d.get('title'), 24, mb=12) if b['type'] != 'image-slider' else 0
+    if b['type'] != 'image-slider':
+        cy += sec_head(c, PAD_X, cy, CW, d.get('title'), d.get('eyebrow') or ('HINT' if b['type'] == 'hint' else None))
     cy += slider(c, b, cy, b['type'] != 'image-slider')
     return cy + PAD_Y - y
 
 
-def step_badge(c, x, y, i, h=None):
-    t = c.t
-    c.rect(x, y, 51, h or 44, fill=t['primary'], name=f'STEP{i + 1}_バッジ')
-    c.text(x, y + 5, 51, 'STEP', 11, 400, t['onPrimary'], 'center', 1.3)
-    c.text(x, y + 18, 51, str(i + 1), 20, 700, t['onPrimary'], 'center', 1.2)
-
-
 def b_flow(c, b, p, y):
     d, t = b['data'], c.t; steps = d.get('steps') or []
-    cy = y + PAD_Y + heading(c, PAD_X, y + PAD_Y, CW, d.get('title'), 24, mb=12)
+    cy = y + PAD_Y + sec_head(c, PAD_X, y + PAD_Y, CW, d.get('title'), d.get('eyebrow') or 'FLOW')
+    show = d.get('showImages', True)
     for i, s in enumerate(steps):
-        c.open(f'STEP{i + 1}')
-        cy += 16
-        step_badge(c, PAD_X, cy, i)
-        tx = PAD_X + 51 + 12; tw = CW - 63
-        hh = c.text(tx, cy, tw, s, 14, 400, t['body'], lh=1.75, name='ステップ説明')
-        c.image(tx, cy + hh + 8, tw, 120, img_of(b, f'st{i}'), f'STEP{i + 1} 画像')
-        cy += max(44, hh + 8 + 120) + 16
-        c.line(PAD_X, cy, PAD_X + CW, cy, t['ph'], 1)
-        c.close()
+        def draw(x, yy, w, s=s, i=i):
+            st = yy
+            c.text(x, yy, 80, f'STEP {i + 1}', 10.5, 700, t['primary'], lh=1.4, name='ステップ番号', ls=1)
+            yy += 18
+            yy += c.text(x, yy, w, s, 15, 700, t['ink'], lh=1.6, name='ステップ説明')
+            if show:
+                c.image(x, yy + 12, w, 110, img_of(b, f'st{i}'), f'STEP{i + 1} 画像')
+                yy += 122
+            return yy - st
+        cy += card(c, PAD_X, cy, CW, draw, pad=18, name=f'STEP{i + 1}')
+        if i < len(steps) - 1:
+            c.path([('M', W / 2 - 8, cy + 6), ('L', W / 2, cy + 13), ('L', W / 2 + 8, cy + 6)], stroke=t['primary'],
+                   sw=2, name='つなぎ矢印')
+            cy += 20
     return cy + PAD_Y - y
 
 
 def b_flowtab(c, b, p, y):
     d, t = b['data'], c.t; steps = d.get('steps') or []
-    cy = y + PAD_Y + heading(c, PAD_X, y + PAD_Y, CW, d.get('title'), 24, mb=12)
-    tw = CW / 2
+    cy = y + PAD_Y + sec_head(c, PAD_X, y + PAD_Y, CW, d.get('title'), d.get('eyebrow') or 'FLOW')
     c.open('タブ')
-    c.rect(PAD_X, cy, tw, 44, fill=t['primary'], stroke=t['primary'])
-    c.rect(PAD_X + tw, cy, tw, 44, fill=t['bg'], stroke=t['primary'])
-    c.text(PAD_X, cy + 11, tw, d.get('t1'), 16, 500, t['onPrimary'], 'center', 1.4)
-    c.text(PAD_X + tw, cy + 11, tw, d.get('t2'), 16, 500, t['primary'], 'center', 1.4)
+    c.rect(PAD_X, cy, CW, 44, fill=t['field'], rx=22)
+    c.rect(PAD_X + 4, cy + 4, CW / 2 - 4, 36, fill=t['primary'], rx=18)
+    c.text(PAD_X, cy + 12, CW / 2, d.get('t1'), 13, 700, t['onPrimary'], 'center', 1.5)
+    c.text(PAD_X + CW / 2, cy + 12, CW / 2, d.get('t2'), 13, 700, t['mute'], 'center', 1.5)
     c.close()
-    cy += 44
+    cy += 60
     for i, s in enumerate(steps):
         c.open(f'STEP{i + 1}')
-        cy += 16
-        step_badge(c, PAD_X, cy, i)
-        hh = c.text(PAD_X + 63, cy, CW - 63, s, 14, 400, t['body'], lh=1.75, name='ステップ説明')
-        cy += max(44, hh) + 16
-        c.line(PAD_X, cy, PAD_X + CW, cy, t['ph'], 1)
+        if i < len(steps) - 1:
+            c.line(PAD_X + 15, cy + 30, PAD_X + 15, cy + 62, t['line'], 2)
+        num_badge(c, PAD_X + 15, cy + 15, i + 1)
+        hh = c.text(PAD_X + 42, cy + 3, CW - 42, s, 14, 500, t['body'], lh=1.7, name='ステップ説明')
+        cy += max(64, hh + 20)
         c.close()
-    return cy + PAD_Y - y
+    return cy - 20 + PAD_Y - y
 
 
 def b_accordion(c, b, p, y):
     d, t = b['data'], c.t; faq = b['type'] == 'faq'
     items = [it if isinstance(it, dict) else {'q': str(it), 'a': ''} for it in d.get('items') or []]
-    cy = y + PAD_Y + heading(c, PAD_X, y + PAD_Y, CW, d.get('title'), 24, mb=12)
+    cy = y + PAD_Y + sec_head(c, PAD_X, y + PAD_Y, CW, d.get('title'), d.get('eyebrow') or ('FAQ' if faq else None))
     for i, it in enumerate(items):
-        c.open(f'項目{i + 1}')
-        mark = len(c.out)
-        qx = PAD_X + 12 + (18 if faq else 0); qw = CW - 24 - (18 if faq else 0) - 22
-        hh = c.text(qx, cy + 14, qw, it.get('q'), 14, 400, t['body'], lh=1.5, name='質問' if faq else '項目見出し')
-        bh = max(hh, 21) + 28
-        body = c.out[mark:]; del c.out[mark:]
-        c.rect(PAD_X, cy, CW, bh, fill=t['bg'], stroke='#D8CFCB', name='項目枠')
-        c.out += body
-        if faq:
-            c.text(PAD_X + 12, cy + 14, 16, 'Q', 14, 700, t['accent'], lh=1.5)
-        c.text(PAD_X + CW - 30, cy + 14, 18, '＋', 14, 400, '#9A908C', 'center', 1.5)
-        cy += bh
-        if it.get('a'):
-            ax = PAD_X + 12 + (18 if faq else 0)
+        def draw(x, yy, w, it=it):
+            s = yy
+            ind = 30 if faq else 0
             if faq:
-                c.text(PAD_X + 12, cy + 10, 16, 'A', 12.7, 700, t['accent'], lh=1.75)
-            cy += 10 + c.text(ax, cy + 10, CW - 24 - (18 if faq else 0), it['a'], 12.7, 400, '#57504E', lh=1.75,
-                              name='回答' if faq else '開いた中身')
-        cy += 10
-        c.close()
-    return cy + PAD_Y - y
+                c.circle(x + 11, yy + 11, 11, fill=t['primary'])
+                c.text(x, yy + 3, 22, 'Q', 12, 700, t['onPrimary'], 'center', 1.4, warn=False)
+            hh = c.text(x + ind, yy + 1, w - ind - 22, it.get('q'), 14, 700, t['ink'], lh=1.55,
+                        name='質問' if faq else '項目見出し')
+            cxp = x + w - 7
+            c.path([('M', cxp - 5, yy + 8), ('L', cxp, yy + 13), ('L', cxp + 5, yy + 8)], stroke=t['mute'], sw=1.6,
+                   name='開閉')
+            yy += max(hh, 22)
+            if it.get('a'):
+                c.line(x, yy + 10, x + w, yy + 10, t['line'], 1)
+                yy += 20
+                if faq:
+                    c.text(x, yy, 22, 'A', 13, 700, t['primary'], 'center', 1.75, warn=False)
+                yy += c.text(x + ind, yy, w - ind, it['a'], 13, 400, t['body'], lh=1.75,
+                             name='回答' if faq else '開いた中身')
+            return yy - s
+        cy += card(c, PAD_X, cy, CW, draw, pad=16, name=f'項目{i + 1}') + 10
+    return cy - 10 + PAD_Y - y
 
 
 def b_video(c, b, p, y):
     d, t = b['data'], c.t
-    cy = y + PAD_Y + heading(c, PAD_X, y + PAD_Y, CW, d.get('title'), 24, mb=12)
+    cy = y + PAD_Y + sec_head(c, PAD_X, y + PAD_Y, CW, d.get('title'), d.get('eyebrow') or 'MOVIE')
     h = CW * 9 / 16
-    c.image(PAD_X, cy, CW, h, img_of(b, 'thumb'), 'YouTube 16:9', name='動画サムネイル')
+    c.image(PAD_X, cy, CW, h, img_of(b, 'thumb'), ' ', name='動画サムネイル', rx=14)
     c.open('再生ボタン')
-    c.rect(W / 2 - 30, cy + h / 2 - 21, 60, 42, fill='#FF0000', rx=10)
-    cx, cc = W / 2, cy + h / 2
-    c.out.append(f'<path d="M{c.n(cx - 8)} {c.n(cc - 10)} L{c.n(cx + 12)} {c.n(cc)} L{c.n(cx - 8)} {c.n(cc + 10)} Z" '
-                 f'fill="#FFFFFF"/>')
+    c.circle(W / 2, cy + h / 2, 26, fill='#FFFFFF', opacity=0.92)
+    cx, cc = W / 2 + 2, cy + h / 2
+    c.path([('M', cx - 7, cc - 10), ('L', cx + 10, cc), ('L', cx - 7, cc + 10), ('Z',)], fill=t['primary'])
     c.close()
     return cy + h + PAD_Y - y
 
 
-def field(c, x, y, w, label, h=58, name='入力欄', content=None):
+def field(c, x, y, w, label, h=50, name='入力欄', content=None):
     t = c.t
     c.open(name)
-    lh = c.text(x, y, w - 50, label, 16, 700, t['ink'], lh=1.5, name='項目名')
-    lw = min(w - 50, text_w(label or '', 16))
-    c.rect(x + lw + 8, y + 3, 34, 18, fill=REQ_RED, name='必須')
-    c.text(x + lw + 8, y + 3, 34, '必須', 12, 400, '#FFFFFF', 'center', 1.5)
+    lh = c.text(x, y, w - 50, label, 13.5, 700, t['ink'], lh=1.5, name='項目名')
+    lw = min(w - 50, text_w(label or '', 13.5))
+    c.rect(x + lw + 8, y + 2.5, 32, 16, fill=REQ_RED, rx=8, name='必須')
+    c.text(x + lw + 8, y + 2.5, 32, '必須', 9.5, 700, '#FFFFFF', 'center', 1.7, warn=False)
     y += lh + 8
-    mark = len(c.out)
-    ch = c.text(x + 12, y + 12, w - 24, content, 14, 400, t['body'], lh=1.8, name='初期メッセージ') if content else 0
-    body = c.out[mark:]; del c.out[mark:]
+    m = c.mark()
+    ch = c.text(x + 14, y + 12, w - 28, content, 13.5, 400, t['body'], lh=1.8, name='初期メッセージ') if content else 0
+    body = c.cut(m)
     h = max(h, ch + 24)
-    c.rect(x, y, w, h, fill=t['bg'], stroke='#D6CDC9', name='入力枠')
+    c.rect(x, y, w, h, fill=t['field'], stroke=t['line'], rx=8, name='入力枠')
     c.out += body
     c.close()
     return lh + 8 + h
@@ -572,85 +762,108 @@ def field(c, x, y, w, label, h=58, name='入力欄', content=None):
 
 def b_inviteform(c, b, p, y):
     d, t = b['data'], c.t
-    cy = y + PAD_Y + heading(c, PAD_X, y + PAD_Y, CW, d.get('title'), 24, 'center', 0)
-    for f in ('f1', 'f2'):
-        cy += 16 + field(c, PAD_X, cy + 16, CW, d.get(f), name=d.get(f) or f)
-    cy += 16 + field(c, PAD_X, cy + 16, CW, d.get('f3'), h=140, name='メッセージ欄', content=d.get('msg'))
-    cy += 6 + paragraph(c, PAD_X, cy + 6, CW, '初期メッセージ（送信文テンプレート）', 12, 0, color=t['sub'], name='注記')
-    cy += 16 + c.text(PAD_X, cy + 16, CW, '紹介方法選択', 16, 700, t['ink'], lh=1.5)
-    for lab, col in ((d.get('cta'), LINE_GREEN), ('メールで送る', '#57504E'), ('リンクでシェア', '#57504E')):
-        cy += 12 + button(c, PAD_X, cy + 12, CW, 69, lab, name=lab or '送信', fill=col, size=18)
+    cy = y + PAD_Y + sec_head(c, PAD_X, y + PAD_Y, CW, d.get('title'), d.get('eyebrow') or 'SHARE')
+
+    def draw(x, yy, w):
+        s = yy
+        for f in ('f1', 'f2'):
+            yy += field(c, x, yy, w, d.get(f), name=d.get(f) or f) + 16
+        yy += field(c, x, yy, w, d.get('f3'), h=120, name='メッセージ欄', content=d.get('msg'))
+        yy += 6 + c.text(x, yy + 6, w, 'このメッセージが紹介URLと一緒に届きます', 10.5, 400, t['mute'], lh=1.6,
+                         name='注記') + 18
+        yy += c.text(x, yy, w, '紹介方法を選ぶ', 13.5, 700, t['ink'], lh=1.5) + 10
+        yy += button(c, x, yy, w, 60, d.get('cta'), name='LINEで送る', fill=LINE_GREEN, size=15) + 10
+        half = (w - 10) / 2
+        button(c, x, yy, half, 52, 'メールで送る', name='メールで送る', fill=t['secondary'], size=13, arrow=False)
+        button(c, x + half + 10, yy, half, 52, 'リンクをコピー', name='リンクでシェア', outline=True, fill=t['secondary'],
+               size=13, arrow=False)
+        return yy + 52 - s
+    cy += card(c, PAD_X, cy, CW, draw, pad=18, name='紹介フォーム')
     return cy + PAD_Y - y
 
 
 def b_guestform(c, b, p, y):
-    d = b['data']
-    cy = y + PAD_Y + heading(c, PAD_X, y + PAD_Y, CW, d.get('title'), 24, 'center', 0)
-    for f in ('f1', 'f2'):
-        cy += 16 + field(c, PAD_X, cy + 16, CW, d.get(f), name=d.get(f) or f)
-    cy += 16 + button(c, PAD_X, cy + 16, CW, 69, d.get('cta'))
+    d, t = b['data'], c.t
+    cy = y + PAD_Y + sec_head(c, PAD_X, y + PAD_Y, CW, d.get('title'), d.get('eyebrow') or 'ENTRY')
+
+    def draw(x, yy, w):
+        s = yy
+        for f in ('f1', 'f2'):
+            yy += field(c, x, yy, w, d.get(f), name=d.get(f) or f) + 16
+        yy += 4 + button(c, x, yy + 4, w, 60, d.get('cta'))
+        return yy - s
+    cy += card(c, PAD_X, cy, CW, draw, pad=18, name='ゲストフォーム')
     return cy + PAD_Y - y
 
 
 def b_code(c, b, p, y):
     d, t = b['data'], c.t
-    cy = y + PAD_Y + heading(c, PAD_X, y + PAD_Y, CW, d.get('title'), 24, 'center', 12)
-    cw_ = min(CW, text_w(d.get('code', ''), 20) + 64)
-    c.rect((W - cw_) / 2, cy, cw_, 60, fill=t['bg'], stroke=t['line'], name='コード枠')
-    c.text((W - cw_) / 2, cy + 15, cw_, d.get('code'), 20, 700, t['ink'], 'center', 1.5, name='コード', ls=1)
-    cy += 60 + 16
-    bw = min(CW, text_w(d.get('cta', ''), 16) + 48)
-    button(c, (W - bw) / 2, cy, bw, 50, d.get('cta'), name='コピーボタン', outline=True, size=16)
-    return cy + 50 + PAD_Y - y
+    cy = y + PAD_Y + sec_head(c, PAD_X, y + PAD_Y, CW, d.get('title'), d.get('eyebrow') or 'COUPON')
+
+    def draw(x, yy, w):
+        s = yy
+        yy += c.text(x, yy, w, d.get('lead') or 'ご予約時にこのコードをお伝えください', 12.5, 400, t['mute'], 'center',
+                     1.6, name='説明') + 12
+        c.rect(x, yy, w, 64, fill=t['tint'], stroke=t['primary'], sw=1.5, rx=10, dash=4, name='コード枠')
+        c.text(x, yy + 15, w, d.get('code'), 24, 900, t['deep'], 'center', 1.4, name='コード', ls=2)
+        yy += 78
+        bw = min(w, 220)
+        yy += button(c, x + (w - bw) / 2, yy, bw, 44, d.get('cta'), name='コピーボタン', outline=True, pill=True,
+                     size=13, arrow=False)
+        return yy - s
+    cy += card(c, PAD_X, cy, CW, draw, pad=18, name='クーポンカード')
+    return cy + PAD_Y - y
 
 
 def b_cta(c, b, p, y):
-    d = b['data']
-    cy = y + PAD_Y + heading(c, PAD_X, y + PAD_Y, CW, d.get('title'), 24, 'center', 12)
-    cy += button(c, PAD_X, cy, CW, 69, d.get('cta'))
+    d, t = b['data'], c.t
+    cy = y + PAD_Y
+    cy += c.text(PAD_X, cy, CW, d.get('title'), 17, 700, t['ink'], 'center', 1.55, head=True, name='見出し') + 14
+    cy += button(c, PAD_X, cy, CW, 60, d.get('cta'))
+    if d.get('fine'):
+        cy += 8 + c.text(PAD_X, cy + 8, CW, d['fine'], 10.5, 400, t['mute'], 'center', 1.6, name='注記')
     return cy + PAD_Y - y
 
 
 def b_button(c, b, p, y):
-    return PAD_Y + button(c, PAD_X, y + PAD_Y, CW, 69, b['data'].get('label')) + PAD_Y
+    return 24 + button(c, PAD_X, y + 24, CW, 60, b['data'].get('label')) + 24
 
 
 def b_terms(c, b, p, y):
     d, t = b['data'], c.t; warn = b['type'] == 'notice-list'
-    cy = y + PAD_Y
-    c.text(PAD_X, cy, 24, '⚠' if warn else '❶', 18, 500, t['ink'], lh=1.6)
-    cy += heading(c, PAD_X + 28, cy, CW - 28, d.get('title'), 18, mb=10)
-    mark = len(c.out)
-    yy = cy + 14
-    for i, s in enumerate(d.get('bullets') or []):
-        c.circle(PAD_X + 14 + 3, yy + 14 * 1.85 / 2, 2, fill=t['body'])
-        yy += c.text(PAD_X + 28, yy, CW - 42, s, 14, 400, t['body'], lh=1.85, name=f'項目{i + 1}') + 6
-    yy += 8
-    body = c.out[mark:]; del c.out[mark:]
-    c.rect(PAD_X, cy, CW, yy - cy, fill=t['bg'], stroke='#D6CDC9', name='規約枠')
-    c.out += body
-    return yy + PAD_Y - y
+    cy = y + 28
+
+    def draw(x, yy, w):
+        s = yy
+        c.circle(x + 9, yy + 10, 9, fill=t['mute'])
+        c.text(x, yy + 3, 18, '!' if warn else 'i', 11, 700, '#FFFFFF', 'center', 1.3, warn=False)
+        yy += c.text(x + 26, yy, w - 26, d.get('title'), 14.5, 700, t['ink'], lh=1.4, name='見出し') + 10
+        for i, s_ in enumerate(d.get('bullets') or []):
+            c.circle(x + 4, yy + 11.5 * 1.8 / 2, 2, fill=t['mute'])
+            yy += c.text(x + 14, yy, w - 14, s_, 11.5, 400, t['body'], lh=1.8, name=f'項目{i + 1}') + 4
+        return yy - s - 4
+    cy += card(c, PAD_X, cy, CW, draw, pad=18, fill=t['note'], stroke='', name='規約')
+    return cy + 28 - y
 
 
 def b_footer(c, b, p, y):
     d, t = b['data'], c.t
-    c.rect(0, y, W, 74, fill=t['footer'])
-    c.text(PAD_X, y + 20, 160, d.get('name') or p.get('title', ''), 12, 400, t['onFooter'], lh=1.6, name='表示名', maxlines=1)
-    links = [d.get('a'), d.get('b')]
-    x = W - PAD_X
-    for s in reversed([l for l in links if l]):
-        w = text_w(s, 12)
-        c.text(x - w, y + 20, w + 2, s, 12, 400, t['onFooter'], lh=1.6, name='リンク')
-        x -= w + 16
-    return 74
+    c.rect(0, y, W, 96, fill=t['footer'])
+    links = [s for s in (d.get('a'), d.get('b')) if s]
+    x = (W - (sum(text_w(s, 11) for s in links) + 24 * (len(links) - 1))) / 2
+    for s in links:
+        c.text(x, y + 24, text_w(s, 11) + 2, s, 11, 400, t['onFooter'], lh=1.6, name='リンク')
+        x += text_w(s, 11) + 24
+    c.text(PAD_X, y + 56, CW, '© ' + (d.get('name') or p.get('_project') or p.get('title', '')), 10, 400,
+           mix(t['onFooter'], t['footer'], 0.35), 'center', 1.6, name='表示名', maxlines=1)
+    return 96
 
 
 def b_floating(c, b, p, y):
     t = c.t
-    c.rect(0, y, W, 85, fill=t['primary'], name='バナー背景')
-    c.text(PAD_X, y + (85 - 18 * 1.4) / 2, CW, b['data'].get('cta'), 18, 500, t['onPrimary'], 'center', 1.4,
-           name='バナー文言', maxlines=1)
-    return 85
+    c.line(0, y, W, y, t['line'], 1)
+    button(c, PAD_X, y + 10, CW, 56, b['data'].get('cta'), name='バナー', pill=True, size=15)
+    return 76
 
 
 SHAPES = {
@@ -665,27 +878,37 @@ SHAPES = {
   'client-site-link': b_cta, 'coming-form-link': b_cta, 'please-read': b_terms, 'notice-list': b_terms,
   'footer': b_footer, 'invitation-banner': b_floating,
 }
+# 交互背景（白／淡色）の対象にしないブロック
+EDGE = {'brand-logo', 'kv-image', 'keyvisual', 'footer', 'invitation-banner', 'please-read', 'notice-list',
+        'coupon-message', 'service-show-timer', 'button'}
 
 
-def render_page(page, spec, scale=3, base_dir='.', x_offset=0):
-    """1ページを描画。(svg本文の要素リスト, 幅pt, 高さpt, 警告, ブロックごとの y 範囲) を返す"""
+def render_page(page, spec, scale=3, base_dir='.'):
+    """1ページを描画。(要素リスト, 幅pt, 高さpt, 警告, ブロックごとの (y, h)) を返す"""
     theme = theme_of(spec)
     c = Canvas(scale, theme, base_dir)
-    y = 0; spans = []
+    page = dict(page, _project=spec.get('project', ''))
+    y = 0; spans = []; alt = False
     for i, b in enumerate(page['blocks']):
-        label = BLOCKS[b['type']]['label']
-        st = b.get('style') or {}          # CMS の「スタイル設定」（背景色・透明度・枠線）とリッチテキストの文字色
+        st = b.get('style') or {}
         c.t = dict(theme)
         if st.get('textColor'):
-            c.t.update(ink=st['textColor'], body=st['textColor'], sub=st['textColor'])
-        c.open(f"{i + 1:02d}_{label}")
-        mark = len(c.out)
+            c.t.update(ink=st['textColor'], body=st['textColor'])
+        bg = st.get('bg')
+        if not bg:
+            if b['type'] in EDGE:
+                bg = theme['bg']
+            else:
+                bg = theme['soft'] if alt else theme['bg']
+                alt = not alt
+        c.open(f"{i + 1:02d}_{BLOCKS[b['type']]['label']}")
+        m = c.mark()
         h = SHAPES[b['type']](c, b, page, y)
         if b.get('minH') and b['minH'] > h:
             h = b['minH']
-        body = c.out[mark:]; del c.out[mark:]
+        body = c.cut(m)
         op = st.get('bgOpacity')
-        c.rect(0, y, W, h, fill=st.get('bg') or theme['bg'], name='背景', opacity=None if op in (None, 100) else op / 100)
+        c.rect(0, y, W, h, fill=bg, name='背景', opacity=None if op in (None, 100) else op / 100)
         c.out += body
         if st.get('border'):
             c.rect(0.5, y + 0.5, W - 1, h - 1, stroke=st.get('borderColor') or theme['line'], sw=1, name='枠線')
@@ -694,6 +917,136 @@ def render_page(page, spec, scale=3, base_dir='.', x_offset=0):
         y += h
     c.t = theme
     return c.out, W, y, c.warn, spans
+
+
+# ---------------------------------------------------------------- OGP 画像・LINE 表示イメージ
+def page_of(spec, pt):
+    return next((p for p in spec.get('pages', []) if p.get('pageType') == pt), None)
+
+
+def kv_data(spec):
+    for pt in ('inviter', 'guest'):
+        for b in (page_of(spec, pt) or {}).get('blocks', []):
+            if b['type'] == 'kv-image':
+                return b['data']
+    return {}
+
+
+def offers(spec):
+    for pt in ('inviter', 'guest'):
+        for b in (page_of(spec, pt) or {}).get('blocks', []):
+            if b['type'] == 'benefits':
+                return b['data']
+    o = spec.get('offer') or {}
+    return {'capA': 'ご紹介くださった方', 'a': o.get('inviter', ''), 'capB': 'ご紹介を受けた方', 'b': o.get('guest', '')}
+
+
+def draw_ogp(c, x0, y0, spec, u=1.0):
+    """OGP 画像を描く。基準は 400×210pt（scale=3 で 1200×630px）。u は縮尺"""
+    t = c.t
+    Wd, Hd = 400 * u, 210 * u
+    kv, of = kv_data(spec), offers(spec)
+    c.open('OGP画像')
+    c.rect(x0, y0, Wd, Hd, fill=t['secondary'], name='OGP背景')
+    c.rect(x0, y0 + Hd - 10 * u, Wd, 10 * u, fill=t['cream'], name='帯')
+    c.text(x0 + 22 * u, y0 + 20 * u, 210 * u, spec.get('project', ''), 11 * u, 900, t['onSecondary'], lh=1.4,
+           name='ロゴ（画像に差し替え）', maxlines=1, warn=False)
+    yy = y0 + 50 * u
+    if kv.get('sub'):
+        yy += c.text(x0 + 22 * u, yy, 220 * u, kv['sub'], 9.5 * u, 700, t['onSecondary'], lh=1.5, name='小見出し',
+                     maxlines=1, warn=False) + 4 * u
+    c.text(x0 + 22 * u, yy, 216 * u, kv.get('copy') or spec.get('project', ''), 21 * u, 900, t['onSecondary'],
+           lh=1.38, head=True, name='メインコピー', maxlines=3, warn=False)
+    cx, cy, cw, ch = x0 + 252 * u, y0 + 26 * u, 128 * u, 158 * u        # 右側の特典カード
+    c.rect(cx, cy, cw, ch, fill='#FFFFFF', rx=12 * u, name='特典カード')
+    yy = cy + 12 * u
+    for cap, val in ((of.get('capA'), of.get('a')), (of.get('capB'), of.get('b'))):
+        c.rect(cx + 10 * u, yy, cw - 20 * u, 15 * u, fill=t['secondary'], rx=2 * u, name='リボン')
+        c.text(cx + 10 * u, yy + 1.5 * u, cw - 20 * u, cap, 7.5 * u, 700, t['onSecondary'], 'center', 1.6, maxlines=1,
+               warn=False)
+        yy += 21 * u
+        sp = split_amount(val)
+        if sp and text_w(sp[1], 20 * u) + text_w(sp[2], 8 * u) < cw - 16 * u:
+            if sp[0]:
+                yy += c.text(cx + 6 * u, yy, cw - 12 * u, sp[0], 7.5 * u, 700, t['deep'], 'center', 1.4, maxlines=1,
+                             warn=False)
+            yy += c.runs(cx + cw / 2, yy, [(sp[1], 20 * u, 900, t['deep']), (sp[2], 8 * u, 700, t['deep'])]) + 6 * u
+        else:
+            yy += c.text(cx + 6 * u, yy, cw - 12 * u, val, 11 * u, 900, t['deep'], 'center', 1.35, maxlines=2,
+                         warn=False) + 8 * u
+    c.close()
+    return Wd, Hd
+
+
+def ogp_file(spec, base_dir):
+    ps = (page_of(spec, 'guest') or page_of(spec, 'inviter') or {}).get('settings') or {}
+    f = ps.get('ogp')
+    return f if f and os.path.exists(os.path.join(base_dir, f)) else None
+
+
+def render_ogp(spec, scale=3, base_dir='.'):
+    c = Canvas(scale, theme_of(spec), base_dir)
+    f = ogp_file(spec, base_dir)
+    if f:
+        c.image(0, 0, 400, 210, f, 'OGP画像', name='OGP画像')
+        return c.out, 400, 210, c.warn
+    w, h = draw_ogp(c, 0, 0, spec)
+    return c.out, w, h, c.warn
+
+
+def render_line(spec, scale=3, base_dir='.'):
+    """紹介者が LINE で送ったとき、受け取った側のトーク画面での見え方（イメージ。実際の見え方は端末で変わる）"""
+    c = Canvas(scale, theme_of(spec), base_dir)
+    inv = page_of(spec, 'inviter') or {}
+    gst = page_of(spec, 'guest') or inv
+    msg = next((b['data'].get('msg') for b in inv.get('blocks', []) if b['type'] == 'invite-form'), '') or ''
+    ps = gst.get('settings') or {}
+    title = ps.get('title') or gst.get('title') or spec.get('project', '')
+    desc = ps.get('description') or ''
+    slug = spec.get('slug') or 'client'
+    c.rect(0, 0, W, 10, fill='#8CABD9', name='トーク背景')         # 高さは最後に差し替える
+    bg_i = len(c.out) - 1
+    c.open('トークのヘッダー')
+    c.rect(0, 0, W, 48, fill='#F7F8FA')
+    c.path([('M', 22, 17), ('L', 15, 24), ('L', 22, 31)], stroke='#1C1E22', sw=2)
+    c.text(40, 14, 200, 'お友だち', 15, 700, '#1C1E22', lh=1.4, warn=False)
+    c.close()
+    y = 68
+    c.circle(30, y + 16, 16, fill='#DDE3EA', name='アイコン')
+    bx, bw = 56, 260
+    c.open('メッセージ')
+    m = c.mark()
+    th = c.text(bx + 14, y + 12, bw - 28, msg, 13.5, 400, '#1C1E22', lh=1.65, name='メッセージ本文', warn=False)
+    th += c.text(bx + 14, y + 12 + th + (4 if th else 0), bw - 28, f'https://invy.jp/{slug}/guest?code=…', 12, 400,
+                 '#2B6BD6', lh=1.6, name='紹介URL', warn=False) + (4 if th else 0)
+    body = c.cut(m)
+    c.rect(bx, y, bw, th + 24, fill='#FFFFFF', rx=16, name='吹き出し')
+    c.out += body
+    c.close()
+    y += th + 24 + 10
+    c.open('リンクプレビュー')
+    u = bw / 400
+    ogh = 210 * u
+    m = c.mark()
+    f = ogp_file(spec, c.base)
+    if f:
+        c.image(bx, y, bw, ogh, f, 'OGP画像')
+    else:
+        draw_ogp(c, bx, y, spec, u)
+    ty = y + ogh + 10
+    ty += c.text(bx + 12, ty, bw - 24, title, 13, 700, '#1C1E22', lh=1.5, name='タイトル', maxlines=2, warn=False)
+    if desc:
+        ty += 2 + c.text(bx + 12, ty + 2, bw - 24, desc, 11, 400, '#767C83', lh=1.6, name='説明文', maxlines=2, warn=False)
+    ty += 4 + c.text(bx + 12, ty + 4, bw - 24, 'invy.jp', 10, 400, '#9AA0A6', lh=1.6, name='ドメイン', warn=False)
+    body = c.cut(m)
+    c.rect(bx, y, bw, ty + 10 - y, fill='#FFFFFF', rx=16, name='カード')
+    c.out += body
+    c.close()
+    y = ty + 10
+    c.text(bx + bw + 6, y - 16, 40, '12:34', 9.5, 400, '#FFFFFF', lh=1.5, warn=False)
+    H = max(560, y + 60)
+    c.out[bg_i] = c.out[bg_i].replace(f'height="{c.n(10)}"', f'height="{c.n(H)}"')
+    return c.out, W, H, c.warn
 
 
 def svg_doc(groups, width_pt, height_pt, scale):

@@ -21,8 +21,8 @@ LP はこのカタログのブロックだけで組む。`type` は spec.json �
 
 ### キービジュアル（画像）　`kv-image`
 - ページ：both　／　CMSクラス：`keyvisual`
-- 入力項目：`alt` 画像の説明（代替テキスト）
-- 画像：`kv` KV画像（375×500pt）
+- 入力項目：`sub` KV内の小見出し（画像に入れる文言）、`copy` KV内のメインコピー（画像に入れる文言）、`bubble` KV内の吹き出し（特典の訴求。画像に入れる文言）、`alt` 画像の説明（代替テキスト）
+- 画像：`kv` KV画像（支給があれば差し替え）（375×500pt）
 
 ### キービジュアル（コピー＋画像）　`keyvisual`
 - ページ：both　／　CMSクラス：`keyvisual`
@@ -37,16 +37,16 @@ LP はこのカタログのブロックだけで組む。`type` は spec.json �
 
 ### 特典エリア　`benefits`
 - ページ：both　／　CMSクラス：`benefits`
-- 入力項目：`title` 見出し、`capA` 紹介者ラベル、`a` 紹介者特典、`capB` ゲストラベル、`b` ゲスト特典、`note` 特典の条件（注記）、`cta` ボタン文言
+- 入力項目：`eyebrow` 見出しラベル（英字）、`title` 見出し、`lead` カード内の見出し、`capA` 紹介者ラベル（リボン）、`a` 紹介者特典、`subA` 紹介者特典の補足、`capB` ゲストラベル（リボン）、`b` ゲスト特典、`subB` ゲスト特典の補足、`note` 特典の条件（注記）、`cta` ボタン文言
 - 画像：`ico1` 紹介者特典アイコン（50×50pt）、`ico2` ゲスト特典アイコン（50×50pt）
 
 ### 見出し　`headline`
 - ページ：both　／　CMSクラス：`headline`
-- 入力項目：`title` 見出し
+- 入力項目：`eyebrow` 見出しラベル（英字）、`title` 見出し
 
 ### テキスト　`text-editor`
 - ページ：both　／　CMSクラス：`text-editor`
-- 入力項目：`title` 見出し、`lead` 本文
+- 入力項目：`eyebrow` 見出しラベル（英字）、`title` 見出し、`lead` 本文
 
 ### 画像　`image`
 - ページ：both　／　CMSクラス：`image`
@@ -60,17 +60,17 @@ LP はこのカタログのブロックだけで組む。`type` は spec.json �
 
 ### フレーム（リスト）　`frame-list`
 - ページ：both　／　CMSクラス：`frame-list`, `list-frame`
-- 入力項目：`title` 見出し、`rows` 項目（テキスト＋画像）
-- 画像：`r{i}` 項目画像（311×160pt）
+- 入力項目：`title` 見出し、`rows` 項目（チェック付きの箇条書き。画像は任意）、`showImages` 項目ごとの画像枠を出す（true / false）
+- 画像：`r{i}` 項目画像（311×140pt）
 
 ### 口コミ（ギャラリー）　`review-gallery`
 - ページ：both　／　CMSクラス：`review-gallery`, `gallery`
-- 入力項目：`title` 見出し
+- 入力項目：`eyebrow` 見出しラベル（英字）、`title` 見出し
 - 画像：`g{i}` ギャラリー画像（163×163pt）
 
 ### 口コミ（リスト）　`review-list`
 - ページ：both　／　CMSクラス：`review`, `reviews`
-- 入力項目：`title` 見出し、`rows` 口コミ本文、`cta` もっと見るボタン文言
+- 入力項目：`eyebrow` 見出しラベル（英字）、`title` 見出し、`rows` 口コミ本文、`cta` もっと見るボタン文言
 - 画像：`rv{i}` 口コミ画像（100×80pt）
 
 ### 画像スライダー　`image-slider`
@@ -80,7 +80,7 @@ LP はこのカタログのブロックだけで組む。`type` は spec.json �
 
 ### 画像スライダー（テキスト付き）　`image-slider-text`
 - ページ：both　／　CMSクラス：`image-slider-text`
-- 入力項目：`title` 見出し、`slides` スライド（画像＋説明文＋任意ボタン）
+- 入力項目：`eyebrow` 見出しラベル（英字）、`title` 見出し、`slides` スライド（画像＋説明文＋任意ボタン）
 - 画像：`s{i}` スライド画像（224×160pt）
 
 ### クーポンメッセージ　`coupon-message`
@@ -99,17 +99,17 @@ LP はこのカタログのブロックだけで組む。`type` は spec.json �
 
 ### 紹介上手になるためのヒント　`hint`
 - ページ：inviter　／　CMSクラス：`hint`
-- 入力項目：`title` 見出し、`slides` ヒント（画像＋説明文）
+- 入力項目：`eyebrow` 見出しラベル（英字）、`title` 見出し、`slides` ヒント（画像＋説明文）
 - 画像：`s{i}` ヒント画像（224×160pt）
 
 ### 紹介方法（紹介の流れ）　`flow`
 - ページ：both　／　CMSクラス：`flow`, `flow2`
-- 入力項目：`title` 見出し、`steps` ステップ（画像＋説明）
+- 入力項目：`eyebrow` 見出しラベル（英字）、`title` 見出し、`steps` ステップ（画像＋説明）、`showImages` ステップ画像の枠を出す（true / false）
 - 画像：`st{i}` ステップ画像（272×120pt）
 
 ### 紹介方法（タブ）　`flow-tab`
 - ページ：both　／　CMSクラス：`flow-tab`
-- 入力項目：`title` 見出し、`t1` タブ1、`t2` タブ2、`steps` ステップ
+- 入力項目：`eyebrow` 見出しラベル（英字）、`title` 見出し、`t1` タブ1、`t2` タブ2、`steps` ステップ
 
 ### ご紹介方法の詳細　`invitation-detail`
 - ページ：inviter　／　CMSクラス：`invitation-detail`
@@ -117,7 +117,7 @@ LP はこのカタログのブロックだけで組む。`type` は spec.json �
 
 ### よくあるご質問　`faq`
 - ページ：both　／　CMSクラス：`faq`
-- 入力項目：`title` 見出し、`items` Q&A
+- 入力項目：`eyebrow` 見出しラベル（英字）、`title` 見出し、`items` Q&A
 
 ### アコーディオンリスト　`accordion-list`
 - ページ：both　／　CMSクラス：`accordion-list`
@@ -125,7 +125,7 @@ LP はこのカタログのブロックだけで組む。`type` は spec.json �
 
 ### YouTube埋め込み　`youtube`
 - ページ：both　／　CMSクラス：`youtube`, `video`
-- 入力項目：`title` 見出し、`url` 動画URL
+- 入力項目：`eyebrow` 見出しラベル（英字）、`title` 見出し、`url` 動画URL
 - 画像：`thumb` サムネイル（335×188pt）
 
 ### モーダル表示　`modal`
@@ -140,23 +140,23 @@ LP はこのカタログのブロックだけで組む。`type` は spec.json �
 
 ### 紹介フォーム　`invite-form`
 - ページ：inviter　／　CMSクラス：`invite-form`
-- 入力項目：`title` 見出し、`f1` 項目1、`f2` 項目2、`f3` メッセージ欄の見出し、`msg` 初期メッセージ（送信文テンプレート）、`cta` LINEボタン文言
+- 入力項目：`eyebrow` 見出しラベル（英字）、`title` 見出し、`f1` 項目1、`f2` 項目2、`f3` メッセージ欄の見出し、`msg` 初期メッセージ（送信文テンプレート）、`cta` LINEボタン文言
 
 ### ゲストフォーム　`guest-form`
 - ページ：guest　／　CMSクラス：`guest-form`
-- 入力項目：`title` 見出し、`f1` 項目1、`f2` 項目2、`cta` 送信ボタン文言
+- 入力項目：`eyebrow` 見出しラベル（英字）、`title` 見出し、`f1` 項目1、`f2` 項目2、`cta` 送信ボタン文言
 
 ### クーポンコード　`invitation-code`
 - ページ：guest　／　CMSクラス：`invitation-code`, `coupon-code`
-- 入力項目：`title` 見出し、`code` コード表示、`cta` コピーボタン文言
+- 入力項目：`eyebrow` 見出しラベル（英字）、`title` 見出し、`lead` 説明、`code` コード表示、`cta` コピーボタン文言
 
 ### クライアントサイトのリンク　`client-site-link`
 - ページ：both　／　CMSクラス：`client-site-link`
-- 入力項目：`title` 見出し、`cta` ボタン文言、`href` 遷移先、`measure` 計測方法
+- 入力項目：`title` 見出し、`cta` ボタン文言、`fine` ボタン下の注記、`href` 遷移先、`measure` 計測方法
 
 ### 来店計測へのリンク　`coming-form-link`
 - ページ：guest　／　CMSクラス：`coming-form-link`, `client-site-coming-form-link`
-- 入力項目：`title` 見出し、`cta` ボタン文言
+- 入力項目：`title` 見出し、`cta` ボタン文言、`fine` ボタン下の注記
 
 ## 規約・フッター
 
