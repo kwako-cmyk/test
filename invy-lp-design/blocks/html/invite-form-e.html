@@ -1,0 +1,22 @@
+<section class="blk" data-block="invite-form-e" data-figma="3119:13857" data-section="紹介フォーム" data-variant="紹介フォーム">
+<style>
+[data-block="invite-form-e"] .card { background: var(--bg); border: 1px solid var(--border); padding: 7px; color: var(--fg); }
+[data-block="invite-form-e"] .card.is-selected { background: var(--main); border-color: var(--main); color: var(--fg-inverted); }
+[data-block="invite-form-e"] .card .img-slot { flex: none; height: 80px; }
+
+[data-block="invite-form-e"] { background: var(--bg-subtle); padding: 40px 20px; display: flex; flex-direction: column; gap: 16px; }
+[data-block="invite-form-e"] .ftl { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+[data-block="invite-form-e"] .req { font-size: 14px; line-height: 16px; padding: 4px 6.5px; letter-spacing: 0; }
+[data-block="invite-form-e"] .choices { display: grid; grid-template-columns: 160px 160px; gap: 15px; }
+[data-block="invite-form-e"] .card { display: flex; flex-direction: column; gap: 12px; padding-bottom: 9.65px; }
+[data-block="invite-form-e"] .card p { padding: 0 2px; }
+</style>
+  <div class="ftl"><p class="t-label-lg" data-field="choiceLabel">１つ選択</p><span class="req">必須</span></div>
+  <div class="choices" data-repeat="choices">
+      <div class="card is-selected" data-item><div class="img-slot" data-slot="choices.image" data-size="144x80">画像</div><p class="t-label-md-r" data-field="choices.label">新しい家族が増えた方へ</p></div>
+      <div class="card" data-item><div class="img-slot" data-slot="choices.image" data-size="144x80">画像</div><p class="t-label-md-r" data-field="choices.label">お子様が進学・就職された方へ</p></div>
+      <div class="card" data-item><div class="img-slot" data-slot="choices.image" data-size="144x80">画像</div><p class="t-label-md-r" data-field="choices.label">人生の節目を迎えられた方へ</p></div>
+      <div class="card" data-item><div class="img-slot" data-slot="choices.image" data-size="144x80">画像</div><p class="t-label-md-r" data-field="choices.label">大切なご家族、親しい友人、職場の同僚の方へ</p></div>
+      <div class="card" data-item><div class="img-slot" data-slot="choices.image" data-size="144x80">画像</div><p class="t-label-md-r" data-field="choices.label">プレゼント抽選を、一緒に楽しみたい方へ</p></div>
+    </div>
+</section>

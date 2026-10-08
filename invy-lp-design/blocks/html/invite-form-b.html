@@ -1,0 +1,214 @@
+<section class="blk" data-block="invite-form-b" data-figma="3119:13612" data-section="紹介フォーム" data-variant="紹介フォームB">
+<style>
+[data-block="invite-form-b"] .fields { display: flex; flex-direction: column; gap: 32px; width: 100%; }
+[data-block="invite-form-b"] .fld { display: flex; flex-direction: column; gap: 12px; }
+[data-block="invite-form-b"] .ftl { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 24px; }
+[data-block="invite-form-b"] .req { font-size: 14px; line-height: 16px; padding: 4px 6.5px; letter-spacing: 0; flex: none; }
+[data-block="invite-form-b"] .ctl { display: flex; flex-direction: column; gap: 8px; }
+[data-block="invite-form-b"] .box { display: flex; align-items: center; height: 48px; padding: 0 12px; background: var(--bg); border: 1px solid var(--border);
+  font-size: 16px; line-height: 1.5; letter-spacing: .04em; color: var(--fg); position: relative; }
+[data-block="invite-form-b"] .box.is-ph { color: var(--fg-inactive); }
+[data-block="invite-form-b"] .box.is-error { background: var(--attention-bg); border-color: var(--attention-border); }
+[data-block="invite-form-b"] .err { color: var(--attention); }
+[data-block="invite-form-b"] .help { color: var(--fg-subtle); }
+[data-block="invite-form-b"] .box.is-select { padding-right: 36px; }
+[data-block="invite-form-b"] .box.is-select::after { content: ""; position: absolute; right: 16px; top: 50%; margin-top: -3px; border: 5px solid transparent;
+  border-top: 6px solid var(--fg); border-bottom: 0; }
+[data-block="invite-form-b"] .split { display: flex; gap: 12px; }
+[data-block="invite-form-b"] .split > div { flex: 1; display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+[data-block="invite-form-b"] .date { display: flex; align-items: center; gap: 12px; }
+[data-block="invite-form-b"] .date .box { flex: 1; min-width: 0; }
+[data-block="invite-form-b"] .date span.u { flex: none; width: 14px; }
+[data-block="invite-form-b"] .area { height: 104px; padding: 12px; background: var(--bg); border: 1px solid var(--border); }
+[data-block="invite-form-b"] .opts { display: flex; flex-direction: column; gap: 16px; }
+[data-block="invite-form-b"] .opt { display: flex; align-items: center; gap: 12px; height: 25px; }
+[data-block="invite-form-b"] .radio, [data-block="invite-form-b"] .check { width: 20px; height: 20px; flex: none; background: var(--bg); border: 1px solid var(--border); }
+[data-block="invite-form-b"] .radio { border-radius: 50%; }
+[data-block="invite-form-b"] .drop { display: flex; flex-direction: column; align-items: center; gap: 20px; padding: 46.5px 32px; background: var(--bg-subtle);
+  border: 1px dashed var(--border); text-align: center; }
+[data-block="invite-form-b"] .drop .btn { min-height: 48px; padding: 12px 24px; font-size: 14px; }
+[data-block="invite-form-b"] .lnk { color: var(--main); text-decoration: underline; }
+[data-block="invite-form-b"] .t-body-md { line-height: 25px; }
+
+[data-block="invite-form-b"] .card { background: var(--bg); border: 1px solid var(--border); padding: 7px; color: var(--fg); }
+[data-block="invite-form-b"] .card.is-selected { background: var(--main); border-color: var(--main); color: var(--fg-inverted); }
+[data-block="invite-form-b"] .card .img-slot { flex: none; height: 80px; }
+
+[data-block="invite-form-b"] { background: #767676; display: flex; flex-direction: column; gap: 16px; }
+[data-block="invite-form-b"] .panel { background: var(--bg-subtle); padding: 40px 20px; display: flex; flex-direction: column; gap: 32px; }
+[data-block="invite-form-b"] .bhead { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+[data-block="invite-form-b"] .balloon { position: relative; background: var(--bg); border-radius: 8px; padding: 4px 24px 3px; margin-bottom: 18px; }
+[data-block="invite-form-b"] .balloon::after { content: ""; position: absolute; left: 50%; top: 100%; margin-left: -8px; border: 8px solid transparent; border-top: 10px solid var(--bg); border-bottom: 0; }
+[data-block="invite-form-b"] .balloon p { line-height: 24px; }
+[data-block="invite-form-b"] .bhead h2 { text-align: center; width: 100%; }
+[data-block="invite-form-b"] .prog { display: flex; flex-direction: column; gap: 24px; }
+[data-block="invite-form-b"] .dots { position: relative; display: flex; justify-content: center; gap: 31px; }
+[data-block="invite-form-b"] .dots::before { content: ""; position: absolute; left: 94px; width: 149px; top: 19px; height: 3px; background: var(--bg); }
+[data-block="invite-form-b"] .dot { position: relative; width: 41px; height: 41px; border-radius: 50%; background: var(--bg); color: var(--fg-inactive);
+  display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: var(--w-bold); }
+[data-block="invite-form-b"] .dot.is-on { background: var(--main); color: var(--fg-inverted); }
+[data-block="invite-form-b"] .shead { display: flex; min-height: 68px; background: var(--bg); }
+[data-block="invite-form-b"] .shead .no { width: 40px; flex: none; background: var(--main); color: var(--fg-inverted); display: flex; flex-direction: column;
+  align-items: center; justify-content: center; line-height: 1.2; }
+[data-block="invite-form-b"] .shead .no small { font-size: 8px; letter-spacing: .04em; }
+[data-block="invite-form-b"] .shead .no b { font-size: 16px; }
+[data-block="invite-form-b"] .shead p { flex: 1; padding: 8px 16px; display: flex; align-items: center; }
+[data-block="invite-form-b"] .choices { display: flex; flex-direction: column; gap: 8px; }
+[data-block="invite-form-b"] .card { display: flex; align-items: center; gap: 16px; height: 96px; }
+[data-block="invite-form-b"] .card .img-slot { width: 120px; }
+[data-block="invite-form-b"] .pick { display: flex; flex-direction: column; gap: 16px; }
+[data-block="invite-form-b"] .next { min-height: 69px; padding: 21px 40px; font-size: 18px; }
+[data-block="invite-form-b"] .next.is-disabled { background: var(--border); color: var(--fg-inverted); }
+
+[data-block="invite-form-b"] .grp { display: flex; flex-direction: column; gap: 24px; width: 100%; }
+[data-block="invite-form-b"] .grp > h3 { text-align: center; }
+[data-block="invite-form-b"] .mlist { display: flex; flex-direction: column; gap: 16px; }
+[data-block="invite-form-b"] .mbtn { display: flex; align-items: center; gap: 12px; padding: 16px 16px; color: var(--fg-inverted); text-decoration: none;  }
+[data-block="invite-form-b"] .mbtn .ico { width: 32px; height: 32px; flex: none; border-radius: 50%; background: rgba(255,255,255,.45); }
+[data-block="invite-form-b"] .mbtn .lbl { flex: 1; text-align: center; min-width: 0; }
+[data-block="invite-form-b"] .mbtn .chev { width: 16px; height: 16px; flex: none; position: relative; }
+[data-block="invite-form-b"] .mbtn .chev::before { content: ""; position: absolute; left: 2px; top: 4px; width: 8px; height: 8px; border-top: 2px solid currentColor;
+  border-right: 2px solid currentColor; transform: rotate(45deg); }
+[data-block="invite-form-b"] .mbtn[data-method="sms"] .ico { width: 40px; height: 41px; }
+[data-block="invite-form-b"] .mbtn[data-method="slack"] .ico, [data-block="invite-form-b"] .mbtn[data-method="chatwork"] .ico { width: 30px; height: 30px; }
+[data-block="invite-form-b"] .mbtn[data-method="line"] { background: #1bb71f; }
+[data-block="invite-form-b"] .mbtn[data-method="mail"] { background: #e87c21; }
+[data-block="invite-form-b"] .mbtn[data-method="sms"] { background: #23abd1; }
+[data-block="invite-form-b"] .mbtn[data-method="facebook"] { background: #1877f2; }
+[data-block="invite-form-b"] .mbtn[data-method="x"] { background: #222222; }
+[data-block="invite-form-b"] .mbtn[data-method="messenger"] { background: #6c4fe0; }
+[data-block="invite-form-b"] .mbtn[data-method="instagram-url"], [data-block="invite-form-b"] .mbtn[data-method="instagram"] { background: #d02d92; }
+[data-block="invite-form-b"] .mbtn[data-method="slack"] { background: #4a154b; }
+[data-block="invite-form-b"] .mbtn[data-method="chatwork"] { background: #f03848; }
+[data-block="invite-form-b"] .mbtn[data-method="link"] { background: #ff9f44; }
+[data-block="invite-form-b"] .mbtn[data-method="qr"] { background: #3e9ed9; }
+</style>
+<div class="panel" data-step="1">
+  <div class="bhead">
+    <div class="balloon"><p class="t-label-md" data-field="eyebrow">カンタン！たったの30秒！</p></div>
+    <h2 class="t-headline-lg" data-field="title">ご家族・お友達に応援<br>メッセージを送ろう！</h2>
+  </div>
+  <div class="prog">
+    <div class="dots"><span class="dot is-on">1</span><span class="dot">2</span><span class="dot">3</span></div>
+    <div class="shead"><span class="no"><small>STEP</small><b>1</b></span><p class="t-body-md" data-field="step1Text">送るメッセージカードを選びます</p></div>
+  </div>
+  <div class="pick">
+    <div class="ftl"><p class="t-label-lg" data-field="choiceLabel">１つ選択</p><span class="req">必須</span></div>
+    <div class="choices" data-repeat="choices">
+      <div class="card is-selected" data-item><div class="img-slot" data-slot="choices.image" data-size="120x80">画像</div><p class="t-label-md-r" data-field="choices.label">新しい家族が増えた方へ</p></div>
+      <div class="card" data-item><div class="img-slot" data-slot="choices.image" data-size="120x80">画像</div><p class="t-label-md-r" data-field="choices.label">お子様が進学・就職された方へ</p></div>
+      <div class="card" data-item><div class="img-slot" data-slot="choices.image" data-size="120x80">画像</div><p class="t-label-md-r" data-field="choices.label">人生の節目を迎えられた方へ</p></div>
+      <div class="card" data-item><div class="img-slot" data-slot="choices.image" data-size="120x80">画像</div><p class="t-label-md-r" data-field="choices.label">大切なご家族、親しい友人、職場の同僚の方へ</p></div>
+      <div class="card" data-item><div class="img-slot" data-slot="choices.image" data-size="120x80">画像</div><p class="t-label-md-r" data-field="choices.label">プレゼント抽選を、一緒に楽しみたい方へ</p></div>
+    </div>
+  </div>
+  <a class="btn next" href="#" data-href-field="nextUrl"><span data-field="nextLabel">つぎへ</span></a>
+</div>
+<div class="panel" data-step="2">
+  <div class="bhead">
+    <div class="balloon"><p class="t-label-md" data-field="eyebrow">カンタン！たったの30秒！</p></div>
+    <h2 class="t-headline-lg" data-field="title">ご家族・お友達に応援<br>メッセージを送ろう！</h2>
+  </div>
+  <div class="prog">
+    <div class="dots"><span class="dot">1</span><span class="dot is-on">2</span><span class="dot">3</span></div>
+    <div class="shead"><span class="no"><small>STEP</small><b>2</b></span><p class="t-body-md" data-field="step2Text">情報を入力します</p></div>
+  </div>
+  <div class="fields">
+    <div class="fld">
+      <div class="ftl"><p class="t-label-lg" data-field="nameLabel">あなたのお名前</p><span class="req">必須</span></div>
+      <div class="ctl"><div class="box is-ph" data-field="namePlaceholder">例）山田　花子</div><p class="help t-caption-md" data-field="nameHelp">※ 姓と名の間に空白を入れてください</p></div>
+    </div>
+    <div class="fld">
+      <div class="ftl"><p class="t-label-lg" data-field="splitNameLabel">あなたのお名前</p><span class="req">必須</span></div>
+      <div class="split">
+        <div><p class="t-label-md-r" data-field="lastNameLabel">姓（漢字）</p><div class="box is-ph" data-field="lastNamePlaceholder">例）山田</div></div>
+        <div><p class="t-label-md-r" data-field="firstNameLabel">名（漢字）</p><div class="box is-ph" data-field="firstNamePlaceholder">例）花子</div></div>
+      </div>
+    </div>
+    <div class="fld">
+      <div class="ftl"><p class="t-label-lg" data-field="kanaLabel">あなたのお名前（カナ）</p><span class="req">必須</span></div>
+      <div class="ctl"><div class="box is-ph" data-field="kanaPlaceholder">例）ヤマダ　ハナコ</div><p class="help t-caption-md" data-field="kanaHelp">※ 姓と名の間に空白を入れてください</p></div>
+    </div>
+    <div class="fld">
+      <div class="ftl"><p class="t-label-lg" data-field="genderLabel">あなたの性別</p><span class="req">必須</span></div>
+      <div class="opts" data-repeat="genderOptions">
+        <div class="opt" data-item><span class="radio"></span><p class="t-body-md" data-field="genderOptions.label">男性</p></div>
+        <div class="opt" data-item><span class="radio"></span><p class="t-body-md" data-field="genderOptions.label">女性</p></div>
+      </div>
+    </div>
+    <div class="fld">
+      <div class="ftl"><p class="t-label-lg" data-field="birthLabel">あなたの生年月日</p><span class="req">必須</span></div>
+      <div class="date"><div class="box is-select"></div><span class="u t-body-md">年</span><div class="box is-select"></div><span class="u t-body-md">月</span><div class="box is-select"></div><span class="u t-body-md">日</span></div>
+    </div>
+    <div class="fld">
+      <div class="ftl"><p class="t-label-lg" data-field="emailLabel">あなたのメールアドレス</p><span class="req">必須</span></div>
+      <div class="box is-ph" data-field="emailPlaceholder">例）info@invy.jp</div>
+    </div>
+    <div class="fld">
+      <div class="ftl"><p class="t-label-lg" data-field="shopLabel">あなたのお取引店番</p><span class="req">必須</span></div>
+      <div class="box is-select" data-field="shopPlaceholder">選択してください</div>
+    </div>
+    <div class="fld">
+      <div class="ftl"><p class="t-label-lg" data-field="messageLabel">お相手へのメッセージ</p></div>
+      <p class="t-body-md" data-field="messageDesc">ご記入いただいた内容をメッセージとして送信できます。</p>
+      <div class="area t-body-lg" data-field="messageValue">スライドカードに連動した 定型文を表示する予定です</div>
+    </div>
+    <div class="fld">
+      <div class="ftl"><p class="t-label-lg" data-field="uploadLabel">画像アップロード</p><span class="req">必須</span></div>
+      <p class="t-body-md" data-field="uploadDesc">テキスト入りますテキスト入りますテキスト入りますテキスト入りますテキスト入ります</p>
+      <div class="drop"><p class="t-label-md-r" data-field="uploadDrop">ファイルをここにドロップもしくは</p><span class="btn" data-field="uploadButton">ファイルを選択する</span></div>
+      <p class="t-body-md" data-field="uploadNote">テキスト入りますテキスト入りますテキスト入りますテキスト入りますテキスト入ります</p>
+    </div>
+    <div class="fld">
+      <div class="ftl"><p class="t-label-lg" data-field="consentLabel">送信メッセージの掲載について</p><span class="req">必須</span></div>
+      <p class="t-body-md" data-field="consentText">メッセージがキャンペーンサイトに掲載される可能性がございます。個人名や団体名は伏せて表示いたしますが、掲載を希望しない方は「了承しない」を、掲載許諾をいただける方は「了承する」を選択ください。<br>（掲載許可をいただけた場合、掲載前の事前連絡は行いません。）</p>
+      <div class="opts" data-repeat="consentOptions">
+        <div class="opt" data-item><span class="check"></span><p class="t-body-md" data-field="consentOptions.label">了承する</p></div>
+        <div class="opt" data-item><span class="check"></span><p class="t-body-md" data-field="consentOptions.label">了承しない</p></div>
+      </div>
+    </div>
+    <div class="fld">
+      <div class="ftl"><p class="t-label-lg" data-field="privacyLabel">個人情報について</p><span class="req">必須</span></div>
+      <p class="t-body-md" data-field="privacyText">個人情報の取扱については<a class="lnk" href="#" data-href-field="privacyUrl">以下のプライバシーポリシー</a>をご覧ください。</p>
+      <div class="opt"><span class="check"></span><p class="t-body-md" data-field="privacyAgree">同意する</p></div>
+    </div>
+  </div>
+  <a class="btn next is-disabled" href="#" data-href-field="submitUrl"><span data-field="submitLabel">つぎへ（送信方法選択画面）</span></a>
+</div>
+<div class="panel" data-step="3">
+  <div class="bhead">
+    <div class="balloon"><p class="t-label-md" data-field="eyebrow">カンタン！たったの30秒！</p></div>
+    <h2 class="t-headline-lg" data-field="title">ご家族・お友達に応援<br>メッセージを送ろう！</h2>
+  </div>
+  <div class="prog">
+    <div class="dots"><span class="dot">1</span><span class="dot">2</span><span class="dot is-on">3</span></div>
+    <div class="shead"><span class="no"><small>STEP</small><b>3</b></span><p class="t-body-md" data-field="step3Text">お好きな方法で応援メッセージを送りましょう</p></div>
+  </div>
+  <div class="grp">
+    <div class="mlist" data-repeat="methods">
+      <a class="mbtn" href="#" data-item data-method="line" data-href-field="methods.url"><span class="ico" data-asset="var_share/LINE"></span><span class="lbl t-label-lg" data-field="methods.label">LINEで友達に送る</span><span class="chev" data-asset="icon/arrow_chev_right"></span></a>
+      <a class="mbtn" href="#" data-item data-method="mail" data-href-field="methods.url"><span class="ico" data-asset="var_share/Mail"></span><span class="lbl t-label-lg" data-field="methods.label">メールで送る</span><span class="chev" data-asset="icon/arrow_chev_right"></span></a>
+      <a class="mbtn" href="#" data-item data-method="sms" data-href-field="methods.url"><span class="ico" data-asset="var_share/SMS"></span><span class="lbl t-label-lg" data-field="methods.label">SMSで送る</span><span class="chev" data-asset="icon/arrow_chev_right"></span></a>
+    </div>
+  </div>
+  <div class="grp">
+    <h3 class="t-headline-md" data-field="snsTitle">SNSで複数人に<br>シェアするならこちら</h3>
+    <div class="mlist" data-repeat="snsMethods">
+      <a class="mbtn" href="#" data-item data-method="facebook" data-href-field="snsMethods.url"><span class="ico" data-asset="var_share/FB"></span><span class="lbl t-label-lg" data-field="snsMethods.label">Facebookでシェア</span><span class="chev" data-asset="icon/arrow_chev_right"></span></a>
+      <a class="mbtn" href="#" data-item data-method="x" data-href-field="snsMethods.url"><span class="ico" data-asset="var_share/X"></span><span class="lbl t-label-lg" data-field="snsMethods.label">Xでシェア</span><span class="chev" data-asset="icon/arrow_chev_right"></span></a>
+      <a class="mbtn" href="#" data-item data-method="messenger" data-href-field="snsMethods.url"><span class="ico" data-asset="var_share/Messenger"></span><span class="lbl t-label-lg" data-field="snsMethods.label">メッセンジャーでシェア</span><span class="chev" data-asset="icon/arrow_chev_right"></span></a>
+      <a class="mbtn" href="#" data-item data-method="instagram-url" data-href-field="snsMethods.url"><span class="ico" data-asset="var_share/Instagram_URL"></span><span class="lbl t-label-lg" data-field="snsMethods.label">1. Instagram用URLをコピー</span><span class="chev" data-asset="icon/arrow_chev_right"></span></a>
+      <a class="mbtn" href="#" data-item data-method="instagram" data-href-field="snsMethods.url"><span class="ico" data-asset="var_share/Instagram"></span><span class="lbl t-label-lg" data-field="snsMethods.label">2. Instagramでシェアする</span><span class="chev" data-asset="icon/arrow_chev_right"></span></a>
+      <a class="mbtn" href="#" data-item data-method="slack" data-href-field="snsMethods.url"><span class="ico" data-asset="var_share/Slack"></span><span class="lbl t-label-lg" data-field="snsMethods.label">Slackで送る</span><span class="chev" data-asset="icon/arrow_chev_right"></span></a>
+      <a class="mbtn" href="#" data-item data-method="chatwork" data-href-field="snsMethods.url"><span class="ico" data-asset="var_share/Chatwork"></span><span class="lbl t-label-lg" data-field="snsMethods.label">Chatworkで送る</span><span class="chev" data-asset="icon/arrow_chev_right"></span></a>
+      <a class="mbtn" href="#" data-item data-method="link" data-href-field="snsMethods.url"><span class="ico" data-asset="var_share/Link"></span><span class="lbl t-label-lg" data-field="snsMethods.label">リンクでシェア</span><span class="chev" data-asset="icon/arrow_chev_right"></span></a>
+    </div>
+  </div>
+  <div class="grp">
+    <h3 class="t-headline-md" data-field="faceTitle">対面でシェアするならこちら</h3>
+    <div class="mlist" data-repeat="faceMethods">
+      <a class="mbtn" href="#" data-item data-method="qr" data-href-field="faceMethods.url"><span class="ico" data-asset="var_share/QR"></span><span class="lbl t-label-lg" data-field="faceMethods.label">QRで送る</span><span class="chev" data-asset="icon/arrow_chev_right"></span></a>
+    </div>
+  </div>
+</div>
+</section>

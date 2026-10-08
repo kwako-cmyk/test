@@ -1,0 +1,80 @@
+<section class="blk" data-block="invite-form-d" data-figma="3119:13498" data-section="紹介フォーム" data-variant="紹介フォーム">
+<style>
+[data-block="invite-form-d"] .tiles { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 5px; width: 100%; }
+[data-block="invite-form-d"] .tile { width: 80px; height: 106px; display: flex; flex-direction: column; align-items: center; padding: 16px 4px 0; gap: 12px;
+  background: var(--bg); border: 1px solid var(--border); border-radius: 4px; box-shadow: 0 2px 0 var(--border);
+  color: var(--fg); text-decoration: none; text-align: center; }
+[data-block="invite-form-d"] .tile .ico { width: 32px; height: 32px; flex: none; border-radius: 6px; background: var(--border); }
+[data-block="invite-form-d"] .tile[data-method="sms"] .ico { width: 34px; }
+[data-block="invite-form-d"] .tile[data-method="chatwork"] .ico { width: 35px; height: 35px; margin-bottom: -3px; }
+[data-block="invite-form-d"] .tile[data-method="slack"] .ico { width: 33px; height: 33px; margin-bottom: -1px; }
+[data-block="invite-form-d"] .tile p { font-size: 10px; line-height: 15px; letter-spacing: 0; white-space: nowrap; }
+
+[data-block="invite-form-d"] .grp { display: flex; flex-direction: column; gap: 24px; width: 100%; }
+[data-block="invite-form-d"] .grp > h3 { text-align: center; }
+[data-block="invite-form-d"] .mlist { display: flex; flex-direction: column; gap: 16px; }
+[data-block="invite-form-d"] .mbtn { display: flex; align-items: center; gap: 12px; padding: 16px 20px; color: var(--fg-inverted); text-decoration: none; border-radius: 999px; }
+[data-block="invite-form-d"] .mbtn .ico { width: 32px; height: 32px; flex: none; border-radius: 50%; background: rgba(255,255,255,.45); }
+[data-block="invite-form-d"] .mbtn .lbl { flex: 1; text-align: center; min-width: 0; }
+[data-block="invite-form-d"] .mbtn .chev { width: 16px; height: 16px; flex: none; position: relative; }
+[data-block="invite-form-d"] .mbtn .chev::before { content: ""; position: absolute; left: 2px; top: 4px; width: 8px; height: 8px; border-top: 2px solid currentColor;
+  border-right: 2px solid currentColor; transform: rotate(45deg); }
+[data-block="invite-form-d"] .mbtn[data-method="sms"] .ico { width: 40px; height: 41px; }
+[data-block="invite-form-d"] .mbtn[data-method="slack"] .ico, [data-block="invite-form-d"] .mbtn[data-method="chatwork"] .ico { width: 30px; height: 30px; }
+[data-block="invite-form-d"] .mbtn[data-method="line"] { background: #1bb71f; }
+[data-block="invite-form-d"] .mbtn[data-method="mail"] { background: #e87c21; }
+[data-block="invite-form-d"] .mbtn[data-method="sms"] { background: #23abd1; }
+[data-block="invite-form-d"] .mbtn[data-method="facebook"] { background: #1877f2; }
+[data-block="invite-form-d"] .mbtn[data-method="x"] { background: #222222; }
+[data-block="invite-form-d"] .mbtn[data-method="messenger"] { background: #6c4fe0; }
+[data-block="invite-form-d"] .mbtn[data-method="instagram-url"], [data-block="invite-form-d"] .mbtn[data-method="instagram"] { background: #d02d92; }
+[data-block="invite-form-d"] .mbtn[data-method="slack"] { background: #4a154b; }
+[data-block="invite-form-d"] .mbtn[data-method="chatwork"] { background: #f03848; }
+[data-block="invite-form-d"] .mbtn[data-method="link"] { background: #ff9f44; }
+[data-block="invite-form-d"] .mbtn[data-method="qr"] { background: #3e9ed9; }
+
+[data-block="invite-form-d"] .mbtn[data-method="instagram-url"] .ico { width: 26px; height: 26px; }
+[data-block="invite-form-d"] { background: var(--bg); padding: 40px 20px; display: flex; flex-direction: column; gap: 32px; }
+
+[data-block="invite-form-d"] .tiles { margin-bottom: 8px; }
+</style>
+  <div class="tiles" data-repeat="tiles">
+    <a class="tile" href="#" data-item data-method="line" data-href-field="tiles.url"><span class="ico" data-asset="var_share/LINE"></span><p data-field="tiles.label">LINE<br>で送る</p></a>
+    <a class="tile" href="#" data-item data-method="mail" data-href-field="tiles.url"><span class="ico" data-asset="var_share/Mail"></span><p data-field="tiles.label">メール<br>で送る</p></a>
+    <a class="tile" href="#" data-item data-method="sms" data-href-field="tiles.url"><span class="ico" data-asset="var_share/SMS"></span><p data-field="tiles.label">SMS<br>で送る</p></a>
+    <a class="tile" href="#" data-item data-method="facebook" data-href-field="tiles.url"><span class="ico" data-asset="var_share/FB"></span><p data-field="tiles.label">Facebook<br>でシェア</p></a>
+    <a class="tile" href="#" data-item data-method="x" data-href-field="tiles.url"><span class="ico" data-asset="var_share/X"></span><p data-field="tiles.label">X<br>でシェア</p></a>
+    <a class="tile" href="#" data-item data-method="messenger" data-href-field="tiles.url"><span class="ico" data-asset="var_share/Messenger"></span><p data-field="tiles.label">メッセンジャー<br>でシェア</p></a>
+    <a class="tile" href="#" data-item data-method="instagram" data-href-field="tiles.url"><span class="ico" data-asset="var_share/Instagram"></span><p data-field="tiles.label">Instagram<br>でシェア</p></a>
+    <a class="tile" href="#" data-item data-method="chatwork" data-href-field="tiles.url"><span class="ico" data-asset="var_share/Chatwork"></span><p data-field="tiles.label">Chatwork<br>で送る</p></a>
+    <a class="tile" href="#" data-item data-method="slack" data-href-field="tiles.url"><span class="ico" data-asset="var_share/Slack"></span><p data-field="tiles.label">Slack<br>で送る</p></a>
+    <a class="tile" href="#" data-item data-method="link" data-href-field="tiles.url"><span class="ico" data-asset="var_share/Link"></span><p data-field="tiles.label">リンク<br>でシェア</p></a>
+    <a class="tile" href="#" data-item data-method="qr" data-href-field="tiles.url"><span class="ico" data-asset="var_share/QR"></span><p data-field="tiles.label">QR<br>で送る</p></a>
+  </div>
+  <div class="grp">
+    <div class="mlist" data-repeat="methods">
+      <a class="mbtn" href="#" data-item data-method="line" data-href-field="methods.url"><span class="ico" data-asset="var_share/LINE"></span><span class="lbl t-label-lg" data-field="methods.label">LINEで友達に送る</span><span class="chev" data-asset="icon/arrow_chev_right"></span></a>
+      <a class="mbtn" href="#" data-item data-method="mail" data-href-field="methods.url"><span class="ico" data-asset="var_share/Mail"></span><span class="lbl t-label-lg" data-field="methods.label">メールで送る</span><span class="chev" data-asset="icon/arrow_chev_right"></span></a>
+      <a class="mbtn" href="#" data-item data-method="sms" data-href-field="methods.url"><span class="ico" data-asset="var_share/SMS"></span><span class="lbl t-label-lg" data-field="methods.label">SMSで送る</span><span class="chev" data-asset="icon/arrow_chev_right"></span></a>
+    </div>
+  </div>
+  <div class="grp">
+    <h3 class="t-headline-md" data-field="snsTitle">SNSで複数人に<br>シェアするならこちら</h3>
+    <div class="mlist" data-repeat="snsMethods">
+      <a class="mbtn" href="#" data-item data-method="facebook" data-href-field="snsMethods.url"><span class="ico" data-asset="var_share/FB"></span><span class="lbl t-label-lg" data-field="snsMethods.label">Facebookでシェア</span><span class="chev" data-asset="icon/arrow_chev_right"></span></a>
+      <a class="mbtn" href="#" data-item data-method="x" data-href-field="snsMethods.url"><span class="ico" data-asset="var_share/X"></span><span class="lbl t-label-lg" data-field="snsMethods.label">Xでシェア</span><span class="chev" data-asset="icon/arrow_chev_right"></span></a>
+      <a class="mbtn" href="#" data-item data-method="messenger" data-href-field="snsMethods.url"><span class="ico" data-asset="var_share/Messenger"></span><span class="lbl t-label-lg" data-field="snsMethods.label">メッセンジャーでシェア</span><span class="chev" data-asset="icon/arrow_chev_right"></span></a>
+      <a class="mbtn" href="#" data-item data-method="instagram-url" data-href-field="snsMethods.url"><span class="ico" data-asset="var_share/Instagram_URL"></span><span class="lbl t-label-lg" data-field="snsMethods.label">1. Instagram用URLをコピー</span><span class="chev" data-asset="icon/arrow_chev_right"></span></a>
+      <a class="mbtn" href="#" data-item data-method="instagram" data-href-field="snsMethods.url"><span class="ico" data-asset="var_share/Instagram"></span><span class="lbl t-label-lg" data-field="snsMethods.label">2. Instagramでシェアする</span><span class="chev" data-asset="icon/arrow_chev_right"></span></a>
+      <a class="mbtn" href="#" data-item data-method="slack" data-href-field="snsMethods.url"><span class="ico" data-asset="var_share/Slack"></span><span class="lbl t-label-lg" data-field="snsMethods.label">Slackで送る</span><span class="chev" data-asset="icon/arrow_chev_right"></span></a>
+      <a class="mbtn" href="#" data-item data-method="chatwork" data-href-field="snsMethods.url"><span class="ico" data-asset="var_share/Chatwork"></span><span class="lbl t-label-lg" data-field="snsMethods.label">Chatworkで送る</span><span class="chev" data-asset="icon/arrow_chev_right"></span></a>
+      <a class="mbtn" href="#" data-item data-method="link" data-href-field="snsMethods.url"><span class="ico" data-asset="var_share/Link"></span><span class="lbl t-label-lg" data-field="snsMethods.label">リンクでシェア</span><span class="chev" data-asset="icon/arrow_chev_right"></span></a>
+    </div>
+  </div>
+  <div class="grp">
+    <h3 class="t-headline-md" data-field="faceTitle">対面でシェアするならこちら</h3>
+    <div class="mlist" data-repeat="faceMethods">
+      <a class="mbtn" href="#" data-item data-method="qr" data-href-field="faceMethods.url"><span class="ico" data-asset="var_share/QR"></span><span class="lbl t-label-lg" data-field="faceMethods.label">QRで送る</span><span class="chev" data-asset="icon/arrow_chev_right"></span></a>
+    </div>
+  </div>
+</section>
