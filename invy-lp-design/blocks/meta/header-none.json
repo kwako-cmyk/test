@@ -1,0 +1,28 @@
+{
+  "id": "header-none",
+  "section": "ヘッダー",
+  "variant": "ヘッダー_ボタン：なし",
+  "figmaNode": "3119:13114",
+  "size": [
+    375,
+    50
+  ],
+  "summary": "ロゴを中央に置いただけのボタンなしヘッダーバー",
+  "position": "top",
+  "fields": [],
+  "images": [
+    {
+      "slot": "logo",
+      "label": "ロゴ",
+      "size": "100x34",
+      "note": "テンプレートに寸法表記なし。枠の実寸。四角版の Figma では実ロゴ画像（生活クラブ）が入っている"
+    }
+  ],
+  "repeats": [],
+  "assets": [],
+  "colorRoles": {
+    "main": [],
+    "sub": []
+  },
+  "notes": "Figma は 375x636 のスマホ枠。バー本体のみ起こした。ロゴ領域は左パディング 8px のみのため、ロゴは中央から右に 4px ずれる（Figma どおり）"
+}

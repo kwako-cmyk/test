@@ -1,0 +1,60 @@
+{
+  "id": "footer-2col-plus",
+  "section": "フッター",
+  "variant": "フッター：2カラム +1カラム",
+  "figmaNode": "3119:14235",
+  "size": [
+    375,
+    112
+  ],
+  "summary": "横並びリンク2つの段＋全幅リンク1つの段、その下にコピーライト帯を置くフッター",
+  "position": "flow",
+  "fields": [
+    {
+      "key": "links.label",
+      "label": "リンク文言",
+      "kind": "text",
+      "example": "プライバシーポリシー"
+    },
+    {
+      "key": "links.url",
+      "label": "リンク先",
+      "kind": "url",
+      "example": "https://"
+    },
+    {
+      "key": "extraLabel",
+      "label": "2段目（全幅）のリンク文言",
+      "kind": "text",
+      "example": "特定商取引法"
+    },
+    {
+      "key": "extraUrl",
+      "label": "2段目（全幅）のリンク先",
+      "kind": "url",
+      "example": "https://"
+    },
+    {
+      "key": "copyright",
+      "label": "コピーライト",
+      "kind": "text",
+      "example": "Copyright © 2025 INVY All Rights Reserved."
+    }
+  ],
+  "images": [],
+  "repeats": [
+    {
+      "key": "links",
+      "label": "フッターリンク",
+      "templateCount": 2
+    }
+  ],
+  "assets": [],
+  "colorRoles": {
+    "main": [],
+    "sub": [
+      "コピーライト帯の背景"
+    ]
+  },
+  "notes": "1段目は links の2カラム、2段目は extraLabel/extraUrl の全幅リンク。ページ末尾に置く。リンク間の区切り線は --border 背景の1px 隙間で表現。コピーライトは 10px（テキストスタイルなし）を直書き"
+}

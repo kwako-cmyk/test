@@ -1,0 +1,41 @@
+{
+  "id": "slider-l",
+  "section": "画像スライダー（自動スライドあり／なし）",
+  "variant": "画像スライダー_大",
+  "figmaNode": "3119:14095",
+  "size": [
+    375,
+    440
+  ],
+  "summary": "画像（270x360）だけを横スライドで見せる。見出し・テキスト・点なし。1枚目の右に次の画像をのぞかせ、右矢印つき。自動スライドあり／なしで使う。",
+  "position": "flow",
+  "fields": [],
+  "images": [
+    {
+      "slot": "slides.image",
+      "label": "スライド画像",
+      "size": "270x360",
+      "note": "Figma の枠に 270*360 の表記"
+    }
+  ],
+  "repeats": [
+    {
+      "key": "slides",
+      "label": "スライド画像",
+      "templateCount": 2
+    }
+  ],
+  "assets": [
+    {
+      "name": "slider/arrow_right",
+      "note": "右矢印ボタン（32px の白丸＋Sub 色のシェブロン）。CSS で描画"
+    }
+  ],
+  "colorRoles": {
+    "main": [],
+    "sub": [
+      "右矢印のシェブロン"
+    ]
+  },
+  "notes": "自動スライドの有無は HTML では表さない（実装側の設定）。矢印は slider 内の absolute（Figma で重ねている）。"
+}

@@ -1,0 +1,20 @@
+<section class="blk" data-block="table" data-figma="3119:14247" data-section="表" data-variant="表">
+<style>
+[data-block="table"] { background: var(--bg); padding: 40px 20px; display: flex; flex-direction: column; gap: 32px; }
+[data-block="table"] .tbl { background: var(--border); padding: 1px 0; display: flex; flex-direction: column; gap: 1px; width: 100%; }
+[data-block="table"] .row { display: flex; align-items: stretch; }
+[data-block="table"] .cell { background: var(--bg); padding: 8px; flex: 1 0 0; min-width: 0; color: var(--fg); word-break: break-word; }
+[data-block="table"] .cell.head { flex: none; width: 89px; }
+[data-block="table"] .tbl.is-sm .cell { letter-spacing: .04em; }
+</style>
+  <div class="tbl t-label-md-r" data-repeat="rows">
+      <div class="row" data-item><div class="cell head" data-field="rows.head">表の見出し</div><div class="cell" data-field="rows.value">説明入ります説明入ります説明入ります説明入ります</div></div>
+      <div class="row" data-item><div class="cell head" data-field="rows.head">表の見出し</div><div class="cell" data-field="rows.value">説明入ります説明入ります</div></div>
+      <div class="row" data-item><div class="cell head" data-field="rows.head">表の見出し表の見出し</div><div class="cell" data-field="rows.value">説明入ります説明入ります</div></div>
+  </div>
+  <div class="tbl is-sm t-caption-md" data-repeat="rowsSmall">
+      <div class="row" data-item><div class="cell head" data-field="rowsSmall.head">表の見出し</div><div class="cell" data-field="rowsSmall.value">説明入ります説明入ります説明入ります説明入ります</div></div>
+      <div class="row" data-item><div class="cell head" data-field="rowsSmall.head">表の見出し</div><div class="cell" data-field="rowsSmall.value">説明入ります説明入ります</div></div>
+      <div class="row" data-item><div class="cell head" data-field="rowsSmall.head">表の見出し表の見出し</div><div class="cell" data-field="rowsSmall.value">説明入ります説明入ります</div></div>
+  </div>
+</section>

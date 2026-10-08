@@ -1,0 +1,35 @@
+<section class="blk" data-block="slider-text-l-round" data-figma="3119:14046" data-section="画像スライダー（テキスト付き）" data-variant="画像スライダー_大（角丸）">
+<style>
+[data-block="slider-text-l-round"] { background: var(--bg-subtle); padding: 40px 20px; display: flex; flex-direction: column; gap: 32px; align-items: center; }
+[data-block="slider-text-l-round"] .ttl { display: flex; flex-direction: column; gap: 4px; text-align: center; width: 100%; }
+[data-block="slider-text-l-round"] .sub { color: var(--fg-subtle); line-height: 1.75; letter-spacing: .04em; }
+[data-block="slider-text-l-round"] .slider { position: relative; width: 100%; padding: 0 12.5px; display: flex; flex-direction: column; gap: 24px; }
+[data-block="slider-text-l-round"] .track { display: flex; gap: 20px; align-items: center; width: 572px; }
+[data-block="slider-text-l-round"] .card { flex: none; width: 310px; background: var(--bg); padding: 16px 20px; display: flex; flex-direction: column; gap: 12px; }
+[data-block="slider-text-l-round"] .img-slot { width: 270px; height: 360px; font-size: 24px; }
+[data-block="slider-text-l-round"] .arrow { position: absolute; width: 32px; height: 32px; border-radius: 50%; background: var(--bg); border: 1px solid var(--border); box-shadow: 0 0 4px rgba(0,0,0,.08); }
+[data-block="slider-text-l-round"] .arrow::after { content: ""; position: absolute; left: 10px; top: 11px; width: 8px; height: 8px; border-top: 2px solid var(--sub); border-right: 2px solid var(--sub); transform: rotate(45deg); }
+[data-block="slider-text-l-round"] .arrow { right: -12px; top: calc(50% - 17.5px); transform: translateY(-50%); }
+[data-block="slider-text-l-round"] .dots { display: flex; gap: 16px; justify-content: center; width: 100%; }
+[data-block="slider-text-l-round"] .dots span { width: 12px; height: 12px; border-radius: 50%; background: var(--sub); opacity: .2; }
+[data-block="slider-text-l-round"] .dots span.is-active { opacity: 1; }
+</style>
+  <div class="ttl">
+    <h2 class="t-headline-lg" data-field="title">スライダータイトル</h2>
+    <p class="sub t-caption-md" data-field="subtitle">サブタイトル入ります</p>
+  </div>
+  <div class="slider">
+   <div class="track" data-repeat="slides">
+    <div class="card" data-item>
+      <div class="img-slot" data-slot="slides.image" data-size="270x360">270*360</div>
+      <p class="t-body-md" data-field="slides.text">スライダーテキスト入りますスライダーテキスト入りますスライダーテキスト入りますスライダーテキスト入ります</p>
+    </div>
+    <div class="card" data-item>
+      <div class="img-slot" data-slot="slides.image" data-size="270x360">270*360</div>
+      <p class="t-body-md" data-field="slides.text">スライダーテキスト入りますスライダーテキスト入りますスライダーテキスト入りますスライダーテキスト入ります</p>
+    </div>
+   </div>
+   <span class="arrow" data-asset="slider/arrow_right"></span>
+   <div class="dots" aria-hidden="true"><span class="is-active"></span><span></span><span></span></div>
+  </div>
+</section>

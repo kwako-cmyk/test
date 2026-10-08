@@ -1,0 +1,31 @@
+<section class="blk" data-block="floating-timer-b" data-figma="3119:14116" data-section="フローティングバナー" data-variant="タイマー付きフローティングバナーB">
+<style>
+[data-block="floating-timer-b"] { background: var(--main); padding: 20px 8px 8px; display: flex; flex-direction: column; gap: 20px; box-shadow: 0 -4px 16px rgba(0,0,0,.2); }
+[data-block="floating-timer-b"]::before { content: ""; position: absolute; inset: 0; background: rgba(255,255,255,.85); }
+[data-block="floating-timer-b"] > * { position: relative; }
+[data-block="floating-timer-b"] .timer { display: flex; flex-direction: column; gap: 10px; color: var(--fg); line-height: 1; white-space: nowrap; font-weight: var(--w-regular); }
+[data-block="floating-timer-b"] .row { display: flex; gap: 4px; align-items: center; justify-content: center; }
+[data-block="floating-timer-b"] .row.count { gap: 8px; }
+[data-block="floating-timer-b"] .until { display: flex; align-items: center; }
+[data-block="floating-timer-b"] .until .date, [data-block="floating-timer-b"] .until .wd { margin-right: -6px; }
+[data-block="floating-timer-b"] .box { background: var(--bg); border-radius: 4px; padding: 4px 16px; display: flex; gap: 8px; align-items: center; }
+[data-block="floating-timer-b"] .unit { display: flex; gap: 4px; align-items: center; }
+[data-block="floating-timer-b"] .ja { font-size: 16px; letter-spacing: .04em; }
+[data-block="floating-timer-b"] .date { font-size: 24px; }
+[data-block="floating-timer-b"] .num { font-size: 28px; }
+[data-block="floating-timer-b"] .btn { min-height: 0; padding: 20px 24px 22px; text-decoration: none; }
+</style>
+  <div class="timer">
+    <p class="row"><span class="ja" data-field="lead">この紹介限定特典は</span><span class="until"><span class="date" data-field="deadline">10/31</span><span class="ja wd" data-field="weekday">（火）</span><span class="ja" data-field="suffix">まで！</span></span></p>
+    <div class="row count">
+      <span class="ja" data-field="remainLabel">残り</span>
+      <div class="box">
+        <span class="unit"><span class="num" data-timer="days">23</span><span class="ja">日</span></span>
+        <span class="unit"><span class="num" data-timer="hours">21</span><span class="ja">時間</span></span>
+        <span class="unit"><span class="num" data-timer="minutes">57</span><span class="ja">分</span></span>
+        <span class="unit"><span class="num" data-timer="seconds">44</span><span class="ja">秒</span></span>
+      </div>
+    </div>
+  </div>
+  <a class="btn is-pill" href="#" data-href-field="url"><span class="t-headline-sm" data-field="label">今すぐ体験予約する</span></a>
+</section>

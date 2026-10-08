@@ -1,0 +1,57 @@
+{
+  "id": "table",
+  "section": "表",
+  "variant": "表",
+  "figmaNode": "3119:14247",
+  "size": [
+    375,
+    411
+  ],
+  "summary": "見出し列（幅89px）＋説明列の2列の表。行は横罫線のみ。文字14px の表と12px の表を縦に2つ並べた構成",
+  "position": "flow",
+  "fields": [
+    {
+      "key": "rows.head",
+      "label": "表の見出し（左列）",
+      "kind": "text",
+      "example": "表の見出し"
+    },
+    {
+      "key": "rows.value",
+      "label": "説明（右列）",
+      "kind": "text",
+      "example": "説明入ります説明入ります"
+    },
+    {
+      "key": "rowsSmall.head",
+      "label": "表の見出し（左列）",
+      "kind": "text",
+      "example": "表の見出し"
+    },
+    {
+      "key": "rowsSmall.value",
+      "label": "説明（右列）",
+      "kind": "text",
+      "example": "説明入ります説明入ります"
+    }
+  ],
+  "images": [],
+  "repeats": [
+    {
+      "key": "rows",
+      "label": "表の行（文字14px）",
+      "templateCount": 3
+    },
+    {
+      "key": "rowsSmall",
+      "label": "表の行（文字12px）",
+      "templateCount": 3
+    }
+  ],
+  "assets": [],
+  "colorRoles": {
+    "main": [],
+    "sub": []
+  },
+  "notes": "テンプレートは標準サイズ（label/regular/md 14px）と小サイズ（label/regular/sm 12px）の表を両方含む。片方だけ使う場合は不要な表を削除。12px は t-caption-md に letter-spacing 4% を足して表現"
+}

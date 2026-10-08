@@ -1,0 +1,18 @@
+<section class="blk" data-block="modal" data-figma="3119:13015" data-section="モーダル表示" data-variant="modal">
+<style>
+[data-block="modal"] { background: rgba(0,0,0,.66); min-height: 636px; padding: 20px; display: flex; align-items: center; justify-content: center; }
+[data-block="modal"] .win { width: 335px; background: var(--bg); padding: 20px; display: flex; flex-direction: column; gap: 16px; align-items: center; overflow: hidden; }
+[data-block="modal"] .img-slot { width: 100%; height: 331px; font-size: 24px; }
+[data-block="modal"] .txt { width: 100%; color: var(--fg); }
+[data-block="modal"] .close { background: none; border: 0; cursor: pointer; font: inherit; width: 100px; display: flex; gap: 8px; align-items: center; justify-content: center; padding: 13px 16px 14px; color: var(--main); text-decoration: none; }
+[data-block="modal"] .x { position: relative; width: 16px; height: 16px; flex: none; }
+[data-block="modal"] .x::before, [data-block="modal"] .x::after { content: ""; position: absolute; left: 50%; top: 50%; width: 19px; height: 2px; background: var(--fg); transform: translate(-50%,-50%) rotate(45deg); }
+[data-block="modal"] .x::after { transform: translate(-50%,-50%) rotate(-45deg); }
+[data-block="modal"] .close span:last-child { flex: 1; }
+</style>
+  <div class="win">
+    <div class="img-slot" data-slot="image" data-size="295x331">modal</div>
+    <p class="txt t-body-md" data-field="text">テキストも入力できますテキストも入力できますテキストも入力できますテキストも入力できますテキストも入力できます</p>
+    <button class="close" type="button" data-asset="button/tertiary"><span class="x" data-asset="icon/close"></span><span class="t-label-md" data-field="closeLabel">閉じる</span></button>
+  </div>
+</section>

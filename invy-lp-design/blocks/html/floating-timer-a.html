@@ -1,0 +1,25 @@
+<section class="blk" data-block="floating-timer-a" data-figma="3119:14114" data-section="フローティングバナー" data-variant="タイマー付きフローティングバナーA">
+<style>
+[data-block="floating-timer-a"] { background: var(--main); padding: 20px 8px 8px; display: flex; flex-direction: column; gap: 16px; box-shadow: 0 -4px 16px rgba(0,0,0,.2); }
+[data-block="floating-timer-a"]::before { content: ""; position: absolute; inset: 0; background: rgba(255,255,255,.85); }
+[data-block="floating-timer-a"] > * { position: relative; }
+[data-block="floating-timer-a"] .timer { display: flex; flex-direction: column; gap: 8px; color: var(--fg); line-height: 1; white-space: nowrap; font-weight: var(--w-regular); }
+[data-block="floating-timer-a"] .row { display: flex; gap: 4px; align-items: center; justify-content: center; }
+[data-block="floating-timer-a"] .row.count { gap: 8px; }
+[data-block="floating-timer-a"] .unit { display: flex; gap: 4px; align-items: center; }
+[data-block="floating-timer-a"] .ja { font-size: 16px; letter-spacing: .04em; }
+[data-block="floating-timer-a"] .date { font-size: 24px; }
+[data-block="floating-timer-a"] .num { font-size: 32px; }
+[data-block="floating-timer-a"] .btn { min-height: 0; padding: 20px 16px 22px; text-decoration: none; }
+</style>
+  <div class="timer">
+    <p class="row"><span class="ja" data-field="lead">この紹介限定特典は</span><span class="date" data-field="deadline">10/31</span><span class="ja" data-field="suffix">まで！</span></p>
+    <p class="row count">
+      <span class="unit"><span class="num" data-timer="days">23</span><span class="ja">日</span></span>
+      <span class="unit"><span class="num" data-timer="hours">21</span><span class="ja">時間</span></span>
+      <span class="unit"><span class="num" data-timer="minutes">57</span><span class="ja">分</span></span>
+      <span class="unit"><span class="num" data-timer="seconds">44</span><span class="ja">秒</span></span>
+    </p>
+  </div>
+  <a class="btn" href="#" data-href-field="url"><span class="t-headline-sm" data-field="label">今すぐ体験予約する</span></a>
+</section>

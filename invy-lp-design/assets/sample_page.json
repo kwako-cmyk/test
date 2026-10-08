@@ -1,0 +1,136 @@
+{
+  "project": "サンプル学習塾",
+  "theme": {
+    "main": "#0068B7",
+    "sub": "#E60012",
+    "font": "gothic-regular"
+  },
+  "pages": [
+    {
+      "name": "紹介者ページ",
+      "blocks": [
+        {
+          "block": "header-pill",
+          "fields": {
+            "buttonLabel": "紹介状を送る",
+            "buttonUrl": "#invy-form"
+          }
+        },
+        {
+          "block": "image",
+          "images": {
+            "image": "assets/kv.png"
+          },
+          "note": "KV（画像で入稿）。kv.png は案件フォルダに置く支給画像"
+        },
+        {
+          "block": "benefits-a",
+          "fields": {
+            "title": "お友だち紹介をすると\n2人ともにウレシイ特典",
+            "note": "お友だちが紹介状経由で新規入会した場合に限ります。"
+          },
+          "repeats": {
+            "items": [
+              {
+                "who": "あなたに",
+                "heading": "QUOカードPay 3,000円分",
+                "text": "お友だちが新規入会すると、QUOカードPay3,000円分をプレゼント。"
+              },
+              {
+                "who": "お友達に",
+                "heading": "QUOカードPay 3,000円分＋入会費7,000円分割引",
+                "text": "紹介状から新規入会すると、QUOカードPayと入会費割引をプレゼント。"
+              }
+            ]
+          }
+        },
+        {
+          "block": "flow2-a",
+          "fields": {
+            "eyebrow": "カンタン！たったの10秒",
+            "title": "紹介の流れ",
+            "lead": "LINEでお友だちに紹介状を送るだけ。"
+          },
+          "repeats": {
+            "items": [
+              {
+                "who": "あなた",
+                "heading": "LINEで紹介状を送る",
+                "text": "下のフォームから、お友だちに紹介状を送ります。"
+              },
+              {
+                "who": "お友達",
+                "heading": "紹介状から入会する",
+                "text": "お友だちが紹介状から、ひのきに新規入会します。"
+              },
+              {
+                "who": "お二人",
+                "heading": "特典が届く",
+                "text": "入会が確認できたら、メールで特典が届きます。"
+              }
+            ]
+          }
+        },
+        {
+          "block": "faq",
+          "fields": {
+            "title": "よくあるご質問"
+          },
+          "repeats": {
+            "items": [
+              {
+                "question": "兄弟姉妹を紹介できますか？",
+                "answer": "ご兄弟姉妹のご紹介は対象外です。"
+              },
+              {
+                "question": "特典はいつ届きますか？",
+                "answer": "入会月の翌月末にメールでお送りします。"
+              }
+            ]
+          }
+        },
+        {
+          "block": "cta-pill",
+          "fields": {
+            "label": "LINEで紹介状を送る",
+            "url": "#invy-form"
+          }
+        },
+        {
+          "block": "please-read-list",
+          "fields": {
+            "title": "必ずお読みください"
+          },
+          "repeats": {
+            "bullets": [
+              {
+                "text": "「あなたのお名前」には生徒様ご本人のお名前をご入力ください。"
+              },
+              {
+                "text": "本紹介状の有効期限は、お友達がQRコードをご提示いただいてから90日間です。"
+              }
+            ]
+          }
+        },
+        {
+          "block": "footer-1col",
+          "repeats": {
+            "links": [
+              {
+                "label": "個人情報保護方針",
+                "url": "https://www.hinoki-net.com/privacy/"
+              }
+            ]
+          }
+        },
+        {
+          "block": "floating-1col-pill",
+          "fields": {
+            "label": "LINEで紹介状を送る",
+            "url": "#invy-form"
+          }
+        }
+      ]
+    }
+  ]
+}

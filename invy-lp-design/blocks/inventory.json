@@ -1,0 +1,717 @@
+{
+ "fileKey": "1UwJ64MnV8cHs9F39pSAeH",
+ "page": "899:3873",
+ "variants": [
+  {
+   "section": "紹介方法",
+   "name": "紹介の流れ/inviter",
+   "w": 375,
+   "h": 1529,
+   "imageSizes": [],
+   "figmaNode": "3119:12519",
+   "id": "flow-a"
+  },
+  {
+   "section": "紹介方法（タブ）",
+   "name": "紹介方法（タブ）",
+   "w": 375,
+   "h": 1674,
+   "imageSizes": [],
+   "figmaNode": "3119:12571",
+   "id": "flow-tab-a"
+  },
+  {
+   "section": "紹介方法（タブ）",
+   "name": "紹介方法（タブ）",
+   "w": 375,
+   "h": 1674,
+   "imageSizes": [],
+   "figmaNode": "3119:12602",
+   "id": "flow-tab-b"
+  },
+  {
+   "section": "紹介方法2",
+   "name": "紹介の流れ/inviter",
+   "w": 375,
+   "h": 1489,
+   "imageSizes": [],
+   "figmaNode": "3119:12634",
+   "id": "flow2-a"
+  },
+  {
+   "section": "紹介方法2",
+   "name": "紹介の流れ/inviter",
+   "w": 375,
+   "h": 1586,
+   "imageSizes": [],
+   "figmaNode": "3119:12674",
+   "id": "flow2-b"
+  },
+  {
+   "section": "紹介方法2",
+   "name": "紹介の流れ/inviter",
+   "w": 375,
+   "h": 1586,
+   "imageSizes": [],
+   "figmaNode": "3119:12810",
+   "id": "flow2-c"
+  },
+  {
+   "section": "モーダル表示",
+   "name": "modal",
+   "w": 375,
+   "h": 636,
+   "imageSizes": [],
+   "figmaNode": "3119:13015",
+   "id": "modal"
+  },
+  {
+   "section": "タイマー表示",
+   "name": "timer",
+   "w": 375,
+   "h": 121,
+   "imageSizes": [],
+   "figmaNode": "3119:13108",
+   "id": "timer"
+  },
+  {
+   "section": "ヘッダー",
+   "name": "ヘッダー_ボタン：四角",
+   "w": 375,
+   "h": 636,
+   "imageSizes": [],
+   "figmaNode": "3119:13110",
+   "id": "header-square"
+  },
+  {
+   "section": "ヘッダー",
+   "name": "ヘッダー_ボタン：ピル型",
+   "w": 375,
+   "h": 636,
+   "imageSizes": [],
+   "figmaNode": "3119:13112",
+   "id": "header-pill"
+  },
+  {
+   "section": "ヘッダー",
+   "name": "ヘッダー_ボタン：なし",
+   "w": 375,
+   "h": 636,
+   "imageSizes": [],
+   "figmaNode": "3119:13114",
+   "id": "header-none"
+  },
+  {
+   "section": "特典エリア",
+   "name": "特典",
+   "w": 375,
+   "h": 1885,
+   "imageSizes": [],
+   "figmaNode": "3119:13117",
+   "id": "benefits-a"
+  },
+  {
+   "section": "特典エリア",
+   "name": "特典",
+   "w": 375,
+   "h": 1648,
+   "imageSizes": [],
+   "figmaNode": "3119:13173",
+   "id": "benefits-b"
+  },
+  {
+   "section": "紹介フォーム",
+   "name": "紹介フォームA",
+   "w": 375,
+   "h": 3410,
+   "imageSizes": [],
+   "figmaNode": "3119:13230",
+   "id": "invite-form-a"
+  },
+  {
+   "section": "紹介フォーム",
+   "name": "紹介フォーム",
+   "w": 375,
+   "h": 1613,
+   "imageSizes": [],
+   "figmaNode": "3119:13385",
+   "id": "invite-form-c"
+  },
+  {
+   "section": "紹介フォーム",
+   "name": "紹介フォーム",
+   "w": 375,
+   "h": 1567,
+   "imageSizes": [],
+   "figmaNode": "3119:13498",
+   "id": "invite-form-d"
+  },
+  {
+   "section": "紹介フォーム",
+   "name": "紹介フォームB",
+   "w": 375,
+   "h": 5076,
+   "imageSizes": [],
+   "figmaNode": "3119:13612",
+   "id": "invite-form-b"
+  },
+  {
+   "section": "紹介フォーム",
+   "name": "紹介フォーム",
+   "w": 375,
+   "h": 650,
+   "imageSizes": [],
+   "figmaNode": "3119:13857",
+   "id": "invite-form-e"
+  },
+  {
+   "section": "ご紹介方法の詳細",
+   "name": "ご紹介方法の詳細_close",
+   "w": 375,
+   "h": 588,
+   "imageSizes": [],
+   "figmaNode": "3119:13869",
+   "id": "invitation-detail-a"
+  },
+  {
+   "section": "ご紹介方法の詳細",
+   "name": "ご紹介方法の詳細_close",
+   "w": 375,
+   "h": 3507,
+   "imageSizes": [],
+   "figmaNode": "3119:13880",
+   "id": "invitation-detail-b"
+  },
+  {
+   "section": "画像スライダー（テキスト付き）",
+   "name": "画像スライダー_小（四角）",
+   "w": 375,
+   "h": 516,
+   "imageSizes": [
+    "270x180",
+    "270x180"
+   ],
+   "figmaNode": "3119:13966",
+   "id": "slider-text-s-square"
+  },
+  {
+   "section": "画像スライダー（テキスト付き）",
+   "name": "画像スライダー_大（四角）",
+   "w": 375,
+   "h": 696,
+   "imageSizes": [
+    "270x360",
+    "270x360"
+   ],
+   "figmaNode": "3119:13986",
+   "id": "slider-text-l-square"
+  },
+  {
+   "section": "画像スライダー（テキスト付き）",
+   "name": "画像スライダー_中（四角）",
+   "w": 375,
+   "h": 606,
+   "imageSizes": [
+    "270x270",
+    "270x270"
+   ],
+   "figmaNode": "3119:14006",
+   "id": "slider-text-m-square"
+  },
+  {
+   "section": "画像スライダー（テキスト付き）",
+   "name": "画像スライダー_小（角丸）",
+   "w": 375,
+   "h": 508,
+   "imageSizes": [
+    "270x180",
+    "270x180"
+   ],
+   "figmaNode": "3119:14026",
+   "id": "slider-text-s-round"
+  },
+  {
+   "section": "画像スライダー（テキスト付き）",
+   "name": "画像スライダー_大（角丸）",
+   "w": 375,
+   "h": 688,
+   "imageSizes": [
+    "270x360",
+    "270x360"
+   ],
+   "figmaNode": "3119:14046",
+   "id": "slider-text-l-round"
+  },
+  {
+   "section": "画像スライダー（テキスト付き）",
+   "name": "画像スライダー_中（角丸）",
+   "w": 375,
+   "h": 598,
+   "imageSizes": [
+    "270x270",
+    "270x270"
+   ],
+   "figmaNode": "3119:14066",
+   "id": "slider-text-m-round"
+  },
+  {
+   "section": "画像スライダー（自動スライドあり／なし）",
+   "name": "画像スライダー_小",
+   "w": 375,
+   "h": 260,
+   "imageSizes": [
+    "270x180",
+    "270x180"
+   ],
+   "figmaNode": "3119:14087",
+   "id": "slider-s"
+  },
+  {
+   "section": "画像スライダー（自動スライドあり／なし）",
+   "name": "画像スライダー_大",
+   "w": 375,
+   "h": 440,
+   "imageSizes": [
+    "270x360",
+    "270x360"
+   ],
+   "figmaNode": "3119:14095",
+   "id": "slider-l"
+  },
+  {
+   "section": "画像スライダー（自動スライドあり／なし）",
+   "name": "画像スライダー_中",
+   "w": 375,
+   "h": 350,
+   "imageSizes": [
+    "270x270",
+    "270x270"
+   ],
+   "figmaNode": "3119:14103",
+   "id": "slider-m"
+  },
+  {
+   "section": "フローティングバナー",
+   "name": "フローティングバナー 1カラム（四角）",
+   "w": 375,
+   "h": 636,
+   "imageSizes": [],
+   "figmaNode": "3119:14112",
+   "id": "floating-1col-square"
+  },
+  {
+   "section": "フローティングバナー",
+   "name": "タイマー付きフローティングバナーA",
+   "w": 375,
+   "h": 636,
+   "imageSizes": [],
+   "figmaNode": "3119:14114",
+   "id": "floating-timer-a"
+  },
+  {
+   "section": "フローティングバナー",
+   "name": "タイマー付きフローティングバナーB",
+   "w": 375,
+   "h": 636,
+   "imageSizes": [],
+   "figmaNode": "3119:14116",
+   "id": "floating-timer-b"
+  },
+  {
+   "section": "フローティングバナー",
+   "name": "フローティングバナー 2カラム（四角）",
+   "w": 375,
+   "h": 636,
+   "imageSizes": [],
+   "figmaNode": "3119:14118",
+   "id": "floating-2col-square"
+  },
+  {
+   "section": "フローティングバナー",
+   "name": "フローティングバナー 1カラム（ピル型）",
+   "w": 375,
+   "h": 636,
+   "imageSizes": [],
+   "figmaNode": "3119:14120",
+   "id": "floating-1col-pill"
+  },
+  {
+   "section": "フローティングバナー",
+   "name": "フローティングバナー 2カラム（ピル型）",
+   "w": 375,
+   "h": 636,
+   "imageSizes": [],
+   "figmaNode": "3119:14122",
+   "id": "floating-2col-pill"
+  },
+  {
+   "section": "よくあるご質問",
+   "name": "よくあるご質問",
+   "w": 375,
+   "h": 482,
+   "imageSizes": [],
+   "figmaNode": "3119:14125",
+   "id": "faq"
+  },
+  {
+   "section": "よくあるご質問",
+   "name": "よくあるご質問_open",
+   "w": 375,
+   "h": 1804,
+   "imageSizes": [],
+   "figmaNode": "3119:14144",
+   "id": "faq-open"
+  },
+  {
+   "section": "アコーディオンリスト",
+   "name": "アコーディオンリスト",
+   "w": 375,
+   "h": 400,
+   "imageSizes": [],
+   "figmaNode": "3119:14164",
+   "id": "accordion"
+  },
+  {
+   "section": "アコーディオンリスト",
+   "name": "アコーディオンリスト_open",
+   "w": 375,
+   "h": 1664,
+   "imageSizes": [],
+   "figmaNode": "3119:14170",
+   "id": "accordion-open"
+  },
+  {
+   "section": "必ずお読みください",
+   "name": "必ずお読みください（リスト）",
+   "w": 375,
+   "h": 361,
+   "imageSizes": [],
+   "figmaNode": "3119:14185",
+   "id": "please-read-list"
+  },
+  {
+   "section": "必ずお読みください",
+   "name": "必ずお読みください（iFrame）",
+   "w": 375,
+   "h": 408,
+   "imageSizes": [],
+   "figmaNode": "3119:14199",
+   "id": "please-read-iframe"
+  },
+  {
+   "section": "必ずお読みください（追加）",
+   "name": "必ずお読みください",
+   "w": 375,
+   "h": 631,
+   "imageSizes": [],
+   "figmaNode": "3220:3781",
+   "id": "please-read-c"
+  },
+  {
+   "section": "必ずお読みください（追加）",
+   "name": "必ずお読みください",
+   "w": 375,
+   "h": 710,
+   "imageSizes": [],
+   "figmaNode": "3221:3776",
+   "id": "please-read-d"
+  },
+  {
+   "section": "注意点などの箇条書きリスト",
+   "name": "注意点などの箇条書き（リスト）",
+   "w": 375,
+   "h": 361,
+   "imageSizes": [],
+   "figmaNode": "3119:14207",
+   "id": "notice-list"
+  },
+  {
+   "section": "注意点などの箇条書きリスト",
+   "name": "注意点などの箇条書き（iFrame）",
+   "w": 375,
+   "h": 408,
+   "imageSizes": [],
+   "figmaNode": "3119:14221",
+   "id": "notice-iframe"
+  },
+  {
+   "section": "フッター",
+   "name": "フッター：1カラム",
+   "w": 375,
+   "h": 636,
+   "imageSizes": [],
+   "figmaNode": "3119:14229",
+   "id": "footer-1col"
+  },
+  {
+   "section": "フッター",
+   "name": "フッター：2カラム",
+   "w": 375,
+   "h": 636,
+   "imageSizes": [],
+   "figmaNode": "3119:14231",
+   "id": "footer-2col"
+  },
+  {
+   "section": "フッター",
+   "name": "フッター：1カラム +1カラム",
+   "w": 375,
+   "h": 636,
+   "imageSizes": [],
+   "figmaNode": "3119:14233",
+   "id": "footer-1col-plus"
+  },
+  {
+   "section": "フッター",
+   "name": "フッター：2カラム +1カラム",
+   "w": 375,
+   "h": 636,
+   "imageSizes": [],
+   "figmaNode": "3119:14235",
+   "id": "footer-2col-plus"
+  },
+  {
+   "section": "画像",
+   "name": "画像",
+   "w": 375,
+   "h": 270,
+   "imageSizes": [],
+   "figmaNode": "3119:14238",
+   "id": "image"
+  },
+  {
+   "section": "PDFファイル",
+   "name": "PDFファイル",
+   "w": 375,
+   "h": 130,
+   "imageSizes": [],
+   "figmaNode": "3119:14242",
+   "id": "pdf"
+  },
+  {
+   "section": "表",
+   "name": "表",
+   "w": 375,
+   "h": 411,
+   "imageSizes": [],
+   "figmaNode": "3119:14247",
+   "id": "table"
+  },
+  {
+   "section": "YouTube",
+   "name": "YouTube",
+   "w": 375,
+   "h": 268,
+   "imageSizes": [],
+   "figmaNode": "3119:14269",
+   "id": "youtube-a"
+  },
+  {
+   "section": "YouTube",
+   "name": "YouTube",
+   "w": 375,
+   "h": 676,
+   "imageSizes": [],
+   "figmaNode": "3119:14274",
+   "id": "youtube-b"
+  },
+  {
+   "section": "ビデオ",
+   "name": "ビデオ",
+   "w": 375,
+   "h": 336,
+   "imageSizes": [],
+   "figmaNode": "3119:14280",
+   "id": "video"
+  },
+  {
+   "section": "ダウンロードボタン",
+   "name": "ダウンロードボタン（四角）",
+   "w": 375,
+   "h": 149,
+   "imageSizes": [],
+   "figmaNode": "3119:14287",
+   "id": "download-square"
+  },
+  {
+   "section": "ダウンロードボタン",
+   "name": "ダウンロードボタン（ピル型）",
+   "w": 375,
+   "h": 149,
+   "imageSizes": [],
+   "figmaNode": "3119:14289",
+   "id": "download-pill"
+  },
+  {
+   "section": "CTA",
+   "name": "ダウンロードボタン（四角）",
+   "w": 375,
+   "h": 149,
+   "imageSizes": [],
+   "figmaNode": "3119:14292",
+   "id": "cta-square"
+  },
+  {
+   "section": "CTA",
+   "name": "ダウンロードボタン（ピル型）",
+   "w": 375,
+   "h": 149,
+   "imageSizes": [],
+   "figmaNode": "3119:14294",
+   "id": "cta-pill"
+  },
+  {
+   "section": "紹介上手になるためのヒント",
+   "name": "紹介上手になるためのヒント",
+   "w": 375,
+   "h": 516,
+   "imageSizes": [],
+   "figmaNode": "3119:14297",
+   "id": "hint"
+  },
+  {
+   "section": "フレーム",
+   "name": "フレーム角丸",
+   "w": 375,
+   "h": 461,
+   "imageSizes": [],
+   "figmaNode": "3119:15546",
+   "id": "frame-round"
+  },
+  {
+   "section": "フレーム",
+   "name": "フレーム四角",
+   "w": 375,
+   "h": 461,
+   "imageSizes": [],
+   "figmaNode": "3119:15562",
+   "id": "frame-square"
+  },
+  {
+   "section": "クーポンコード",
+   "name": "クーポンコード",
+   "w": 375,
+   "h": 373,
+   "imageSizes": [],
+   "figmaNode": "3119:15579",
+   "id": "coupon-code"
+  },
+  {
+   "section": "フレーム（リスト）",
+   "name": "フレーム角丸",
+   "w": 375,
+   "h": 1119,
+   "imageSizes": [],
+   "figmaNode": "3119:15587",
+   "id": "frame-list-round"
+  },
+  {
+   "section": "フレーム（リスト）",
+   "name": "フレーム四角",
+   "w": 375,
+   "h": 1119,
+   "imageSizes": [],
+   "figmaNode": "3119:15628",
+   "id": "frame-list-square"
+  },
+  {
+   "section": "口コミ",
+   "name": "口コミ_close",
+   "w": 375,
+   "h": 598,
+   "imageSizes": [],
+   "figmaNode": "3119:15670",
+   "id": "review"
+  },
+  {
+   "section": "口コミ",
+   "name": "口コミ_open",
+   "w": 375,
+   "h": 786,
+   "imageSizes": [],
+   "figmaNode": "3119:15704",
+   "id": "review-open"
+  },
+  {
+   "section": "口コミ",
+   "name": "ギャラリー",
+   "w": 375,
+   "h": 404,
+   "imageSizes": [],
+   "figmaNode": "3119:15753",
+   "id": "gallery"
+  }
+ ],
+ "assets": [
+  {
+   "section": "紹介フォーム",
+   "name": "Frame 625516",
+   "figmaNode": "3163:3756",
+   "w": 335,
+   "h": 334
+  },
+  {
+   "section": "紹介フォーム",
+   "name": "Group 625438",
+   "figmaNode": "3163:3921",
+   "w": 190,
+   "h": 32
+  },
+  {
+   "section": "紹介上手になるためのヒント",
+   "name": "Mask group",
+   "figmaNode": "3119:14437",
+   "w": 1190,
+   "h": 230
+  },
+  {
+   "section": "紹介上手になるためのヒント",
+   "name": "Mask group",
+   "figmaNode": "3119:14566",
+   "w": 2216,
+   "h": 197
+  },
+  {
+   "section": "紹介上手になるためのヒント",
+   "name": "Mask group",
+   "figmaNode": "3119:14901",
+   "w": 1190,
+   "h": 337
+  },
+  {
+   "section": "紹介上手になるためのヒント",
+   "name": "Mask group",
+   "figmaNode": "3119:15118",
+   "w": 1361,
+   "h": 295
+  },
+  {
+   "section": "紹介上手になるためのヒント",
+   "name": "Mask group",
+   "figmaNode": "3119:15167",
+   "w": 1190,
+   "h": 324
+  },
+  {
+   "section": "紹介上手になるためのヒント",
+   "name": "Mask group",
+   "figmaNode": "3119:15203",
+   "w": 1190,
+   "h": 230
+  },
+  {
+   "section": "紹介上手になるためのヒント",
+   "name": "Mask group",
+   "figmaNode": "3119:15354",
+   "w": 1019,
+   "h": 197
+  },
+  {
+   "section": "紹介上手になるためのヒント",
+   "name": "Mask group",
+   "figmaNode": "3119:15524",
+   "w": 848,
+   "h": 379
+  }
+ ]
+}

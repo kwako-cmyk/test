@@ -1,0 +1,38 @@
+<section class="blk" data-block="notice-list" data-figma="3119:14207" data-section="注意点などの箇条書きリスト" data-variant="注意点などの箇条書き（リスト）">
+<style>
+[data-block="notice-list"] { background: var(--bg); padding: 40px 20px; display: flex; flex-direction: column; gap: 24px; }
+[data-block="notice-list"] .ttl { display: flex; gap: 8px; align-items: center; }
+[data-block="notice-list"] .ttl h2 { flex: 1 1 0; min-width: 0; }
+[data-block="notice-list"] .ic { width: 24px; height: 24px; flex: none; position: relative; display: flex; align-items: center; justify-content: center; color: var(--fg-inverted); font-size: 14px; font-weight: 700; line-height: 1; }
+[data-block="notice-list"] .ic.is-info { background: var(--fg); border-radius: 50%; margin: 0; }
+[data-block="notice-list"] .ic.is-info::after { content: "i"; font-family: Georgia, serif; }
+[data-block="notice-list"] .ic.is-caution::before { content: ""; position: absolute; inset: 1px 0 2px; background: var(--fg); clip-path: polygon(50% 0, 100% 100%, 0 100%); border-radius: 2px; }
+[data-block="notice-list"] .ic.is-caution::after { content: "!"; position: relative; top: 3px; font-size: 13px; }
+[data-block="notice-list"] .list { display: flex; flex-direction: column; gap: 4px; }
+[data-block="notice-list"] .li { display: flex; align-items: flex-start; }
+[data-block="notice-list"] .dot { width: 25px; height: 25px; flex: none; position: relative; }
+[data-block="notice-list"] .dot::before { content: ""; position: absolute; left: 10px; top: 10px; width: 4px; height: 4px; border-radius: 50%; background: var(--fg); }
+[data-block="notice-list"] .li > p, [data-block="notice-list"] .li > .txt { flex: 1 1 0; min-width: 0; }
+[data-block="notice-list"] .list { list-style: none; }
+[data-block="notice-list"] .sub { display: flex; flex-direction: column; gap: 8px; }
+[data-block="notice-list"] .sub-ttl { font-weight: var(--w-bold); }
+</style>
+  <div class="ttl">
+    <span class="ic is-caution" data-asset="icon/caution"></span>
+    <h2 class="t-headline-xs" data-field="title">注意点</h2>
+  </div>
+  <ul class="list" data-repeat="bullets">
+    <li class="li" data-item>
+      <span class="dot" data-asset="Frame 625406"></span>
+      <p class="t-body-md" data-field="bullets.text">本文テキスト本文テキスト本文テキスト本文テキスト本文テキスト本文テキスト本文テキスト本文テキスト本文テキスト</p>
+    </li>
+    <li class="li" data-item>
+      <span class="dot" data-asset="Frame 625406"></span>
+      <p class="t-body-md" data-field="bullets.text">本文テキスト本文テキスト本文テキスト本文テキスト本文テキスト本文テキスト本文テキスト本文テキスト本文テキスト</p>
+    </li>
+    <li class="li" data-item>
+      <span class="dot" data-asset="Frame 625406"></span>
+      <p class="t-body-md" data-field="bullets.text">本文テキスト本文テキスト本文テキスト本文テキスト本文テキスト本文テキスト本文テキスト本文テキスト本文テキスト</p>
+    </li>
+  </ul>
+</section>

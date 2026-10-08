@@ -1,0 +1,55 @@
+{
+ "id": "please-read-d",
+ "section": "必ずお読みください（追加）",
+ "variant": "必ずお読みください",
+ "figmaNode": "3221:3776",
+ "size": [
+  375,
+  710
+ ],
+ "summary": "必ずお読みくださいの文例入り版（ゲストページ向け：「ご紹介を受けたお客様」）。c の5項目の前に「契約経験がない方に限る」の項目を足した6項目",
+ "position": "flow",
+ "fields": [
+  {
+   "key": "title",
+   "label": "見出し",
+   "kind": "text",
+   "example": "必ずお読みください"
+  },
+  {
+   "key": "bullets.text",
+   "label": "箇条書きの本文",
+   "kind": "richtext",
+   "example": "本紹介状は○○○のご契約経験がないお客様をご紹介いただく場合に限りご利用いただけます。"
+  },
+  {
+   "key": "bullets.heading",
+   "label": "項目内の小見出し（任意。使う項目だけ）",
+   "kind": "text",
+   "example": "特典のお渡し方法について"
+  }
+ ],
+ "images": [],
+ "repeats": [
+  {
+   "key": "bullets",
+   "label": "箇条書き",
+   "templateCount": 6
+  }
+ ],
+ "assets": [
+  {
+   "name": "icon/info",
+   "note": "見出し左のアイコン（24px）。黒丸に iを CSS で近似"
+  },
+  {
+   "name": "Frame 625406",
+   "note": "箇条書きの黒点（25px 枠の中央に小さな丸）。CSS で描画"
+  }
+ ],
+ "colorRoles": {
+  "main": [],
+  "sub": []
+ },
+ "notes": "Figma 上はセクションの外に置かれた単独フレーム。please-read-list と同じ構成（info アイコン＋見出し＋黒点の箇条書き）に、実案件の文例を入れたもの。項目の1つは太字の小見出し＋本文の2段（bullets.heading）。Figma には SHElikes 固有の文言の項目が非表示（hidden）で残っているが、HTML には入れていない。Figma のレート制限でスクリーンショットとデザイン詳細を取得できなかったため、メタデータ（レイヤー構造・寸法）と please-read-list の実装から起こした。本文中の改行（<br>）位置は推定"
+}

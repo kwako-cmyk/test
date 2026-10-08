@@ -1,0 +1,15 @@
+<section class="blk" data-block="slider-m" data-figma="3119:14103" data-section="画像スライダー（自動スライドあり／なし）" data-variant="画像スライダー_中">
+<style>
+[data-block="slider-m"] { background: var(--bg); padding: 40px 20px; }
+[data-block="slider-m"] .slider { position: relative; width: 100%; height: 270px; padding: 0 32.5px; display: flex; gap: 24px; }
+[data-block="slider-m"] .img-slot { flex: none; width: 270px; height: 270px; font-size: 24px; }
+[data-block="slider-m"] .arrow { position: absolute; width: 32px; height: 32px; border-radius: 50%; background: var(--bg); border: 1px solid var(--border); box-shadow: 0 0 4px rgba(0,0,0,.08); }
+[data-block="slider-m"] .arrow::after { content: ""; position: absolute; left: 10px; top: 11px; width: 8px; height: 8px; border-top: 2px solid var(--sub); border-right: 2px solid var(--sub); transform: rotate(45deg); }
+[data-block="slider-m"] .arrow { right: -12px; top: 50%; transform: translateY(-50%); }
+</style>
+  <div class="slider" data-repeat="slides">
+    <div class="img-slot" data-item data-slot="slides.image" data-size="270x270">270*270</div>
+    <div class="img-slot" data-item data-slot="slides.image" data-size="270x270">270*270</div>
+    <span class="arrow" data-asset="slider/arrow_right"></span>
+  </div>
+</section>

@@ -1,0 +1,66 @@
+{
+  "id": "hint",
+  "section": "紹介上手になるためのヒント",
+  "variant": "紹介上手になるためのヒント",
+  "figmaNode": "3119:14297",
+  "size": [
+    375,
+    516
+  ],
+  "summary": "見出し＋本文の下に、イラスト＋短い説明のヒントカード（164px幅）を横スライドで並べる。シェア方法や紹介の切り出し方のコツを伝える。右矢印とページ送りの点つき。",
+  "position": "flow",
+  "fields": [
+    {
+      "key": "title",
+      "label": "見出し",
+      "kind": "text",
+      "example": "紹介上手になるための\nヒント"
+    },
+    {
+      "key": "lead",
+      "label": "本文（リード）",
+      "kind": "text",
+      "example": "本文テキスト本文テキスト本文テキスト本文テキスト本文テキスト本文テキス"
+    },
+    {
+      "key": "items.text",
+      "label": "ヒントの説明",
+      "kind": "text",
+      "example": "LINEグループでのシェアも可能です。"
+    }
+  ],
+  "images": [
+    {
+      "slot": "items.image",
+      "label": "ヒントのイラスト",
+      "size": "140x106",
+      "note": "枠の実寸 140x105.66。テンプレートは線画イラスト（LINE・SNS投稿・ブログ・Instagram・会話など）。差し替え候補のイラスト一式は shots/asset-hint-1〜8.png（Figma の Mask group 3119:14437 ほか）"
+    }
+  ],
+  "repeats": [
+    {
+      "key": "items",
+      "label": "ヒントカード",
+      "templateCount": 7
+    }
+  ],
+  "assets": [
+    {
+      "name": "hint-illust-1〜7",
+      "note": "テンプレートのイラスト（LINEグループ／体験エピソード投稿／URLコピー・ブログ／Instagramリンクスタンプ／会話で伝える／こだわりポイント／後輩・上司との会話）。Figma の Mask group 3119:14302 内"
+    },
+    {
+      "name": "slider/arrow_right",
+      "note": "右矢印ボタン（32px の白丸＋Sub 色のシェブロン）。CSS で描画"
+    }
+  ],
+  "colorRoles": {
+    "main": [
+      "ページ送りの点（現在＝Main、他＝Main の薄色）"
+    ],
+    "sub": [
+      "右矢印のシェブロン"
+    ]
+  },
+  "notes": "カード列は Figma で drop-shadow(0 0 8px rgba(0,0,0,.1))（変数なしのため直書き）。カード説明は body/sm（12px / 行間1.75）で t-caption-md に行間・字間を上書き。非アクティブ点は Main 色を opacity .2。"
+}

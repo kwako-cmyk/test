@@ -1,0 +1,51 @@
+{
+ "id": "faq-open",
+ "section": "よくあるご質問",
+ "variant": "よくあるご質問_open",
+ "figmaNode": "3119:14144",
+ "size": [
+  375,
+  1804
+ ],
+ "summary": "中央見出し＋Q&Aを枠付きカードで縦に並べたFAQ。回答を開いた表示状態（Q行の下に区切り線を挟んでA行）。CMS上は faq と同じブロックで、開閉は閲覧者の操作",
+ "position": "flow",
+ "fields": [
+  {
+   "key": "title",
+   "label": "見出し",
+   "kind": "text",
+   "example": "よくあるご質問"
+  },
+  {
+   "key": "items.question",
+   "label": "質問",
+   "kind": "text",
+   "example": "テキストが入りますテキストが入りますテキストが入ります"
+  },
+  {
+   "key": "items.answer",
+   "label": "回答",
+   "kind": "richtext",
+   "example": "本文テキスト本文テキスト…"
+  }
+ ],
+ "images": [],
+ "repeats": [
+  {
+   "key": "items",
+   "label": "Q&A",
+   "templateCount": 4
+  }
+ ],
+ "assets": [
+  {
+   "name": "icon/minus",
+   "note": "開いている印（−） 16px。CSS で描画"
+  }
+ ],
+ "colorRoles": {
+  "main": [],
+  "sub": []
+ },
+ "notes": "Q/A の文字は固定（編集項目ではない）。カード枠・区切り線は --border"
+}

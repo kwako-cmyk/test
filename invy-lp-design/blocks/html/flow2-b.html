@@ -1,0 +1,70 @@
+<section class="blk" data-block="flow2-b" data-figma="3119:12674" data-section="紹介方法2" data-variant="紹介の流れ/inviter">
+<style>
+[data-block="flow2-b"] { background: var(--bg); padding: 40px 20px; display: flex; flex-direction: column; gap: 32px; align-items: center; }
+[data-block="flow2-b"] .head { display: flex; flex-direction: column; gap: 16px; width: 100%; }
+[data-block="flow2-b"] .ttls { display: flex; flex-direction: column; gap: 4px; text-align: center; }
+[data-block="flow2-b"] .eyebrow { display: flex; gap: 10px; align-items: center; justify-content: center; }
+[data-block="flow2-b"] .eyebrow::before, [data-block="flow2-b"] .eyebrow::after { content: ""; width: 2px; height: 20px; margin: 0 3px; background: var(--fg); transform: rotate(-22deg); flex: none; }
+[data-block="flow2-b"] .eyebrow::after { transform: rotate(22deg); }
+[data-block="flow2-b"] .avatar { width: 32px; height: 32px; border-radius: 50%; background: var(--border); flex: none; }
+[data-block="flow2-b"] .who { display: flex; gap: 12px; align-items: center; justify-content: center; }
+[data-block="flow2-b"] .flow { display: flex; flex-direction: column; gap: 12px; align-items: center; width: 100%; }
+[data-block="flow2-b"] .arr { width: 24px; height: 12px; background: var(--sub); clip-path: polygon(0 0, 100% 0, 50% 100%); flex: none; }
+[data-block="flow2-b"] .group { width: 100%; background: var(--bg-subtle); padding: 20px 16px; display: flex; flex-direction: column; gap: 24px; align-items: center; }
+[data-block="flow2-b"] .group .who { height: 32px; width: 100%; }
+[data-block="flow2-b"] .cards { width: 100%; display: flex; flex-direction: column; gap: 16px; align-items: center; }
+[data-block="flow2-b"] .card { width: 100%; background: var(--bg); padding: 20px 16px; display: flex; flex-direction: column; gap: 24px; align-items: center; }
+[data-block="flow2-b"] .card > p { width: 100%; }
+[data-block="flow2-b"] .card > .t-headline-md { text-align: center; }
+[data-block="flow2-b"] .illust { height: 140px; background: var(--bg-subtle); border: 1px dashed var(--border); flex: none; }
+[data-block="flow2-b"] .bonus { position: relative; width: 335px; height: 175px; background: #6e6e6e; overflow: hidden; }
+[data-block="flow2-b"] .ribbon { position: absolute; left: 20px; top: 20px; width: 295px; height: 28px; background: var(--bg); clip-path: polygon(0 0, 100% 0, calc(100% - 10px) 50%, 100% 100%, 0 100%, 10px 50%); display: flex; align-items: center; justify-content: center; }
+[data-block="flow2-b"] .ribbon p { color: #6e6e6e; }
+[data-block="flow2-b"] .bonus .avatar { position: absolute; top: 16px; width: 36px; height: 36px; }
+[data-block="flow2-b"] .bonus .a1 { left: 76px; }
+[data-block="flow2-b"] .bonus .a2 { left: 224px; }
+[data-block="flow2-b"] .bonus-ttl { position: absolute; left: 0; right: 0; top: 60px; text-align: center; color: var(--fg-inverted); font-size: 36px; line-height: 1.35; }
+</style>
+  <div class="head">
+    <div class="ttls">
+      <p class="eyebrow t-headline-sm"><span data-field="eyebrow">カンタン！たったの10秒</span></p>
+      <h2 class="t-headline-lg" data-field="title">お友だちに紹介状を送ろう</h2>
+    </div>
+  </div>
+  <div class="flow">
+    <div class="group">
+      <div class="who"><span class="avatar" data-asset="var_avatar"></span><p class="t-headline-sm" data-field="inviter.who">あなたに</p></div>
+      <div class="cards">
+        <div class="card">
+          <p class="t-headline-md" data-field="step1.heading">必要情報を入力し送信</p>
+          <div class="illust" data-asset="illust/入力して送信（スマホ）" style="width:245px"></div>
+          <p class="t-body-md" data-field="step1.text">あなたの情報を入力しLINEやtwitterでお友達に送信</p>
+        </div>
+      </div>
+    </div>
+    <span class="arr"></span>
+    <div class="group">
+      <div class="who"><span class="avatar" data-asset="var_avatar"></span><p class="t-headline-sm" data-field="friend.who">お友達に</p></div>
+      <div class="cards">
+        <div class="card">
+          <p class="t-headline-md" data-field="step2.heading">初回カウンセリングの予約</p>
+          <div class="illust" data-asset="illust/招待状が届きました（スマホ＋相談相手）" style="width:245px"></div>
+          <p class="t-body-md" data-field="step2.text">あなたから送信された紹介専用ページからカウンセリング予約をする</p>
+        </div>
+        <span class="arr"></span>
+        <div class="card">
+          <p class="t-headline-md" data-field="step3.heading">初回お申し込み</p>
+          <div class="illust" data-asset="illust/QRコード提示（スマホ＋リーダー）" style="width:245px"></div>
+          <p class="t-body-md" data-field="step3.text">あなたが送った紹介状からQRコード開き、初回お申し込み時に提示</p>
+        </div>
+      </div>
+    </div>
+    <span class="arr"></span>
+    <div class="bonus">
+      <div class="ribbon"><p class="t-headline-xs" data-field="bonus.who">お二人共に</p></div>
+      <span class="avatar a1" data-asset="var_avatar"></span>
+      <span class="avatar a2" data-asset="var_avatar"></span>
+      <p class="bonus-ttl t-headline-lg" data-field="bonus.title">紹介特典を<br>プレゼント‼</p>
+    </div>
+  </div>
+</section>

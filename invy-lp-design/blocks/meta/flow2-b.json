@@ -1,0 +1,121 @@
+{
+  "id": "flow2-b",
+  "section": "紹介方法2",
+  "variant": "紹介の流れ/inviter",
+  "figmaNode": "3119:12674",
+  "size": [
+    375,
+    1586
+  ],
+  "summary": "見出しの下に、薄グレーの枠で「あなたに」（1枚）と「お友達に」（2枚：カウンセリング予約→初回お申し込み）の手順カードをまとめ、挿絵付きで流れを見せる。最後に濃いグレーの「お二人共に 紹介特典をプレゼント‼」の帯で締める。リード文なし",
+  "position": "flow",
+  "fields": [
+    {
+      "key": "eyebrow",
+      "label": "小見出し（＼ ／ で挟む）",
+      "kind": "text",
+      "example": "カンタン！たったの10秒"
+    },
+    {
+      "key": "title",
+      "label": "見出し",
+      "kind": "text",
+      "example": "お友だちに紹介状を送ろう"
+    },
+    {
+      "key": "inviter.who",
+      "label": "紹介者側の枠の見出し",
+      "kind": "text",
+      "example": "あなたに"
+    },
+    {
+      "key": "step1.heading",
+      "label": "手順1 見出し",
+      "kind": "text",
+      "example": "必要情報を入力し送信"
+    },
+    {
+      "key": "step1.text",
+      "label": "手順1 説明",
+      "kind": "text",
+      "example": "あなたの情報を入力しLINEやtwitterでお友達に送信"
+    },
+    {
+      "key": "friend.who",
+      "label": "お友達側の枠の見出し",
+      "kind": "text",
+      "example": "お友達に"
+    },
+    {
+      "key": "step2.heading",
+      "label": "手順2 見出し",
+      "kind": "text",
+      "example": "初回カウンセリングの予約"
+    },
+    {
+      "key": "step2.text",
+      "label": "手順2 説明",
+      "kind": "text",
+      "example": "あなたから送信された紹介専用ページからカウンセリング予約をする"
+    },
+    {
+      "key": "step3.heading",
+      "label": "手順3 見出し",
+      "kind": "text",
+      "example": "初回お申し込み"
+    },
+    {
+      "key": "step3.text",
+      "label": "手順3 説明",
+      "kind": "text",
+      "example": "あなたが送った紹介状からQRコード開き、初回お申し込み時に提示"
+    },
+    {
+      "key": "bonus.who",
+      "label": "特典帯のリボン文言",
+      "kind": "text",
+      "example": "お二人共に"
+    },
+    {
+      "key": "bonus.title",
+      "label": "特典帯の大見出し",
+      "kind": "text",
+      "example": "紹介特典を\nプレゼント‼"
+    }
+  ],
+  "images": [],
+  "repeats": [],
+  "assets": [
+    {
+      "name": "var_avatar",
+      "note": "枠見出しのアバター 32px、特典帯のアバター 36px×2"
+    },
+    {
+      "name": "illust/入力して送信（スマホ）",
+      "note": "手順1の挿絵 245x140（Figma 3119:17178 等の未命名グループ）"
+    },
+    {
+      "name": "illust/招待状が届きました（スマホ＋相談相手）",
+      "note": "手順2の挿絵 245x140"
+    },
+    {
+      "name": "illust/QRコード提示（スマホ＋リーダー）",
+      "note": "手順3の挿絵 245x140"
+    },
+    {
+      "name": "arr",
+      "note": "下向き三角（24x12）。CSS で描画"
+    },
+    {
+      "name": "Rectangle 265",
+      "note": "特典帯の白いリボン（295x28、両端が切れ込み）。CSS の clip-path で描画"
+    }
+  ],
+  "colorRoles": {
+    "main": [],
+    "sub": [
+      "枠・カード間の下向き三角"
+    ]
+  },
+  "notes": "見出し上の小見出しを挟む斜線（＼ ／）は Figma では線素材（Line 100/102）。CSS で描画（色は --fg）。特典帯の背景とリボン文字 #6e6e6e は Figma で色スタイル未適用の直書きグレー（Main 変数ではない）ため直書き。挿絵はテンプレート固有の素材で、差し替え用の画像枠ではなく data-asset の枠で代用。手順カードは2つの枠に 1枚＋2枚の固定構成のため繰り返しにしていない。特典帯の大見出しは 36px（テキストスタイル外、t-headline-lg を拡大）"
+}

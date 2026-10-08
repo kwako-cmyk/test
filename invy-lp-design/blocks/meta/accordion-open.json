@@ -1,0 +1,45 @@
+{
+ "id": "accordion-open",
+ "section": "アコーディオンリスト",
+ "variant": "アコーディオンリスト_open",
+ "figmaNode": "3119:14170",
+ "size": [
+  375,
+  1664
+ ],
+ "summary": "見出しなしで、タイトル行（＋/−）と本文の開閉リストを縦に並べたもの。本文を開いた表示状態。CMS上は accordion と同じブロック",
+ "position": "flow",
+ "fields": [
+  {
+   "key": "items.title",
+   "label": "アコーディオンタイトル",
+   "kind": "text",
+   "example": "テキストが入りますテキストが入りますテキストが入ります"
+  },
+  {
+   "key": "items.body",
+   "label": "本文",
+   "kind": "richtext",
+   "example": "本文テキスト本文テキスト…"
+  }
+ ],
+ "images": [],
+ "repeats": [
+  {
+   "key": "items",
+   "label": "アコーディオン",
+   "templateCount": 4
+  }
+ ],
+ "assets": [
+  {
+   "name": "icon/minus",
+   "note": "16px。CSS で描画"
+  }
+ ],
+ "colorRoles": {
+  "main": [],
+  "sub": []
+ },
+ "notes": "開いた状態は角丸4pxの外枠の中に、枠付きのタイトル行と本文を1px の区切りで重ねる（Figma どおりタイトル行にも枠があるので線が二重に近く見える）。FAQ と違いブロック見出しや Q/A 記号はない"
+}

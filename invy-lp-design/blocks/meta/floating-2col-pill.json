@@ -1,0 +1,47 @@
+{
+  "id": "floating-2col-pill",
+  "section": "フローティングバナー",
+  "variant": "フローティングバナー 2カラム（ピル型）",
+  "figmaNode": "3119:14122",
+  "size": [
+    375,
+    84
+  ],
+  "summary": "画面下に固定される2つのピル型ボタン（2行文言＋矢印）を横に並べたバナー",
+  "position": "bottom",
+  "fields": [
+    {
+      "key": "buttons.label",
+      "label": "ボタン文言",
+      "kind": "text",
+      "example": "オンライン\n相談予約"
+    },
+    {
+      "key": "buttons.url",
+      "label": "ボタンのリンク先",
+      "kind": "url",
+      "example": "https://"
+    }
+  ],
+  "images": [],
+  "repeats": [
+    {
+      "key": "buttons",
+      "label": "ボタン",
+      "templateCount": 2
+    }
+  ],
+  "assets": [
+    {
+      "name": "icon/arrow_chev_right",
+      "note": "右向きシェブロン。CSS で描画（1カラム16px／2カラム12px）"
+    }
+  ],
+  "colorRoles": {
+    "main": [
+      "ボタン背景"
+    ],
+    "sub": []
+  },
+  "notes": "四角版との違いは角丸（999px）と左右の余白のみ。影は直書き"
+}

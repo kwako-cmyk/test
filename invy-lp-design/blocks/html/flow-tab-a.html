@@ -1,0 +1,66 @@
+<section class="blk" data-block="flow-tab-a" data-figma="3119:12571" data-section="紹介方法（タブ）" data-variant="紹介方法（タブ）">
+<style>
+[data-block="flow-tab-a"] { background: var(--bg); padding: 40px 20px; display: flex; flex-direction: column; gap: 32px; align-items: center; }
+[data-block="flow-tab-a"] .head { display: flex; flex-direction: column; gap: 16px; width: 100%; }
+[data-block="flow-tab-a"] .ttls { display: flex; flex-direction: column; gap: 4px; text-align: center; }
+[data-block="flow-tab-a"] .eyebrow { display: flex; gap: 10px; align-items: center; justify-content: center; }
+[data-block="flow-tab-a"] .eyebrow::before, [data-block="flow-tab-a"] .eyebrow::after { content: ""; width: 2px; height: 20px; margin: 0 3px; background: var(--fg); transform: rotate(-22deg); flex: none; }
+[data-block="flow-tab-a"] .eyebrow::after { transform: rotate(22deg); }
+[data-block="flow-tab-a"] .is-r { font-weight: var(--w-regular); }
+[data-block="flow-tab-a"] .panel { width: 375px; margin: 0 -20px; display: flex; flex-direction: column; }
+[data-block="flow-tab-a"] .tabs { display: flex; gap: 5px; align-items: flex-end; padding: 0 20px; margin-bottom: -1px; position: relative; z-index: 2; }
+[data-block="flow-tab-a"] .tab { flex: 1 0 0; min-width: 0; display: flex; gap: 12px; align-items: center; padding: 12px 16px; background: var(--sub); color: var(--fg-inverted); }
+[data-block="flow-tab-a"] .tab.is-active { padding: 16px; background: var(--bg); color: var(--sub); border: 1px solid var(--sub); border-bottom: 0; }
+[data-block="flow-tab-a"] .tab p { white-space: nowrap; }
+[data-block="flow-tab-a"] .avatar { width: 32px; height: 32px; border-radius: 50%; background: var(--border); flex: none; }
+[data-block="flow-tab-a"] .rule { height: 1px; background: var(--sub); position: relative; z-index: 1; }
+[data-block="flow-tab-a"] .steps { display: flex; flex-direction: column; gap: 32px; padding: 32px 20px 0; }
+[data-block="flow-tab-a"] .step { display: flex; flex-direction: column; gap: 16px; }
+[data-block="flow-tab-a"] .sh { display: flex; min-height: 68px; }
+[data-block="flow-tab-a"] .num { background: var(--sub); color: var(--fg-inverted); display: flex; flex-direction: column; gap: 4px; align-items: center; justify-content: center; padding: 10px; font-family: var(--font-en), sans-serif; font-weight: 500; line-height: 1; white-space: nowrap; }
+[data-block="flow-tab-a"] .num .s { font-size: 12px; }
+[data-block="flow-tab-a"] .num .n { font-size: 20px; }
+[data-block="flow-tab-a"] .sh-txt { flex: 1 0 0; min-width: 0; background: var(--bg-subtle); padding: 10px 16px; display: flex; align-items: center; }
+[data-block="flow-tab-a"] .img-slot { width: 335px; height: 190px; font-size: 24px; }
+</style>
+  <div class="head">
+    <div class="ttls">
+      <p class="eyebrow t-headline-sm"><span data-field="eyebrow">カンタン！たったの10秒</span></p>
+      <h2 class="t-headline-lg" data-field="title">お友だちに紹介状を送ろう</h2>
+    </div>
+    <p class="t-body-md" data-field="lead">本文テキスト本文テキスト本文テキスト本文テキスト本文テキスト本文テキス</p>
+  </div>
+  <div class="panel">
+    <div class="tabs" data-repeat="tabs">
+    <div class="tab is-active" data-item><span class="avatar" data-asset="var_avatar"></span><p class="t-label-lg" data-field="tabs.label">あなた</p></div>
+    <div class="tab" data-item><span class="avatar" data-asset="var_avatar"></span><p class="t-label-lg is-r" data-field="tabs.label">お友達</p></div>
+    </div>
+    <div class="rule"></div>
+    <div class="steps" data-repeat="steps">
+    <div class="step" data-item>
+      <div class="sh">
+        <div class="num"><span class="s">STEP</span><span class="n" data-field="steps.num">1</span></div>
+        <div class="sh-txt"><p class="t-label-lg is-r" data-field="steps.heading">テキストが入ります</p></div>
+      </div>
+      <p class="t-body-md" data-field="steps.text">本文テキスト本文テキスト本文テキスト本文テキスト本文テキスト本文テキスト本文テキスト本文テキスト本文テキスト本文テキスト本文テキスト本文テキスト本文テキスト本文テキスト本文テキスト本文テキスト本文テキスト本文テキスト</p>
+      <div class="img-slot" data-slot="steps.image" data-size="335x190">image</div>
+    </div>
+    <div class="step" data-item>
+      <div class="sh">
+        <div class="num"><span class="s">STEP</span><span class="n" data-field="steps.num">2</span></div>
+        <div class="sh-txt"><p class="t-label-lg is-r" data-field="steps.heading">テキストが入りますテキストが入りますテキストが入ります</p></div>
+      </div>
+      <p class="t-body-md" data-field="steps.text">本文テキスト本文テキスト本文テキスト本文テキスト本文テキスト本文テキスト本文テキスト本文テキスト本文テキスト本文テキスト本文テキスト本文テキスト本文テキスト本文テキスト本文テキスト本文テキスト本文テキスト本文テキスト</p>
+      <div class="img-slot" data-slot="steps.image" data-size="335x190">image</div>
+    </div>
+    <div class="step" data-item>
+      <div class="sh">
+        <div class="num"><span class="s">STEP</span><span class="n" data-field="steps.num">3</span></div>
+        <div class="sh-txt"><p class="t-label-lg is-r" data-field="steps.heading">テキストが入りますテキストが入りますテキストが入りますテキストが入りますテキストが入り</p></div>
+      </div>
+      <p class="t-body-md" data-field="steps.text">本文テキスト本文テキスト本文テキスト本文テキスト本文テキスト本文テキスト本文テキスト本文テキスト本文テキスト本文テキスト本文テキスト本文テキスト本文テキスト本文テキスト本文テキスト本文テキスト本文テキスト本文テキスト</p>
+      <div class="img-slot" data-slot="steps.image" data-size="335x190">image</div>
+    </div>
+    </div>
+  </div>
+</section>

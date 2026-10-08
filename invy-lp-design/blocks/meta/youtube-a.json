@@ -1,0 +1,40 @@
+{
+  "id": "youtube-a",
+  "section": "YouTube",
+  "variant": "YouTube",
+  "figmaNode": "3119:14269",
+  "size": [
+    375,
+    268
+  ],
+  "summary": "YouTube 動画の埋め込み枠（横長 16:9、335x188）。サムネイル画像の上に再生ボタン",
+  "position": "flow",
+  "fields": [
+    {
+      "key": "url",
+      "label": "YouTube の URL",
+      "kind": "url",
+      "example": "https://www.youtube.com/watch?v=xxxx"
+    }
+  ],
+  "images": [
+    {
+      "slot": "thumbnail",
+      "label": "動画サムネイル",
+      "size": "335x188",
+      "note": "枠の実寸（335x188.44、16:9）。埋め込み時は iframe に置き換え"
+    }
+  ],
+  "repeats": [],
+  "assets": [
+    {
+      "name": "play_button",
+      "note": "再生ボタン（直径56px の濃グレー円＋白三角）。Figma では Ellipse＋Polygon。HTML では CSS で描画"
+    }
+  ],
+  "colorRoles": {
+    "main": [],
+    "sub": []
+  },
+  "notes": "url は HTML 上には要素なし（埋め込み時に使用）。再生ボタン色 rgba(0,0,0,.65) は変数に無いので直書き"
+}

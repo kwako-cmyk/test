@@ -1,0 +1,38 @@
+<section class="blk" data-block="please-read-list" data-figma="3119:14185" data-section="必ずお読みください" data-variant="必ずお読みください（リスト）">
+<style>
+[data-block="please-read-list"] { background: var(--bg); padding: 40px 20px; display: flex; flex-direction: column; gap: 24px; }
+[data-block="please-read-list"] .ttl { display: flex; gap: 8px; align-items: center; }
+[data-block="please-read-list"] .ttl h2 { flex: 1 1 0; min-width: 0; }
+[data-block="please-read-list"] .ic { width: 24px; height: 24px; flex: none; position: relative; display: flex; align-items: center; justify-content: center; color: var(--fg-inverted); font-size: 14px; font-weight: 700; line-height: 1; }
+[data-block="please-read-list"] .ic.is-info { background: var(--fg); border-radius: 50%; margin: 0; }
+[data-block="please-read-list"] .ic.is-info::after { content: "i"; font-family: Georgia, serif; }
+[data-block="please-read-list"] .ic.is-caution::before { content: ""; position: absolute; inset: 1px 0 2px; background: var(--fg); clip-path: polygon(50% 0, 100% 100%, 0 100%); border-radius: 2px; }
+[data-block="please-read-list"] .ic.is-caution::after { content: "!"; position: relative; top: 3px; font-size: 13px; }
+[data-block="please-read-list"] .list { display: flex; flex-direction: column; gap: 4px; }
+[data-block="please-read-list"] .li { display: flex; align-items: flex-start; }
+[data-block="please-read-list"] .dot { width: 25px; height: 25px; flex: none; position: relative; }
+[data-block="please-read-list"] .dot::before { content: ""; position: absolute; left: 10px; top: 10px; width: 4px; height: 4px; border-radius: 50%; background: var(--fg); }
+[data-block="please-read-list"] .li > p, [data-block="please-read-list"] .li > .txt { flex: 1 1 0; min-width: 0; }
+[data-block="please-read-list"] .list { list-style: none; }
+[data-block="please-read-list"] .sub { display: flex; flex-direction: column; gap: 8px; }
+[data-block="please-read-list"] .sub-ttl { font-weight: var(--w-bold); }
+</style>
+  <div class="ttl">
+    <span class="ic is-info" data-asset="icon/info"></span>
+    <h2 class="t-headline-xs" data-field="title">必ずお読みください</h2>
+  </div>
+  <ul class="list" data-repeat="bullets">
+    <li class="li" data-item>
+      <span class="dot" data-asset="Frame 625406"></span>
+      <p class="t-body-md" data-field="bullets.text">本文テキスト本文テキスト本文テキスト本文テキスト本文テキスト本文テキスト本文テキスト本文テキスト本文テキスト</p>
+    </li>
+    <li class="li" data-item>
+      <span class="dot" data-asset="Frame 625406"></span>
+      <p class="t-body-md" data-field="bullets.text">本文テキスト本文テキスト本文テキスト本文テキスト本文テキスト本文テキスト本文テキスト本文テキスト本文テキスト</p>
+    </li>
+    <li class="li" data-item>
+      <span class="dot" data-asset="Frame 625406"></span>
+      <p class="t-body-md" data-field="bullets.text">本文テキスト本文テキスト本文テキスト本文テキスト本文テキスト本文テキスト本文テキスト本文テキスト本文テキスト</p>
+    </li>
+  </ul>
+</section>

@@ -1,0 +1,36 @@
+<section class="blk" data-block="review" data-figma="3119:15670" data-section="口コミ" data-variant="口コミ_close">
+<style>
+[data-block="review"] { background: var(--bg-subtle); padding: 40px 20px; display: flex; flex-direction: column; gap: 32px; align-items: center; }
+[data-block="review"] .ttl { text-align: center; width: 100%; }
+[data-block="review"] .items { display: flex; flex-direction: column; gap: 16px; width: 100%; }
+[data-block="review"] .card { background: var(--bg); border-radius: 8px; padding: 24px 20px; display: flex; gap: 16px; align-items: stretch; width: 100%; }
+[data-block="review"] .who { width: 80px; flex: none; display: flex; flex-direction: column; gap: 8px; }
+[data-block="review"] .who .img-slot { width: 80px; height: 80px; }
+[data-block="review"] .name { font-size: 12px; font-weight: var(--w-bold); line-height: 1.5; letter-spacing: .04em; text-align: center; }
+[data-block="review"] .body { flex: 1; min-width: 0; }
+[data-block="review"] .btn { height: 58px; padding: 16px 20px 18px 26px; gap: 10px; }
+[data-block="review"] .btn span { flex: 1; text-align: center; }
+[data-block="review"] .ico { width: 16px; height: 16px; flex: none; position: relative; }
+[data-block="review"] .ico::before, [data-block="review"] .ico::after { content: ""; position: absolute; background: currentColor; left: 1px; right: 1px; top: 7px; height: 2px; }
+[data-block="review"] .ico.plus::after { transform: rotate(90deg); }
+[data-block="review"] .ico.minus::after { display: none; }
+</style>
+  <h2 class="ttl t-headline-lg" data-field="title">口コミ</h2>
+  <div class="items" data-repeat="items">
+    <div class="card" data-item>
+      <div class="who">
+        <div class="img-slot" data-slot="items.photo" data-size="80x80"></div>
+        <p class="name" data-field="items.name">テキストが入ります</p>
+      </div>
+      <div class="img-slot body" data-slot="items.image" data-size="199x124"></div>
+    </div>
+    <div class="card" data-item>
+      <div class="who">
+        <div class="img-slot" data-slot="items.photo" data-size="80x80"></div>
+        <p class="name" data-field="items.name">テキストが入ります</p>
+      </div>
+      <div class="img-slot body" data-slot="items.image" data-size="199x124"></div>
+    </div>
+  </div>
+  <a class="btn is-pill is-outline"><span data-field="buttonLabel">口コミをもっと見る</span><i class="ico plus" data-asset="icon/plus"></i></a>
+</section>

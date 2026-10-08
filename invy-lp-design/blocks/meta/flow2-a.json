@@ -1,0 +1,82 @@
+{
+  "id": "flow2-a",
+  "section": "紹介方法2",
+  "variant": "紹介の流れ/inviter",
+  "figmaNode": "3119:12634",
+  "size": [
+    375,
+    1489
+  ],
+  "summary": "見出し＋リード文の下に、紹介の流れを3ステップ（あなたに／お友達に／お二人に）で白地のまま縦に並べ、間を Sub 色の小さな下向き三角でつなぐ",
+  "position": "flow",
+  "fields": [
+    {
+      "key": "eyebrow",
+      "label": "小見出し（＼ ／ で挟む）",
+      "kind": "text",
+      "example": "カンタン！たったの10秒"
+    },
+    {
+      "key": "title",
+      "label": "見出し",
+      "kind": "text",
+      "example": "お友だちに紹介状を送ろう"
+    },
+    {
+      "key": "lead",
+      "label": "リード文",
+      "kind": "text",
+      "example": "本文テキスト本文テキスト本文テキスト本文テキスト本文テキスト本文テキスト"
+    },
+    {
+      "key": "items.who",
+      "label": "対象（あなたに／お友達に／お二人に）",
+      "kind": "text",
+      "example": "あなたに"
+    },
+    {
+      "key": "items.heading",
+      "label": "ステップ見出し",
+      "kind": "text",
+      "example": "タイトルが入りますタイトルが入りますタイトルが入ります"
+    },
+    {
+      "key": "items.text",
+      "label": "ステップ説明",
+      "kind": "text",
+      "example": "本文テキスト本文テキスト本文テキスト…"
+    }
+  ],
+  "images": [
+    {
+      "slot": "items.image",
+      "label": "ステップ画像",
+      "size": "335x190",
+      "note": "テンプレートに寸法表記なし。枠の実寸"
+    }
+  ],
+  "repeats": [
+    {
+      "key": "items",
+      "label": "流れのステップ",
+      "templateCount": 3
+    }
+  ],
+  "assets": [
+    {
+      "name": "var_avatar",
+      "note": "アバター（32px）。Figma の var_avatar コンポーネントから選ぶ"
+    },
+    {
+      "name": "arr",
+      "note": "ステップ間の下向き三角（24x12）。CSS で描画（2番目以降のステップの頭に付く）"
+    }
+  ],
+  "colorRoles": {
+    "main": [],
+    "sub": [
+      "ステップ間の下向き三角"
+    ]
+  },
+  "notes": "見出し上の小見出しを挟む斜線（＼ ／）は Figma では線素材（Line 100/102）。CSS で描画（色は --fg）。3人目（お二人に）は対象名の左右にアバター2つ"
+}

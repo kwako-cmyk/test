@@ -1,0 +1,53 @@
+<section class="blk" data-block="please-read-d" data-figma="3221:3776" data-section="必ずお読みください（追加）" data-variant="必ずお読みください">
+<style>
+[data-block="please-read-d"] { background: var(--bg); padding: 40px 20px; display: flex; flex-direction: column; gap: 24px; }
+[data-block="please-read-d"] .ttl { display: flex; gap: 8px; align-items: center; }
+[data-block="please-read-d"] .ttl h2 { flex: 1 1 0; min-width: 0; }
+[data-block="please-read-d"] .ic { width: 24px; height: 24px; flex: none; position: relative; display: flex; align-items: center; justify-content: center; color: var(--fg-inverted); font-size: 14px; font-weight: 700; line-height: 1; }
+[data-block="please-read-d"] .ic.is-info { background: var(--fg); border-radius: 50%; margin: 0; }
+[data-block="please-read-d"] .ic.is-info::after { content: "i"; font-family: Georgia, serif; }
+[data-block="please-read-d"] .ic.is-caution::before { content: ""; position: absolute; inset: 1px 0 2px; background: var(--fg); clip-path: polygon(50% 0, 100% 100%, 0 100%); border-radius: 2px; }
+[data-block="please-read-d"] .ic.is-caution::after { content: "!"; position: relative; top: 3px; font-size: 13px; }
+[data-block="please-read-d"] .list { display: flex; flex-direction: column; gap: 4px; }
+[data-block="please-read-d"] .li { display: flex; align-items: flex-start; }
+[data-block="please-read-d"] .dot { width: 25px; height: 25px; flex: none; position: relative; }
+[data-block="please-read-d"] .dot::before { content: ""; position: absolute; left: 10px; top: 10px; width: 4px; height: 4px; border-radius: 50%; background: var(--fg); }
+[data-block="please-read-d"] .li > p, [data-block="please-read-d"] .li > .txt { flex: 1 1 0; min-width: 0; }
+[data-block="please-read-d"] .list { list-style: none; }
+[data-block="please-read-d"] .sub { display: flex; flex-direction: column; gap: 8px; }
+[data-block="please-read-d"] .sub-ttl { font-weight: var(--w-bold); }
+</style>
+  <div class="ttl">
+    <span class="ic is-info" data-asset="icon/info"></span>
+    <h2 class="t-headline-xs" data-field="title">必ずお読みください</h2>
+  </div>
+  <ul class="list" data-repeat="bullets">
+    <li class="li" data-item>
+      <span class="dot" data-asset="Frame 625406"></span>
+      <p class="t-body-md" data-field="bullets.text">本紹介状は○○○のご契約経験がないお客様をご紹介いただく場合に限りご利用いただけます。</p>
+    </li>
+    <li class="li" data-item>
+      <span class="dot" data-asset="Frame 625406"></span>
+      <p class="t-body-md" data-field="bullets.text">特典の進呈は、キャンペーン期間内に、弊社が定める方法にてご紹介を受けたお客様が紹介状経由で○○○をご契約いただいたことを確認できた場合に限ります。<br>キャンペーン期間は2025年00月00日～00月00日までです。</p>
+    </li>
+    <li class="li" data-item>
+      <span class="dot" data-asset="Frame 625406"></span>
+      <div class="txt sub">
+        <p class="t-body-md sub-ttl" data-field="bullets.heading">特典のお渡し方法について</p>
+        <p class="t-body-md" data-field="bullets.text">○○○のご契約が確認出来次第、随時特典をメールにて送付します。</p>
+      </div>
+    </li>
+    <li class="li" data-item>
+      <span class="dot" data-asset="Frame 625406"></span>
+      <p class="t-body-md" data-field="bullets.text">本キャンペーンは予告無く変更/終了する場合がございます。</p>
+    </li>
+    <li class="li" data-item>
+      <span class="dot" data-asset="Frame 625406"></span>
+      <p class="t-body-md" data-field="bullets.text">キャンペーンに関するお問い合わせは○○○カスタマーサポートまで連絡ください。</p>
+    </li>
+    <li class="li" data-item>
+      <span class="dot" data-asset="Frame 625406"></span>
+      <p class="t-body-md" data-field="bullets.text">ご紹介フォームに入力いただいたメールアドレスが誤っていた場合や、お客様側のセキュリティ設定等により特典の送付メールが受け取れない場合であっても、再送はできません。<br>以下のドメインを受信できるよう、設定のご確認をお願いいたします。<br>「○○○.jp」</p>
+    </li>
+  </ul>
+</section>

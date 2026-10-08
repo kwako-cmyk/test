@@ -1,0 +1,43 @@
+{
+  "id": "header-square",
+  "section": "ヘッダー",
+  "variant": "ヘッダー_ボタン：四角",
+  "figmaNode": "3119:13110",
+  "size": [
+    375,
+    50
+  ],
+  "summary": "左にロゴ、右端に高さいっぱいの四角い紹介ボタンを置いたヘッダーバー",
+  "position": "top",
+  "fields": [
+    {
+      "key": "buttonLabel",
+      "label": "ボタン文言",
+      "kind": "text",
+      "example": "紹介する"
+    },
+    {
+      "key": "buttonUrl",
+      "label": "ボタンのリンク先",
+      "kind": "url",
+      "example": "#"
+    }
+  ],
+  "images": [
+    {
+      "slot": "logo",
+      "label": "ロゴ",
+      "size": "100x34",
+      "note": "テンプレートに寸法表記なし。枠の実寸。四角版の Figma では実ロゴ画像（生活クラブ）が入っている"
+    }
+  ],
+  "repeats": [],
+  "assets": [],
+  "colorRoles": {
+    "main": [
+      "紹介ボタンの背景"
+    ],
+    "sub": []
+  },
+  "notes": "Figma は 375x636 のスマホ枠。バー本体（375x50）のみ起こした"
+}

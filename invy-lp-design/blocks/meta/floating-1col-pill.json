@@ -1,0 +1,41 @@
+{
+  "id": "floating-1col-pill",
+  "section": "フローティングバナー",
+  "variant": "フローティングバナー 1カラム（ピル型）",
+  "figmaNode": "3119:14120",
+  "size": [
+    375,
+    85
+  ],
+  "summary": "画面下に固定されるピル型の1ボタン（右に矢印）のバナー",
+  "position": "bottom",
+  "fields": [
+    {
+      "key": "label",
+      "label": "ボタン文言",
+      "kind": "text",
+      "example": "今すぐ体験予約する"
+    },
+    {
+      "key": "url",
+      "label": "ボタンのリンク先",
+      "kind": "url",
+      "example": "https://"
+    }
+  ],
+  "images": [],
+  "repeats": [],
+  "assets": [
+    {
+      "name": "icon/arrow_chev_right",
+      "note": "右向きシェブロン。CSS で描画（1カラム16px／2カラム12px）"
+    }
+  ],
+  "colorRoles": {
+    "main": [
+      "ボタン背景"
+    ],
+    "sub": []
+  },
+  "notes": "四角版との違いは角丸（999px）と左右の余白のみ。ボタン文言は t-headline-sm（label/bold/xl 18px と同値）。影は直書き"
+}

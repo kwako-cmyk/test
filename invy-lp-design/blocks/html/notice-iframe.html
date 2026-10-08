@@ -1,0 +1,22 @@
+<section class="blk" data-block="notice-iframe" data-figma="3119:14221" data-section="注意点などの箇条書きリスト" data-variant="注意点などの箇条書き（iFrame）">
+<style>
+[data-block="notice-iframe"] { background: var(--bg); padding: 40px 20px; display: flex; flex-direction: column; gap: 24px; }
+[data-block="notice-iframe"] .ttl { display: flex; gap: 8px; align-items: center; }
+[data-block="notice-iframe"] .ttl h2 { flex: 1 1 0; min-width: 0; }
+[data-block="notice-iframe"] .ic { width: 24px; height: 24px; flex: none; position: relative; display: flex; align-items: center; justify-content: center; color: var(--fg-inverted); font-size: 14px; font-weight: 700; line-height: 1; }
+[data-block="notice-iframe"] .ic.is-info { background: var(--fg); border-radius: 50%; margin: 0; }
+[data-block="notice-iframe"] .ic.is-info::after { content: "i"; font-family: Georgia, serif; }
+[data-block="notice-iframe"] .ic.is-caution::before { content: ""; position: absolute; inset: 1px 0 2px; background: var(--fg); clip-path: polygon(50% 0, 100% 100%, 0 100%); border-radius: 2px; }
+[data-block="notice-iframe"] .ic.is-caution::after { content: "!"; position: relative; top: 3px; font-size: 13px; }
+[data-block="notice-iframe"] .frame { position: relative; height: 280px; border: 1px solid var(--border); background: var(--bg); padding: 12px 24px 12px 12px; overflow: hidden; }
+[data-block="notice-iframe"] .bar { position: absolute; right: 5px; top: 5px; width: 6px; height: 185px; border-radius: 999px; background: #c1c1c1; }
+</style>
+  <div class="ttl">
+    <span class="ic is-caution" data-asset="icon/caution"></span>
+    <h2 class="t-headline-xs" data-field="title">注意点</h2>
+  </div>
+  <div class="frame">
+    <p class="t-body-md" data-field="body">本文テキスト本文テキスト本文テキスト本文テキスト本文テキスト本文テキスト本文テキスト本文テキスト本文テキスト本文テキスト本文テキスト本文テキスト本文テキスト本文テキスト本文テキスト本文テキスト本文テキスト本文テキスト本文テキスト本文テキスト本文テキスト本文テキスト本文テキスト本文テキスト本文テキスト本文テキスト本文テキスト本文テキスト本文テキスト本文テキスト本文テキスト本文テキスト本文テキスト本文テキスト本文テキスト本文テキスト</p>
+    <span class="bar" aria-hidden="true"></span>
+  </div>
+</section>

@@ -1,0 +1,24 @@
+<section class="blk" data-block="coupon-code" data-figma="3119:15579" data-section="クーポンコード" data-variant="クーポンコード">
+<style>
+[data-block="coupon-code"] { background: var(--bg-subtle); padding: 40px 20px; display: flex; flex-direction: column; align-items: center; }
+[data-block="coupon-code"] .box { background: var(--bg); border-radius: 8px; overflow: hidden; width: 100%; display: flex; flex-direction: column; }
+[data-block="coupon-code"] .lead { padding: 24px 20px; }
+[data-block="coupon-code"] .code { position: relative; background: var(--sub); padding: 24px 20px; display: flex; flex-direction: column; gap: 16px; }
+[data-block="coupon-code"] .code::before { content: ""; position: absolute; inset: 0; background: rgba(255,255,255,.85); }
+[data-block="coupon-code"] .code > * { position: relative; }
+[data-block="coupon-code"] .code-txt { text-align: center; color: var(--sub); }
+[data-block="coupon-code"] .btn { background: var(--sub); padding: 16px 14px 18px 24px; gap: 10px; }
+[data-block="coupon-code"] .btn span { flex: 1; text-align: center; }
+[data-block="coupon-code"] .ico { width: 14px; height: 14px; flex: none; position: relative; }
+[data-block="coupon-code"] .ico::before, [data-block="coupon-code"] .ico::after { content: ""; position: absolute; border: 1.5px solid currentColor; }
+[data-block="coupon-code"] .ico::before { left: 0; top: 3px; width: 10px; height: 11px; }
+[data-block="coupon-code"] .ico::after { left: 3px; top: 0; width: 11px; height: 11px; background: var(--sub); border-color: currentColor; }
+</style>
+  <div class="box">
+    <div class="lead"><p class="t-body-md" data-field="text">テキストが入りますテキストが入りますテキストが入りますテキストが入りますテキストが入ります</p></div>
+    <div class="code">
+      <div class="code-txt t-label-lg"><p data-field="codeLabel">コード名</p><p data-field="code">0000000</p></div>
+      <a class="btn"><span data-field="buttonLabel">コピーする</span><i class="ico" data-asset="icon/copy"></i></a>
+    </div>
+  </div>
+</section>

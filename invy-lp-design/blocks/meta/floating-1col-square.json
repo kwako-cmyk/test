@@ -1,0 +1,41 @@
+{
+  "id": "floating-1col-square",
+  "section": "フローティングバナー",
+  "variant": "フローティングバナー 1カラム（四角）",
+  "figmaNode": "3119:14112",
+  "size": [
+    375,
+    85
+  ],
+  "summary": "画面下に固定される角丸なしの1ボタン（右に矢印）のバナー",
+  "position": "bottom",
+  "fields": [
+    {
+      "key": "label",
+      "label": "ボタン文言",
+      "kind": "text",
+      "example": "今すぐ体験予約する"
+    },
+    {
+      "key": "url",
+      "label": "ボタンのリンク先",
+      "kind": "url",
+      "example": "https://"
+    }
+  ],
+  "images": [],
+  "repeats": [],
+  "assets": [
+    {
+      "name": "icon/arrow_chev_right",
+      "note": "右向きシェブロン。CSS で描画（1カラム16px／2カラム12px）"
+    }
+  ],
+  "colorRoles": {
+    "main": [
+      "ボタン背景"
+    ],
+    "sub": []
+  },
+  "notes": "ボタン文言は Figma label/bold/xl（18px）＝ t-headline-sm と同値なのでそれを使用。影 drop-shadow(0 -4px 8px rgba(0,0,0,.2)) は直書き。バナー自体の背景は透明"
+}

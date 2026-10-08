@@ -1,0 +1,52 @@
+<section class="blk" data-block="flow-a" data-figma="3119:12519" data-section="紹介方法" data-variant="紹介の流れ/inviter">
+<style>
+[data-block="flow-a"] { background: var(--bg); padding: 40px 20px; display: flex; flex-direction: column; gap: 32px; align-items: center; }
+[data-block="flow-a"] .head { display: flex; flex-direction: column; gap: 16px; width: 100%; }
+[data-block="flow-a"] .ttls { display: flex; flex-direction: column; gap: 4px; text-align: center; }
+[data-block="flow-a"] .eyebrow { display: flex; gap: 10px; align-items: center; justify-content: center; }
+[data-block="flow-a"] .eyebrow::before, [data-block="flow-a"] .eyebrow::after { content: ""; width: 2px; height: 20px; margin: 0 3px; background: var(--fg); transform: rotate(-22deg); flex: none; }
+[data-block="flow-a"] .eyebrow::after { transform: rotate(22deg); }
+[data-block="flow-a"] .steps { display: flex; flex-direction: column; width: 375px; margin: -32px -20px; }
+[data-block="flow-a"] .step { --step-bg: var(--bg); position: relative; background: var(--step-bg); padding: 32px 20px; display: flex; flex-direction: column; gap: 16px; }
+[data-block="flow-a"] .step:nth-child(even) { --step-bg: color-mix(in srgb, var(--sub) 15%, var(--mix-white)); }
+[data-block="flow-a"] .step + .step { padding-top: 64px; }
+[data-block="flow-a"] .step:not(:last-child)::after { content: ""; position: absolute; left: 0; right: 0; top: 100%; height: 32px; background: var(--step-bg); clip-path: polygon(0 0, 100% 0, 50% 100%); z-index: 1; }
+[data-block="flow-a"] .who { display: flex; gap: 12px; align-items: center; justify-content: center; }
+[data-block="flow-a"] .avatar { width: 32px; height: 32px; border-radius: 50%; background: var(--border); flex: none; }
+[data-block="flow-a"] .body { display: flex; flex-direction: column; gap: 12px; }
+[data-block="flow-a"] .img-slot { width: 335px; height: 190px; font-size: 24px; }
+</style>
+  <div class="head">
+    <div class="ttls">
+      <p class="eyebrow t-headline-sm"><span data-field="eyebrow">カンタン！たったの10秒</span></p>
+      <h2 class="t-headline-lg" data-field="title">お友だちに紹介状を送ろう</h2>
+    </div>
+    <p class="t-body-md" data-field="lead">本文テキスト本文テキスト本文テキスト本文テキスト本文テキスト本文テキスト</p>
+  </div>
+  <div class="steps" data-repeat="steps">
+    <div class="step" data-item>
+      <div class="who"><span class="avatar" data-asset="var_avatar"></span><p class="t-headline-sm" data-field="steps.who">あなたに</p></div>
+      <p class="t-headline-xs" data-field="steps.heading">タイトルが入りますタイトルが入りますタイトルが入ります</p>
+      <div class="body">
+        <div class="img-slot" data-slot="steps.image" data-size="335x190">image</div>
+        <p class="t-body-md" data-field="steps.text">本文テキスト本文テキスト本文テキスト本文テキスト本文テキスト本文テキスト</p>
+      </div>
+    </div>
+    <div class="step" data-item>
+      <div class="who"><span class="avatar" data-asset="var_avatar"></span><p class="t-headline-sm" data-field="steps.who">お友達に</p></div>
+      <p class="t-headline-xs" data-field="steps.heading">タイトルが入りますタイトルが入りますタイトルが入ります</p>
+      <div class="body">
+        <div class="img-slot" data-slot="steps.image" data-size="335x190">image</div>
+        <p class="t-body-md" data-field="steps.text">本文テキスト本文テキスト本文テキスト本文テキスト本文テキスト本文テキスト</p>
+      </div>
+    </div>
+    <div class="step" data-item>
+      <div class="who"><span class="avatar" data-asset="var_avatar"></span><p class="t-headline-sm" data-field="steps.who">お二人に</p><span class="avatar" data-asset="var_avatar"></span></div>
+      <p class="t-headline-xs" data-field="steps.heading">タイトルが入りますタイトルが入りますタイトルが入ります</p>
+      <div class="body">
+        <div class="img-slot" data-slot="steps.image" data-size="335x190">image</div>
+        <p class="t-body-md" data-field="steps.text">本文テキスト本文テキスト本文テキスト本文テキスト本文テキスト本文テキスト</p>
+      </div>
+    </div>
+  </div>
+</section>

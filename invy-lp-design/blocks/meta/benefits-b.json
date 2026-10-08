@@ -1,0 +1,25 @@
+{
+  "id": "benefits-b",
+  "section": "特典エリア",
+  "variant": "特典（タイトルなし）",
+  "figmaNode": "3119:13173",
+  "size": [375, 1648],
+  "summary": "見出し＋特典カード（アバター・対象・画像・説明）を縦に並べ、最後に注釈。カード内に小見出しの帯がない版",
+  "fields": [
+    {"key": "title", "label": "見出し", "kind": "text", "example": "お友だちに\n紹介特典をプレゼントしよう"},
+    {"key": "items.who", "label": "特典の対象（あなたに／お友達に／お二人に）", "kind": "text", "example": "あなたに"},
+    {"key": "items.text", "label": "特典説明", "kind": "text", "example": "特典説明入ります…"},
+    {"key": "note", "label": "注釈（※）", "kind": "text", "example": "特典注釈入ります…"}
+  ],
+  "images": [
+    {"slot": "items.image", "label": "特典画像", "size": "295x220", "note": "テンプレートに寸法表記なし。枠の実寸"}
+  ],
+  "repeats": [
+    {"key": "items", "label": "特典カード", "templateCount": 3}
+  ],
+  "assets": [
+    {"name": "var_avatar", "note": "アバター（32px）。Figma の var_avatar コンポーネントから選ぶ"}
+  ],
+  "colorRoles": {"main": [], "sub": []},
+  "notes": ""
+}

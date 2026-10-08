@@ -1,0 +1,66 @@
+{
+  "id": "review",
+  "section": "口コミ",
+  "variant": "口コミ_close",
+  "figmaNode": "3119:15670",
+  "size": [
+    375,
+    598
+  ],
+  "summary": "見出し＋口コミカード（左に写真80px＋名前、右に口コミ画像）を並べ、下に開閉ボタン。折りたたみ時の表示（2件＋「口コミをもっと見る」）",
+  "position": "flow",
+  "fields": [
+    {
+      "key": "title",
+      "label": "見出し",
+      "kind": "text",
+      "example": "口コミ"
+    },
+    {
+      "key": "items.name",
+      "label": "投稿者名",
+      "kind": "text",
+      "example": "テキストが入ります"
+    },
+    {
+      "key": "buttonLabel",
+      "label": "ボタン文言",
+      "kind": "text",
+      "example": "口コミをもっと見る"
+    }
+  ],
+  "images": [
+    {
+      "slot": "items.photo",
+      "label": "投稿者の写真",
+      "size": "80x80",
+      "note": "テンプレートに寸法表記なし。枠の実寸"
+    },
+    {
+      "slot": "items.image",
+      "label": "口コミ本文の画像",
+      "size": "199x124",
+      "note": "幅は残り全部、高さは左列（写真＋名前）に合わせて伸びる。実寸"
+    }
+  ],
+  "repeats": [
+    {
+      "key": "items",
+      "label": "口コミカード",
+      "templateCount": 2
+    }
+  ],
+  "assets": [
+    {
+      "name": "icon/plus",
+      "note": "ボタン右のアイコン（16px）。Figma の layer 名は icon/copy。HTMLでは CSS で代用"
+    }
+  ],
+  "colorRoles": {
+    "main": [
+      "ボタンの枠線と文字・アイコン（button/secondary）"
+    ],
+    "sub": []
+  },
+  "notes": "対になるバリエーション：口コミ_open（展開後・3件＋「閉じる」）。違いはカードの件数とボタン文言・アイコン（＋／−）のみ"
+}

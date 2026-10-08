@@ -1,0 +1,45 @@
+{
+ "id": "accordion",
+ "section": "アコーディオンリスト",
+ "variant": "アコーディオンリスト",
+ "figmaNode": "3119:14164",
+ "size": [
+  375,
+  400
+ ],
+ "summary": "見出しなしで、タイトル行（＋/−）と本文の開閉リストを縦に並べたもの。閉じた表示状態（四角い枠のタイトル行のみ）。開いた状態は accordion-open",
+ "position": "flow",
+ "fields": [
+  {
+   "key": "items.title",
+   "label": "アコーディオンタイトル",
+   "kind": "text",
+   "example": "テキストが入りますテキストが入りますテキストが入ります"
+  },
+  {
+   "key": "items.body",
+   "label": "本文",
+   "kind": "richtext",
+   "example": "本文テキスト本文テキスト…"
+  }
+ ],
+ "images": [],
+ "repeats": [
+  {
+   "key": "items",
+   "label": "アコーディオン",
+   "templateCount": 4
+  }
+ ],
+ "assets": [
+  {
+   "name": "icon/plus",
+   "note": "16px。CSS で描画"
+  }
+ ],
+ "colorRoles": {
+  "main": [],
+  "sub": []
+ },
+ "notes": "閉じた状態は角丸なしの1px枠。本文（items.body）は非表示だが入力項目としては存在する。FAQ と違いブロック見出しや Q/A 記号はない"
+}

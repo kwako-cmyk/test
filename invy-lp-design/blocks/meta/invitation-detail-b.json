@@ -1,0 +1,62 @@
+{
+  "id": "invitation-detail-b",
+  "section": "ご紹介方法の詳細",
+  "variant": "ご紹介方法の詳細_open",
+  "figmaNode": "3119:13880",
+  "size": [
+    375,
+    3507
+  ],
+  "summary": "見出し＋SNS ごとの紹介方法アコーディオン（開いた状態）。各項目に操作画面のスクリーンショットと説明文が入る",
+  "position": "flow",
+  "fields": [
+    {
+      "key": "title",
+      "label": "見出し",
+      "kind": "text",
+      "example": "ご紹介方法の詳細"
+    },
+    {
+      "key": "items.label",
+      "label": "紹介方法の名前",
+      "kind": "text",
+      "example": "LINEの紹介方法"
+    },
+    {
+      "key": "items.text",
+      "label": "説明文",
+      "kind": "text",
+      "example": "本文テキスト…"
+    }
+  ],
+  "images": [
+    {
+      "slot": "items.image",
+      "label": "操作画面のスクリーンショット（赤枠で操作箇所を示す）",
+      "size": "305x394",
+      "note": "テンプレートに寸法表記なし。項目ごとに実寸が違う：LINE 305x394 / FB 305x394 / X 311x328 / Messenger 305x427 / Mail 295x306 / Link 305x316。表示幅は枠内 301px に収まる（Figma ではマスクではみ出し分を切っている）"
+    }
+  ],
+  "repeats": [
+    {
+      "key": "items",
+      "label": "紹介方法の項目",
+      "templateCount": 6
+    }
+  ],
+  "assets": [
+    {
+      "name": "var_share",
+      "note": "SNS アイコン（28px）。バリエーション LINE / FB / X / Messenger / Mail / Link（data-asset は var_share/<種別>）"
+    },
+    {
+      "name": "icon/minus",
+      "note": "閉じるアイコン（16px）。CSS で描画"
+    }
+  ],
+  "colorRoles": {
+    "main": [],
+    "sub": []
+  },
+  "notes": "Figma の variant 名は「_close」だが中身は開いた状態のため、data-variant は「ご紹介方法の詳細_open」とした。Figma では X・メッセンジャー・メールの見出し行にだけ余分な内枠線があるが、揃えて省いた。各スクリーンショットは Figma ではマスク＋赤枠の重ね合わせで、1枚の画像枠にまとめた"
+}

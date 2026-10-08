@@ -1,0 +1,55 @@
+{
+  "id": "floating-timer-a",
+  "section": "フローティングバナー",
+  "variant": "タイマー付きフローティングバナーA",
+  "figmaNode": "3119:14114",
+  "size": [
+    375,
+    177
+  ],
+  "summary": "締切日と残り時間（日・時間・分・秒）のカウントダウンを大きく出し、その下に四角い1ボタンを置く画面下固定バナー",
+  "position": "bottom",
+  "fields": [
+    {
+      "key": "lead",
+      "label": "締切の前置き",
+      "kind": "text",
+      "example": "この紹介限定特典は"
+    },
+    {
+      "key": "deadline",
+      "label": "締切日",
+      "kind": "text",
+      "example": "10/31"
+    },
+    {
+      "key": "suffix",
+      "label": "締切の後ろの文言",
+      "kind": "text",
+      "example": "まで！"
+    },
+    {
+      "key": "label",
+      "label": "ボタン文言",
+      "kind": "text",
+      "example": "今すぐ体験予約する"
+    },
+    {
+      "key": "url",
+      "label": "ボタンのリンク先",
+      "kind": "url",
+      "example": "https://"
+    }
+  ],
+  "images": [],
+  "repeats": [],
+  "assets": [],
+  "colorRoles": {
+    "main": [
+      "バナー背景（白85%を重ねた淡色）",
+      "ボタン背景"
+    ],
+    "sub": []
+  },
+  "notes": "カウントダウンの数字（data-timer=days/hours/minutes/seconds）は締切日から自動計算する表示用で、編集項目ではない。背景は Main 色の上に白85%（rgba(255,255,255,.85)）を重ねた淡い色。影 0 -4px 16px rgba(0,0,0,.2) は直書き。 ボタンに矢印なし。"
+}

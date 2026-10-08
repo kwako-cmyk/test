@@ -1,0 +1,100 @@
+{
+  "id": "flow-tab-a",
+  "section": "紹介方法（タブ）",
+  "variant": "紹介方法（タブ）",
+  "figmaNode": "3119:12571",
+  "size": [
+    375,
+    1674
+  ],
+  "summary": "見出し＋リード文の下に「あなた／お友達」の2タブを置き、選択中タブ（あなた）の手順を STEP 番号付き見出し＋説明＋画像で3つ並べる。あなたタブが選択された状態の版",
+  "position": "flow",
+  "fields": [
+    {
+      "key": "eyebrow",
+      "label": "小見出し（＼ ／ で挟む）",
+      "kind": "text",
+      "example": "カンタン！たったの10秒"
+    },
+    {
+      "key": "title",
+      "label": "見出し",
+      "kind": "text",
+      "example": "お友だちに紹介状を送ろう"
+    },
+    {
+      "key": "lead",
+      "label": "リード文",
+      "kind": "text",
+      "example": "本文テキスト本文テキスト本文テキスト本文テキスト本文テキスト本文テキス"
+    },
+    {
+      "key": "tabs.label",
+      "label": "タブ名",
+      "kind": "text",
+      "example": "あなた"
+    },
+    {
+      "key": "steps.num",
+      "label": "STEP 番号",
+      "kind": "number",
+      "example": "1"
+    },
+    {
+      "key": "steps.heading",
+      "label": "ステップ見出し",
+      "kind": "text",
+      "example": "テキストが入ります"
+    },
+    {
+      "key": "steps.text",
+      "label": "ステップ説明",
+      "kind": "text",
+      "example": "本文テキスト本文テキスト…"
+    }
+  ],
+  "images": [
+    {
+      "slot": "steps.image",
+      "label": "ステップ画像",
+      "size": "335x190",
+      "note": "テンプレートに寸法表記なし。枠の実寸"
+    }
+  ],
+  "repeats": [
+    {
+      "key": "tabs",
+      "label": "タブ",
+      "templateCount": 2
+    },
+    {
+      "key": "steps",
+      "label": "手順ステップ",
+      "templateCount": 3
+    }
+  ],
+  "assets": [
+    {
+      "name": "var_avatar",
+      "note": "タブ内のアバター（32px）"
+    },
+    {
+      "name": "tab_button",
+      "note": "Figma コンポーネント tab_button（選択中：白地＋Sub の枠線・Sub 色太字／非選択：Sub 地＋白文字）"
+    },
+    {
+      "name": "step_headline",
+      "note": "Figma コンポーネント step_headline（Sub 地の STEP 番号＋薄グレー地の見出し）"
+    }
+  ],
+  "colorRoles": {
+    "main": [],
+    "sub": [
+      "選択中タブ（あなた）の枠線と文字",
+      "非選択タブ（お友達）の背景",
+      "タブ下の 1px 線",
+      "STEP 番号の背景"
+    ]
+  },
+  "notes": "見出し上の小見出しを挟む斜線（＼ ／）は Figma では線素材（Line 100/102）。CSS で描画（色は --fg）。タブ切替の動作はなく、選択中タブの中身だけを持つ（もう一方の状態は flow-tab-a / flow-tab-b）。ステップ見出しは label/regular/lg（t-label-lg を regular に）。STEP 番号は Roboto Medium 12/20px（テキストスタイル外）"
+}

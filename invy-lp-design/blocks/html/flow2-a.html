@@ -1,0 +1,51 @@
+<section class="blk" data-block="flow2-a" data-figma="3119:12634" data-section="紹介方法2" data-variant="紹介の流れ/inviter">
+<style>
+[data-block="flow2-a"] { background: var(--bg); padding: 40px 20px; display: flex; flex-direction: column; gap: 32px; align-items: center; }
+[data-block="flow2-a"] .head { display: flex; flex-direction: column; gap: 16px; width: 100%; }
+[data-block="flow2-a"] .ttls { display: flex; flex-direction: column; gap: 4px; text-align: center; }
+[data-block="flow2-a"] .eyebrow { display: flex; gap: 10px; align-items: center; justify-content: center; }
+[data-block="flow2-a"] .eyebrow::before, [data-block="flow2-a"] .eyebrow::after { content: ""; width: 2px; height: 20px; margin: 0 3px; background: var(--fg); transform: rotate(-22deg); flex: none; }
+[data-block="flow2-a"] .eyebrow::after { transform: rotate(22deg); }
+[data-block="flow2-a"] .avatar { width: 32px; height: 32px; border-radius: 50%; background: var(--border); flex: none; }
+[data-block="flow2-a"] .who { display: flex; gap: 12px; align-items: center; justify-content: center; }
+[data-block="flow2-a"] .items { display: flex; flex-direction: column; gap: 32px; width: 100%; }
+[data-block="flow2-a"] .item { position: relative; display: flex; flex-direction: column; gap: 16px; }
+[data-block="flow2-a"] .item + .item { padding-top: 44px; }
+[data-block="flow2-a"] .item + .item::before { content: ""; position: absolute; top: 0; left: 50%; width: 24px; height: 12px; margin-left: -12px; background: var(--sub); clip-path: polygon(0 0, 100% 0, 50% 100%); }
+[data-block="flow2-a"] .body { display: flex; flex-direction: column; gap: 12px; }
+[data-block="flow2-a"] .img-slot { width: 335px; height: 190px; font-size: 24px; }
+</style>
+  <div class="head">
+    <div class="ttls">
+      <p class="eyebrow t-headline-sm"><span data-field="eyebrow">カンタン！たったの10秒</span></p>
+      <h2 class="t-headline-lg" data-field="title">お友だちに紹介状を送ろう</h2>
+    </div>
+    <p class="t-body-md" data-field="lead">本文テキスト本文テキスト本文テキスト本文テキスト本文テキスト本文テキスト</p>
+  </div>
+  <div class="items" data-repeat="items">
+    <div class="item" data-item>
+      <div class="who"><span class="avatar" data-asset="var_avatar"></span><p class="t-headline-sm" data-field="items.who">あなたに</p></div>
+      <p class="t-headline-xs" data-field="items.heading">タイトルが入りますタイトルが入りますタイトルが入ります</p>
+      <div class="body">
+        <div class="img-slot" data-slot="items.image" data-size="335x190">image</div>
+        <p class="t-body-md" data-field="items.text">本文テキスト本文テキスト本文テキスト本文テキスト本文テキスト本文テキスト</p>
+      </div>
+    </div>
+    <div class="item" data-item>
+      <div class="who"><span class="avatar" data-asset="var_avatar"></span><p class="t-headline-sm" data-field="items.who">お友達に</p></div>
+      <p class="t-headline-xs" data-field="items.heading">タイトルが入りますタイトルが入りますタイトルが入ります</p>
+      <div class="body">
+        <div class="img-slot" data-slot="items.image" data-size="335x190">image</div>
+        <p class="t-body-md" data-field="items.text">本文テキスト本文テキスト本文テキスト本文テキスト本文テキスト本文テキスト</p>
+      </div>
+    </div>
+    <div class="item" data-item>
+      <div class="who"><span class="avatar" data-asset="var_avatar"></span><p class="t-headline-sm" data-field="items.who">お二人に</p><span class="avatar" data-asset="var_avatar"></span></div>
+      <p class="t-headline-xs" data-field="items.heading">タイトルが入りますタイトルが入りますタイトルが入ります</p>
+      <div class="body">
+        <div class="img-slot" data-slot="items.image" data-size="335x190">image</div>
+        <p class="t-body-md" data-field="items.text">本文テキスト本文テキスト本文テキスト本文テキスト本文テキスト本文テキスト</p>
+      </div>
+    </div>
+  </div>
+</section>

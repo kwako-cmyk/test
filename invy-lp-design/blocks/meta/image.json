@@ -1,0 +1,28 @@
+{
+  "id": "image",
+  "section": "画像",
+  "variant": "画像",
+  "figmaNode": "3119:14238",
+  "size": [
+    375,
+    270
+  ],
+  "summary": "画像1枚（335x190）を上下余白つきで置くだけのブロック。ページ冒頭の KV（キービジュアル）ブロックとしても使う",
+  "position": "flow",
+  "fields": [],
+  "images": [
+    {
+      "slot": "image",
+      "label": "画像（KV としても使用）",
+      "size": "335x190",
+      "note": "テンプレートに寸法表記なし。枠の実寸。KV として使う場合もこの枠"
+    }
+  ],
+  "repeats": [],
+  "assets": [],
+  "colorRoles": {
+    "main": [],
+    "sub": []
+  },
+  "notes": "Figma の枠色は #b5b5b5（--placeholder で代用）"
+}

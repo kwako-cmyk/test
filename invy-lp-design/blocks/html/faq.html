@@ -1,0 +1,47 @@
+<section class="blk" data-block="faq" data-figma="3119:14125" data-section="よくあるご質問" data-variant="よくあるご質問">
+<style>
+[data-block="faq"] { background: var(--bg); padding: 40px 20px; display: flex; flex-direction: column; gap: 32px; align-items: center; }
+[data-block="faq"] .ttl { text-align: center; width: 100%; }
+[data-block="faq"] .items { display: flex; flex-direction: column; gap: 16px; width: 100%; }
+[data-block="faq"] .item { background: var(--border); border: 1px solid var(--border); border-radius: 4px; overflow: hidden; display: flex; flex-direction: column; gap: 1px; }
+[data-block="faq"] .row { background: var(--bg); display: flex; gap: 12px; align-items: flex-start; padding: 20px 16px; }
+[data-block="faq"] .mark { width: 12px; flex: none; }
+[data-block="faq"] .txt { flex: 1 1 0; min-width: 0; }
+[data-block="faq"] .icowrap { width: 16px; align-self: stretch; display: flex; align-items: center; flex: none; }
+[data-block="faq"] .ico { position: relative; width: 16px; height: 16px; flex: none; }
+[data-block="faq"] .ico::before, [data-block="faq"] .ico::after { content: ""; position: absolute; left: 1px; right: 1px; top: 7px; height: 2px; background: var(--fg); }
+[data-block="faq"] .ico.is-plus::after { transform: rotate(90deg); }
+[data-block="faq"] .ico.is-minus::after { display: none; }
+</style>
+  <h2 class="ttl t-headline-lg" data-field="title">よくあるご質問</h2>
+  <div class="items" data-repeat="items">
+    <div class="item" data-item>
+      <div class="row">
+        <p class="mark t-label-md">Q</p>
+        <p class="txt t-label-md" data-field="items.question">テキストが入りますテキストが入りますテキストが入ります</p>
+        <span class="icowrap"><span class="ico is-plus" data-asset="icon/plus"></span></span>
+      </div>
+    </div>
+    <div class="item" data-item>
+      <div class="row">
+        <p class="mark t-label-md">Q</p>
+        <p class="txt t-label-md" data-field="items.question">テキストが入ります</p>
+        <span class="icowrap"><span class="ico is-plus" data-asset="icon/plus"></span></span>
+      </div>
+    </div>
+    <div class="item" data-item>
+      <div class="row">
+        <p class="mark t-label-md">Q</p>
+        <p class="txt t-label-md" data-field="items.question">テキストが入りますテキストが入りますテキストが入ります</p>
+        <span class="icowrap"><span class="ico is-plus" data-asset="icon/plus"></span></span>
+      </div>
+    </div>
+    <div class="item" data-item>
+      <div class="row">
+        <p class="mark t-label-md">Q</p>
+        <p class="txt t-label-md" data-field="items.question">テキストが入ります</p>
+        <span class="icowrap"><span class="ico is-plus" data-asset="icon/plus"></span></span>
+      </div>
+    </div>
+  </div>
+</section>
