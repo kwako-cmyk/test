@@ -1,0 +1,4398 @@
+{
+ "flow-a": {
+  "id": "flow-a",
+  "section": "紹介方法",
+  "variant": "紹介の流れ/inviter",
+  "figmaNode": "3119:12519",
+  "size": [
+   375,
+   1529
+  ],
+  "summary": "見出し＋リード文の下に、紹介の流れを3ステップ（あなたに／お友達に／お二人に）で縦に並べる。ステップは全幅の帯で、白→薄いSub色→白と交互になり、帯の下端がV字の矢印で次の帯に食い込む",
+  "position": "flow",
+  "fields": [
+   {
+    "key": "eyebrow",
+    "label": "小見出し（＼ ／ で挟む）",
+    "kind": "text",
+    "example": "カンタン！たったの10秒"
+   },
+   {
+    "key": "title",
+    "label": "見出し",
+    "kind": "text",
+    "example": "お友だちに紹介状を送ろう"
+   },
+   {
+    "key": "lead",
+    "label": "リード文",
+    "kind": "text",
+    "example": "本文テキスト本文テキスト本文テキスト本文テキスト本文テキスト本文テキスト"
+   },
+   {
+    "key": "steps.who",
+    "label": "対象（あなたに／お友達に／お二人に）",
+    "kind": "text",
+    "example": "あなたに"
+   },
+   {
+    "key": "steps.heading",
+    "label": "ステップ見出し",
+    "kind": "text",
+    "example": "タイトルが入りますタイトルが入りますタイトルが入ります"
+   },
+   {
+    "key": "steps.text",
+    "label": "ステップ説明",
+    "kind": "text",
+    "example": "本文テキスト本文テキスト本文テキスト…"
+   }
+  ],
+  "images": [
+   {
+    "slot": "steps.image",
+    "label": "ステップ画像",
+    "size": "335x190",
+    "note": "テンプレートに寸法表記なし。枠の実寸"
+   }
+  ],
+  "repeats": [
+   {
+    "key": "steps",
+    "label": "流れのステップ（帯）",
+    "templateCount": 3
+   }
+  ],
+  "assets": [
+   {
+    "name": "var_avatar",
+    "note": "アバター（32px）。Figma の var_avatar コンポーネントから選ぶ"
+   },
+   {
+    "name": "arrow",
+    "note": "帯の下端の V 字矢印（375x32）。Figma では SVG 素材。CSS の clip-path で描画（帯と同じ色）"
+   }
+  ],
+  "colorRoles": {
+   "main": [],
+   "sub": [
+    "偶数番目の帯の背景（Sub に白 85% を重ねた薄い色。CSS では color-mix で Sub 15%）とその V 字矢印"
+   ]
+  },
+  "notes": "見出し上の小見出しを挟む斜線（＼ ／）は Figma では線素材（Line 100/102）。CSS で描画（色は --fg）。3人目（お二人に）の帯は対象名の左右にアバター2つ。帯は左右 20px・上下 32px はみ出す（Figma の負のパディング）"
+ },
+ "flow-tab-a": {
+  "id": "flow-tab-a",
+  "section": "紹介方法（タブ）",
+  "variant": "紹介方法（タブ）",
+  "figmaNode": "3119:12571",
+  "size": [
+   375,
+   1674
+  ],
+  "summary": "見出し＋リード文の下に「あなた／お友達」の2タブを置き、選択中タブ（あなた）の手順を STEP 番号付き見出し＋説明＋画像で3つ並べる。あなたタブが選択された状態の版",
+  "position": "flow",
+  "fields": [
+   {
+    "key": "eyebrow",
+    "label": "小見出し（＼ ／ で挟む）",
+    "kind": "text",
+    "example": "カンタン！たったの10秒"
+   },
+   {
+    "key": "title",
+    "label": "見出し",
+    "kind": "text",
+    "example": "お友だちに紹介状を送ろう"
+   },
+   {
+    "key": "lead",
+    "label": "リード文",
+    "kind": "text",
+    "example": "本文テキスト本文テキスト本文テキスト本文テキスト本文テキスト本文テキス"
+   },
+   {
+    "key": "tabs.label",
+    "label": "タブ名",
+    "kind": "text",
+    "example": "あなた"
+   },
+   {
+    "key": "steps.num",
+    "label": "STEP 番号",
+    "kind": "number",
+    "example": "1"
+   },
+   {
+    "key": "steps.heading",
+    "label": "ステップ見出し",
+    "kind": "text",
+    "example": "テキストが入ります"
+   },
+   {
+    "key": "steps.text",
+    "label": "ステップ説明",
+    "kind": "text",
+    "example": "本文テキスト本文テキスト…"
+   }
+  ],
+  "images": [
+   {
+    "slot": "steps.image",
+    "label": "ステップ画像",
+    "size": "335x190",
+    "note": "テンプレートに寸法表記なし。枠の実寸"
+   }
+  ],
+  "repeats": [
+   {
+    "key": "tabs",
+    "label": "タブ",
+    "templateCount": 2
+   },
+   {
+    "key": "steps",
+    "label": "手順ステップ",
+    "templateCount": 3
+   }
+  ],
+  "assets": [
+   {
+    "name": "var_avatar",
+    "note": "タブ内のアバター（32px）"
+   },
+   {
+    "name": "tab_button",
+    "note": "Figma コンポーネント tab_button（選択中：白地＋Sub の枠線・Sub 色太字／非選択：Sub 地＋白文字）"
+   },
+   {
+    "name": "step_headline",
+    "note": "Figma コンポーネント step_headline（Sub 地の STEP 番号＋薄グレー地の見出し）"
+   }
+  ],
+  "colorRoles": {
+   "main": [],
+   "sub": [
+    "選択中タブ（あなた）の枠線と文字",
+    "非選択タブ（お友達）の背景",
+    "タブ下の 1px 線",
+    "STEP 番号の背景"
+   ]
+  },
+  "notes": "見出し上の小見出しを挟む斜線（＼ ／）は Figma では線素材（Line 100/102）。CSS で描画（色は --fg）。タブ切替の動作はなく、選択中タブの中身だけを持つ（もう一方の状態は flow-tab-a / flow-tab-b）。ステップ見出しは label/regular/lg（t-label-lg を regular に）。STEP 番号は Roboto Medium 12/20px（テキストスタイル外）"
+ },
+ "flow-tab-b": {
+  "id": "flow-tab-b",
+  "section": "紹介方法（タブ）",
+  "variant": "紹介方法（タブ）",
+  "figmaNode": "3119:12602",
+  "size": [
+   375,
+   1674
+  ],
+  "summary": "見出し＋リード文の下に「あなた／お友達」の2タブを置き、選択中タブ（お友達）の手順を STEP 番号付き見出し＋説明＋画像で3つ並べる。お友達タブが選択された状態の版",
+  "position": "flow",
+  "fields": [
+   {
+    "key": "eyebrow",
+    "label": "小見出し（＼ ／ で挟む）",
+    "kind": "text",
+    "example": "カンタン！たったの10秒"
+   },
+   {
+    "key": "title",
+    "label": "見出し",
+    "kind": "text",
+    "example": "お友だちに紹介状を送ろう"
+   },
+   {
+    "key": "lead",
+    "label": "リード文",
+    "kind": "text",
+    "example": "本文テキスト本文テキスト本文テキスト本文テキスト本文テキスト本文テキス"
+   },
+   {
+    "key": "tabs.label",
+    "label": "タブ名",
+    "kind": "text",
+    "example": "あなた"
+   },
+   {
+    "key": "steps.num",
+    "label": "STEP 番号",
+    "kind": "number",
+    "example": "1"
+   },
+   {
+    "key": "steps.heading",
+    "label": "ステップ見出し",
+    "kind": "text",
+    "example": "テキストが入ります"
+   },
+   {
+    "key": "steps.text",
+    "label": "ステップ説明",
+    "kind": "text",
+    "example": "本文テキスト本文テキスト…"
+   }
+  ],
+  "images": [
+   {
+    "slot": "steps.image",
+    "label": "ステップ画像",
+    "size": "335x190",
+    "note": "テンプレートに寸法表記なし。枠の実寸"
+   }
+  ],
+  "repeats": [
+   {
+    "key": "tabs",
+    "label": "タブ",
+    "templateCount": 2
+   },
+   {
+    "key": "steps",
+    "label": "手順ステップ",
+    "templateCount": 3
+   }
+  ],
+  "assets": [
+   {
+    "name": "var_avatar",
+    "note": "タブ内のアバター（32px）"
+   },
+   {
+    "name": "tab_button",
+    "note": "Figma コンポーネント tab_button（選択中：白地＋Sub の枠線・Sub 色太字／非選択：Sub 地＋白文字）"
+   },
+   {
+    "name": "step_headline",
+    "note": "Figma コンポーネント step_headline（Sub 地の STEP 番号＋薄グレー地の見出し）"
+   }
+  ],
+  "colorRoles": {
+   "main": [],
+   "sub": [
+    "選択中タブ（お友達）の枠線と文字",
+    "非選択タブ（あなた）の背景",
+    "タブ下の 1px 線",
+    "STEP 番号の背景"
+   ]
+  },
+  "notes": "見出し上の小見出しを挟む斜線（＼ ／）は Figma では線素材（Line 100/102）。CSS で描画（色は --fg）。タブ切替の動作はなく、選択中タブの中身だけを持つ（もう一方の状態は flow-tab-a / flow-tab-b）。ステップ見出しは label/regular/lg（t-label-lg を regular に）。STEP 番号は Roboto Medium 12/20px（テキストスタイル外）"
+ },
+ "flow2-a": {
+  "id": "flow2-a",
+  "section": "紹介方法2",
+  "variant": "紹介の流れ/inviter",
+  "figmaNode": "3119:12634",
+  "size": [
+   375,
+   1489
+  ],
+  "summary": "見出し＋リード文の下に、紹介の流れを3ステップ（あなたに／お友達に／お二人に）で白地のまま縦に並べ、間を Sub 色の小さな下向き三角でつなぐ",
+  "position": "flow",
+  "fields": [
+   {
+    "key": "eyebrow",
+    "label": "小見出し（＼ ／ で挟む）",
+    "kind": "text",
+    "example": "カンタン！たったの10秒"
+   },
+   {
+    "key": "title",
+    "label": "見出し",
+    "kind": "text",
+    "example": "お友だちに紹介状を送ろう"
+   },
+   {
+    "key": "lead",
+    "label": "リード文",
+    "kind": "text",
+    "example": "本文テキスト本文テキスト本文テキスト本文テキスト本文テキスト本文テキスト"
+   },
+   {
+    "key": "items.who",
+    "label": "対象（あなたに／お友達に／お二人に）",
+    "kind": "text",
+    "example": "あなたに"
+   },
+   {
+    "key": "items.heading",
+    "label": "ステップ見出し",
+    "kind": "text",
+    "example": "タイトルが入りますタイトルが入りますタイトルが入ります"
+   },
+   {
+    "key": "items.text",
+    "label": "ステップ説明",
+    "kind": "text",
+    "example": "本文テキスト本文テキスト本文テキスト…"
+   }
+  ],
+  "images": [
+   {
+    "slot": "items.image",
+    "label": "ステップ画像",
+    "size": "335x190",
+    "note": "テンプレートに寸法表記なし。枠の実寸"
+   }
+  ],
+  "repeats": [
+   {
+    "key": "items",
+    "label": "流れのステップ",
+    "templateCount": 3
+   }
+  ],
+  "assets": [
+   {
+    "name": "var_avatar",
+    "note": "アバター（32px）。Figma の var_avatar コンポーネントから選ぶ"
+   },
+   {
+    "name": "arr",
+    "note": "ステップ間の下向き三角（24x12）。CSS で描画（2番目以降のステップの頭に付く）"
+   }
+  ],
+  "colorRoles": {
+   "main": [],
+   "sub": [
+    "ステップ間の下向き三角"
+   ]
+  },
+  "notes": "見出し上の小見出しを挟む斜線（＼ ／）は Figma では線素材（Line 100/102）。CSS で描画（色は --fg）。3人目（お二人に）は対象名の左右にアバター2つ"
+ },
+ "flow2-b": {
+  "id": "flow2-b",
+  "section": "紹介方法2",
+  "variant": "紹介の流れ/inviter",
+  "figmaNode": "3119:12674",
+  "size": [
+   375,
+   1586
+  ],
+  "summary": "見出しの下に、薄グレーの枠で「あなたに」（1枚）と「お友達に」（2枚：カウンセリング予約→初回お申し込み）の手順カードをまとめ、挿絵付きで流れを見せる。最後に濃いグレーの「お二人共に 紹介特典をプレゼント‼」の帯で締める。リード文なし",
+  "position": "flow",
+  "fields": [
+   {
+    "key": "eyebrow",
+    "label": "小見出し（＼ ／ で挟む）",
+    "kind": "text",
+    "example": "カンタン！たったの10秒"
+   },
+   {
+    "key": "title",
+    "label": "見出し",
+    "kind": "text",
+    "example": "お友だちに紹介状を送ろう"
+   },
+   {
+    "key": "inviter.who",
+    "label": "紹介者側の枠の見出し",
+    "kind": "text",
+    "example": "あなたに"
+   },
+   {
+    "key": "step1.heading",
+    "label": "手順1 見出し",
+    "kind": "text",
+    "example": "必要情報を入力し送信"
+   },
+   {
+    "key": "step1.text",
+    "label": "手順1 説明",
+    "kind": "text",
+    "example": "あなたの情報を入力しLINEやtwitterでお友達に送信"
+   },
+   {
+    "key": "friend.who",
+    "label": "お友達側の枠の見出し",
+    "kind": "text",
+    "example": "お友達に"
+   },
+   {
+    "key": "step2.heading",
+    "label": "手順2 見出し",
+    "kind": "text",
+    "example": "初回カウンセリングの予約"
+   },
+   {
+    "key": "step2.text",
+    "label": "手順2 説明",
+    "kind": "text",
+    "example": "あなたから送信された紹介専用ページからカウンセリング予約をする"
+   },
+   {
+    "key": "step3.heading",
+    "label": "手順3 見出し",
+    "kind": "text",
+    "example": "初回お申し込み"
+   },
+   {
+    "key": "step3.text",
+    "label": "手順3 説明",
+    "kind": "text",
+    "example": "あなたが送った紹介状からQRコード開き、初回お申し込み時に提示"
+   },
+   {
+    "key": "bonus.who",
+    "label": "特典帯のリボン文言",
+    "kind": "text",
+    "example": "お二人共に"
+   },
+   {
+    "key": "bonus.title",
+    "label": "特典帯の大見出し",
+    "kind": "text",
+    "example": "紹介特典を\nプレゼント‼"
+   }
+  ],
+  "images": [],
+  "repeats": [],
+  "assets": [
+   {
+    "name": "var_avatar",
+    "note": "枠見出しのアバター 32px、特典帯のアバター 36px×2"
+   },
+   {
+    "name": "illust/入力して送信（スマホ）",
+    "note": "手順1の挿絵 245x140（Figma 3119:17178 等の未命名グループ）"
+   },
+   {
+    "name": "illust/招待状が届きました（スマホ＋相談相手）",
+    "note": "手順2の挿絵 245x140"
+   },
+   {
+    "name": "illust/QRコード提示（スマホ＋リーダー）",
+    "note": "手順3の挿絵 245x140"
+   },
+   {
+    "name": "arr",
+    "note": "下向き三角（24x12）。CSS で描画"
+   },
+   {
+    "name": "Rectangle 265",
+    "note": "特典帯の白いリボン（295x28、両端が切れ込み）。CSS の clip-path で描画"
+   }
+  ],
+  "colorRoles": {
+   "main": [],
+   "sub": [
+    "枠・カード間の下向き三角"
+   ]
+  },
+  "notes": "見出し上の小見出しを挟む斜線（＼ ／）は Figma では線素材（Line 100/102）。CSS で描画（色は --fg）。特典帯の背景とリボン文字 #6e6e6e は Figma で色スタイル未適用の直書きグレー（Main 変数ではない）ため直書き。挿絵はテンプレート固有の素材で、差し替え用の画像枠ではなく data-asset の枠で代用。手順カードは2つの枠に 1枚＋2枚の固定構成のため繰り返しにしていない。特典帯の大見出しは 36px（テキストスタイル外、t-headline-lg を拡大）"
+ },
+ "flow2-c": {
+  "id": "flow2-c",
+  "section": "紹介方法2",
+  "variant": "紹介の流れ/inviter",
+  "figmaNode": "3119:12810",
+  "size": [
+   375,
+   1586
+  ],
+  "summary": "見出しの下に、薄グレーの枠で「あなたに」（1枚）と「お友達に」（2枚：カウンセリング予約→来店・ご成約）の手順カードをまとめ、挿絵付きで流れを見せる。最後に濃いグレーの「お二人共に 紹介特典をプレゼント‼」の帯で締める。リード文なし",
+  "position": "flow",
+  "fields": [
+   {
+    "key": "eyebrow",
+    "label": "小見出し（＼ ／ で挟む）",
+    "kind": "text",
+    "example": "カンタン！たったの10秒"
+   },
+   {
+    "key": "title",
+    "label": "見出し",
+    "kind": "text",
+    "example": "お友だちに紹介状を送ろう"
+   },
+   {
+    "key": "inviter.who",
+    "label": "紹介者側の枠の見出し",
+    "kind": "text",
+    "example": "あなたに"
+   },
+   {
+    "key": "step1.heading",
+    "label": "手順1 見出し",
+    "kind": "text",
+    "example": "必要情報を入力し送信"
+   },
+   {
+    "key": "step1.text",
+    "label": "手順1 説明",
+    "kind": "text",
+    "example": "あなたの情報を入力しLINEやtwitterでお友達に送信"
+   },
+   {
+    "key": "friend.who",
+    "label": "お友達側の枠の見出し",
+    "kind": "text",
+    "example": "お友達に"
+   },
+   {
+    "key": "step2.heading",
+    "label": "手順2 見出し",
+    "kind": "text",
+    "example": "初回カウンセリングの予約"
+   },
+   {
+    "key": "step2.text",
+    "label": "手順2 説明",
+    "kind": "text",
+    "example": "あなたから送信された紹介専用ページからカウンセリング予約をする"
+   },
+   {
+    "key": "step3.heading",
+    "label": "手順3 見出し",
+    "kind": "text",
+    "example": "来店・ご成約"
+   },
+   {
+    "key": "step3.text",
+    "label": "手順3 説明",
+    "kind": "text",
+    "example": "あなたが送信した紹介からお友達が来店しご成約"
+   },
+   {
+    "key": "bonus.who",
+    "label": "特典帯のリボン文言",
+    "kind": "text",
+    "example": "お二人共に"
+   },
+   {
+    "key": "bonus.title",
+    "label": "特典帯の大見出し",
+    "kind": "text",
+    "example": "紹介特典を\nプレゼント‼"
+   }
+  ],
+  "images": [],
+  "repeats": [],
+  "assets": [
+   {
+    "name": "var_avatar",
+    "note": "枠見出しのアバター 32px、特典帯のアバター 36px×2"
+   },
+   {
+    "name": "illust/入力して送信（スマホ）",
+    "note": "手順1の挿絵 245x140（Figma 3119:17178 等の未命名グループ）"
+   },
+   {
+    "name": "illust/招待状が届きました（スマホ＋相談相手）",
+    "note": "手順2の挿絵 245x140"
+   },
+   {
+    "name": "illust/来店・商談（3人）",
+    "note": "手順3の挿絵 254x140"
+   },
+   {
+    "name": "arr",
+    "note": "下向き三角（24x12）。CSS で描画"
+   },
+   {
+    "name": "Rectangle 265",
+    "note": "特典帯の白いリボン（295x28、両端が切れ込み）。CSS の clip-path で描画"
+   }
+  ],
+  "colorRoles": {
+   "main": [],
+   "sub": [
+    "枠・カード間の下向き三角"
+   ]
+  },
+  "notes": "見出し上の小見出しを挟む斜線（＼ ／）は Figma では線素材（Line 100/102）。CSS で描画（色は --fg）。特典帯の背景とリボン文字 #6e6e6e は Figma で色スタイル未適用の直書きグレー（Main 変数ではない）ため直書き。挿絵はテンプレート固有の素材で、差し替え用の画像枠ではなく data-asset の枠で代用。手順カードは2つの枠に 1枚＋2枚の固定構成のため繰り返しにしていない。特典帯の大見出しは 36px（テキストスタイル外、t-headline-lg を拡大）"
+ },
+ "modal": {
+  "id": "modal",
+  "section": "モーダル表示",
+  "variant": "modal",
+  "figmaNode": "3119:13015",
+  "size": [
+   375,
+   636
+  ],
+  "summary": "黒の半透明オーバーレイの上に白いパネル（画像・テキスト・閉じるボタン）を中央表示するモーダル。ページ表示時のお知らせなどに使う",
+  "position": "overlay",
+  "fields": [
+   {
+    "key": "text",
+    "label": "本文",
+    "kind": "text",
+    "example": "テキストも入力できます…"
+   },
+   {
+    "key": "closeLabel",
+    "label": "閉じるボタン文言",
+    "kind": "text",
+    "example": "閉じる"
+   }
+  ],
+  "images": [
+   {
+    "slot": "image",
+    "label": "モーダル画像",
+    "size": "295x331",
+    "note": "テンプレートに寸法表記なし。枠の実寸"
+   }
+  ],
+  "repeats": [],
+  "assets": [
+   {
+    "name": "icon/close",
+    "note": "閉じるアイコン（16px）。CSS で×を描画"
+   },
+   {
+    "name": "button/tertiary",
+    "note": "閉じるボタン（幅100px、文字は Main 色）"
+   }
+  ],
+  "colorRoles": {
+   "main": [
+    "閉じるボタンの文字"
+   ],
+   "sub": []
+  },
+  "notes": "オーバーレイ色 rgba(0,0,0,.66) は Figma 変数 semantic/overlay/default で _base.css に無いため直書き。ブロックの高さ 636 はオーバーレイ（スマホ枠）分で、パネル本体は 335x525。背後のダミーページ（Classico の KV）は入れていない"
+ },
+ "timer": {
+  "id": "timer",
+  "section": "タイマー表示",
+  "variant": "timer",
+  "figmaNode": "3119:13108",
+  "size": [
+   375,
+   121
+  ],
+  "summary": "グレー背景に説明文と、白帯の中に終了までの残り時間（カウントダウン）を表示する帯",
+  "position": "flow",
+  "fields": [
+   {
+    "key": "text",
+    "label": "説明文",
+    "kind": "text",
+    "example": "テキストも入力できます…"
+   },
+   {
+    "key": "countdown",
+    "label": "残り時間表示（カウントダウン）",
+    "kind": "text",
+    "example": "15日6時間56分55秒で終了します。"
+   }
+  ],
+  "images": [],
+  "repeats": [],
+  "assets": [],
+  "colorRoles": {
+   "main": [],
+   "sub": []
+  },
+  "notes": "説明文は Figma の body/sm（12px・行間1.75・字間4%）。_base.css に該当クラスが無いので t-caption-md に行間・字間を上書き。countdown は実装時に動的に差し替わる想定（文言はダミー）"
+ },
+ "header-square": {
+  "id": "header-square",
+  "section": "ヘッダー",
+  "variant": "ヘッダー_ボタン：四角",
+  "figmaNode": "3119:13110",
+  "size": [
+   375,
+   50
+  ],
+  "summary": "左にロゴ、右端に高さいっぱいの四角い紹介ボタンを置いたヘッダーバー",
+  "position": "top",
+  "fields": [
+   {
+    "key": "buttonLabel",
+    "label": "ボタン文言",
+    "kind": "text",
+    "example": "紹介する"
+   },
+   {
+    "key": "buttonUrl",
+    "label": "ボタンのリンク先",
+    "kind": "url",
+    "example": "#"
+   }
+  ],
+  "images": [
+   {
+    "slot": "logo",
+    "label": "ロゴ",
+    "size": "100x34",
+    "note": "テンプレートに寸法表記なし。枠の実寸。四角版の Figma では実ロゴ画像（生活クラブ）が入っている"
+   }
+  ],
+  "repeats": [],
+  "assets": [],
+  "colorRoles": {
+   "main": [
+    "紹介ボタンの背景"
+   ],
+   "sub": []
+  },
+  "notes": "Figma は 375x636 のスマホ枠。バー本体（375x50）のみ起こした"
+ },
+ "header-pill": {
+  "id": "header-pill",
+  "section": "ヘッダー",
+  "variant": "ヘッダー_ボタン：ピル型",
+  "figmaNode": "3119:13112",
+  "size": [
+   375,
+   52
+  ],
+  "summary": "左にロゴ、右にピル型（角丸）の小さな紹介ボタンを置いたヘッダーバー",
+  "position": "top",
+  "fields": [
+   {
+    "key": "buttonLabel",
+    "label": "ボタン文言",
+    "kind": "text",
+    "example": "紹介する"
+   },
+   {
+    "key": "buttonUrl",
+    "label": "ボタンのリンク先",
+    "kind": "url",
+    "example": "#"
+   }
+  ],
+  "images": [
+   {
+    "slot": "logo",
+    "label": "ロゴ",
+    "size": "100x34",
+    "note": "テンプレートに寸法表記なし。枠の実寸。四角版の Figma では実ロゴ画像（生活クラブ）が入っている"
+   }
+  ],
+  "repeats": [],
+  "assets": [],
+  "colorRoles": {
+   "main": [
+    "紹介ボタンの背景"
+   ],
+   "sub": []
+  },
+  "notes": "Figma は 375x636 のスマホ枠。バー本体のみ起こした。ボタン文字は label/bold/sm（12px）で該当クラスが無いため t-label-md の文字サイズを 12px に上書き"
+ },
+ "header-none": {
+  "id": "header-none",
+  "section": "ヘッダー",
+  "variant": "ヘッダー_ボタン：なし",
+  "figmaNode": "3119:13114",
+  "size": [
+   375,
+   50
+  ],
+  "summary": "ロゴを中央に置いただけのボタンなしヘッダーバー",
+  "position": "top",
+  "fields": [],
+  "images": [
+   {
+    "slot": "logo",
+    "label": "ロゴ",
+    "size": "100x34",
+    "note": "テンプレートに寸法表記なし。枠の実寸。四角版の Figma では実ロゴ画像（生活クラブ）が入っている"
+   }
+  ],
+  "repeats": [],
+  "assets": [],
+  "colorRoles": {
+   "main": [],
+   "sub": []
+  },
+  "notes": "Figma は 375x636 のスマホ枠。バー本体のみ起こした。ロゴ領域は左パディング 8px のみのため、ロゴは中央から右に 4px ずれる（Figma どおり）"
+ },
+ "benefits-a": {
+  "id": "benefits-a",
+  "section": "特典エリア",
+  "variant": "特典",
+  "figmaNode": "3119:13117",
+  "size": [
+   375,
+   1885
+  ],
+  "summary": "見出し＋特典カード（アバター・対象・二重線で挟んだ特典タイトル・画像・説明）を縦に並べ、最後に注釈。カード内に小見出しの帯がある版",
+  "position": "flow",
+  "fields": [
+   {
+    "key": "title",
+    "label": "見出し",
+    "kind": "text",
+    "example": "お友だちに\n紹介特典をプレゼントしよう"
+   },
+   {
+    "key": "items.who",
+    "label": "特典の対象（あなたに／お友達に／お二人に）",
+    "kind": "text",
+    "example": "あなたに"
+   },
+   {
+    "key": "items.heading",
+    "label": "特典タイトル",
+    "kind": "text",
+    "example": "紹介特典タイトル"
+   },
+   {
+    "key": "items.text",
+    "label": "特典説明",
+    "kind": "text",
+    "example": "特典説明入ります…"
+   },
+   {
+    "key": "note",
+    "label": "注釈（※）",
+    "kind": "text",
+    "example": "特典注釈入ります…"
+   }
+  ],
+  "images": [
+   {
+    "slot": "items.image",
+    "label": "特典画像",
+    "size": "295x220",
+    "note": "テンプレートに寸法表記なし。枠の実寸"
+   }
+  ],
+  "repeats": [
+   {
+    "key": "items",
+    "label": "特典カード",
+    "templateCount": 3
+   }
+  ],
+  "assets": [
+   {
+    "name": "var_avatar",
+    "note": "アバター（32px）。Figma の var_avatar コンポーネントから選ぶ。お二人には左右に2つ"
+   }
+  ],
+  "colorRoles": {
+   "main": [],
+   "sub": []
+  },
+  "notes": ""
+ },
+ "benefits-b": {
+  "id": "benefits-b",
+  "section": "特典エリア",
+  "variant": "特典（タイトルなし）",
+  "figmaNode": "3119:13173",
+  "size": [
+   375,
+   1648
+  ],
+  "summary": "見出し＋特典カード（アバター・対象・画像・説明）を縦に並べ、最後に注釈。カード内に小見出しの帯がない版",
+  "fields": [
+   {
+    "key": "title",
+    "label": "見出し",
+    "kind": "text",
+    "example": "お友だちに\n紹介特典をプレゼントしよう"
+   },
+   {
+    "key": "items.who",
+    "label": "特典の対象（あなたに／お友達に／お二人に）",
+    "kind": "text",
+    "example": "あなたに"
+   },
+   {
+    "key": "items.text",
+    "label": "特典説明",
+    "kind": "text",
+    "example": "特典説明入ります…"
+   },
+   {
+    "key": "note",
+    "label": "注釈（※）",
+    "kind": "text",
+    "example": "特典注釈入ります…"
+   }
+  ],
+  "images": [
+   {
+    "slot": "items.image",
+    "label": "特典画像",
+    "size": "295x220",
+    "note": "テンプレートに寸法表記なし。枠の実寸"
+   }
+  ],
+  "repeats": [
+   {
+    "key": "items",
+    "label": "特典カード",
+    "templateCount": 3
+   }
+  ],
+  "assets": [
+   {
+    "name": "var_avatar",
+    "note": "アバター（32px）。Figma の var_avatar コンポーネントから選ぶ"
+   }
+  ],
+  "colorRoles": {
+   "main": [],
+   "sub": []
+  },
+  "notes": ""
+ },
+ "invite-form-a": {
+  "id": "invite-form-a",
+  "section": "紹介フォーム",
+  "variant": "紹介フォームA",
+  "figmaNode": "3119:13230",
+  "size": [
+   375,
+   3410
+  ],
+  "summary": "見出し・リード文＋入力フォーム一式（名前・メール・姓名・カナ・性別・生年月日・取引店番・メッセージ・画像アップロード・掲載許諾・個人情報同意）の下に、ブランド色の角型紹介ボタン（個別送信／SNS シェア／対面 QR の3グループ）を並べた1画面完結型",
+  "position": "flow",
+  "fields": [
+   {
+    "key": "title",
+    "label": "見出し",
+    "kind": "text",
+    "example": "紹介フォームCTA横並び"
+   },
+   {
+    "key": "lead",
+    "label": "リード文",
+    "kind": "text",
+    "example": "本文テキスト本文テキスト…"
+   },
+   {
+    "key": "nameLabel",
+    "label": "お名前の項目名",
+    "kind": "text",
+    "example": "あなたのお名前"
+   },
+   {
+    "key": "namePlaceholder",
+    "label": "お名前の入力例",
+    "kind": "text",
+    "example": "例）山田　花子"
+   },
+   {
+    "key": "nameHelp",
+    "label": "お名前の補足",
+    "kind": "text",
+    "example": "※ 姓と名の間に空白を入れてください"
+   },
+   {
+    "key": "emailLabel",
+    "label": "メールアドレスの項目名",
+    "kind": "text",
+    "example": "メールアドレス"
+   },
+   {
+    "key": "emailValue",
+    "label": "メールアドレスの入力値（エラー状態の見本）",
+    "kind": "text",
+    "example": "あいうえお"
+   },
+   {
+    "key": "emailError",
+    "label": "エラー文言",
+    "kind": "text",
+    "example": "必須項目です"
+   },
+   {
+    "key": "splitNameLabel",
+    "label": "姓名分割のお名前の項目名",
+    "kind": "text",
+    "example": "あなたのお名前"
+   },
+   {
+    "key": "lastNameLabel",
+    "label": "姓のラベル",
+    "kind": "text",
+    "example": "姓（漢字）"
+   },
+   {
+    "key": "lastNamePlaceholder",
+    "label": "姓の入力例",
+    "kind": "text",
+    "example": "例）山田"
+   },
+   {
+    "key": "firstNameLabel",
+    "label": "名のラベル",
+    "kind": "text",
+    "example": "名（漢字）"
+   },
+   {
+    "key": "firstNamePlaceholder",
+    "label": "名の入力例",
+    "kind": "text",
+    "example": "例）花子"
+   },
+   {
+    "key": "kanaLabel",
+    "label": "カナの項目名",
+    "kind": "text",
+    "example": "あなたのお名前（カナ）"
+   },
+   {
+    "key": "kanaPlaceholder",
+    "label": "カナの入力例",
+    "kind": "text",
+    "example": "例）ヤマダ　ハナコ"
+   },
+   {
+    "key": "kanaHelp",
+    "label": "カナの補足",
+    "kind": "text",
+    "example": "※ 姓と名の間に空白を入れてください"
+   },
+   {
+    "key": "genderLabel",
+    "label": "性別の項目名",
+    "kind": "text",
+    "example": "あなたの性別"
+   },
+   {
+    "key": "genderOptions.label",
+    "label": "性別の選択肢",
+    "kind": "text",
+    "example": "男性"
+   },
+   {
+    "key": "birthLabel",
+    "label": "生年月日の項目名",
+    "kind": "text",
+    "example": "あなたの生年月日"
+   },
+   {
+    "key": "shopLabel",
+    "label": "お取引店番の項目名",
+    "kind": "text",
+    "example": "あなたのお取引店番"
+   },
+   {
+    "key": "shopPlaceholder",
+    "label": "プルダウンの初期表示",
+    "kind": "text",
+    "example": "選択してください"
+   },
+   {
+    "key": "messageLabel",
+    "label": "メッセージの項目名",
+    "kind": "text",
+    "example": "お相手へのメッセージ"
+   },
+   {
+    "key": "messageDesc",
+    "label": "メッセージの説明",
+    "kind": "text",
+    "example": "ご記入いただいた内容をメッセージとして送信できます。"
+   },
+   {
+    "key": "messageValue",
+    "label": "メッセージの定型文",
+    "kind": "text",
+    "example": "スライドカードに連動した 定型文を表示する予定です"
+   },
+   {
+    "key": "uploadLabel",
+    "label": "画像アップロードの項目名",
+    "kind": "text",
+    "example": "画像アップロード"
+   },
+   {
+    "key": "uploadDesc",
+    "label": "アップロードの説明（上）",
+    "kind": "text",
+    "example": "テキスト入りますテキスト入ります…"
+   },
+   {
+    "key": "uploadDrop",
+    "label": "ドロップ領域の文言",
+    "kind": "text",
+    "example": "ファイルをここにドロップもしくは"
+   },
+   {
+    "key": "uploadButton",
+    "label": "ファイル選択ボタンの文言",
+    "kind": "text",
+    "example": "ファイルを選択する"
+   },
+   {
+    "key": "uploadNote",
+    "label": "アップロードの説明（下）",
+    "kind": "text",
+    "example": "テキスト入りますテキスト入ります…"
+   },
+   {
+    "key": "consentLabel",
+    "label": "掲載許諾の項目名",
+    "kind": "text",
+    "example": "送信メッセージの掲載について"
+   },
+   {
+    "key": "consentText",
+    "label": "掲載許諾の説明",
+    "kind": "text",
+    "example": "メッセージがキャンペーンサイトに掲載される可能性がございます。…"
+   },
+   {
+    "key": "consentOptions.label",
+    "label": "掲載許諾の選択肢（チェックボックス）",
+    "kind": "text",
+    "example": "了承する"
+   },
+   {
+    "key": "privacyLabel",
+    "label": "個人情報の項目名",
+    "kind": "text",
+    "example": "個人情報について"
+   },
+   {
+    "key": "privacyText",
+    "label": "個人情報の説明（リンクを含む）",
+    "kind": "richtext",
+    "example": "個人情報の取扱については以下のプライバシーポリシーをご覧ください。"
+   },
+   {
+    "key": "privacyUrl",
+    "label": "プライバシーポリシーのリンク先（<a> の data-href-field）",
+    "kind": "url",
+    "example": "https://example.com/privacy"
+   },
+   {
+    "key": "privacyAgree",
+    "label": "同意チェックの文言",
+    "kind": "text",
+    "example": "同意する"
+   },
+   {
+    "key": "methodsTitle",
+    "label": "紹介方法グループの見出し",
+    "kind": "text",
+    "example": "紹介方法選択"
+   },
+   {
+    "key": "methods.label",
+    "label": "個別に送るボタンの文言",
+    "kind": "text",
+    "example": "LINEで友達に送る"
+   },
+   {
+    "key": "methods.url",
+    "label": "個別に送るボタンのリンク先（<a> の data-href-field）",
+    "kind": "url",
+    "example": "https://example.com/"
+   },
+   {
+    "key": "snsTitle",
+    "label": "SNS シェアグループの見出し",
+    "kind": "text",
+    "example": "SNSで複数人に\nシェアするならこちら"
+   },
+   {
+    "key": "snsMethods.label",
+    "label": "SNS シェアボタンの文言",
+    "kind": "text",
+    "example": "Facebookでシェア"
+   },
+   {
+    "key": "snsMethods.url",
+    "label": "SNS シェアボタンのリンク先",
+    "kind": "url",
+    "example": "https://example.com/"
+   },
+   {
+    "key": "faceTitle",
+    "label": "対面グループの見出し",
+    "kind": "text",
+    "example": "対面でシェアするならこちら"
+   },
+   {
+    "key": "faceMethods.label",
+    "label": "対面ボタンの文言",
+    "kind": "text",
+    "example": "QRで送る"
+   },
+   {
+    "key": "faceMethods.url",
+    "label": "対面ボタンのリンク先",
+    "kind": "url",
+    "example": "https://example.com/"
+   }
+  ],
+  "images": [],
+  "repeats": [
+   {
+    "key": "genderOptions",
+    "label": "性別の選択肢（ラジオ）",
+    "templateCount": 2
+   },
+   {
+    "key": "consentOptions",
+    "label": "掲載許諾の選択肢（チェックボックス）",
+    "templateCount": 2
+   },
+   {
+    "key": "methods",
+    "label": "個別に送るボタン（LINE／メール／SMS）",
+    "templateCount": 3
+   },
+   {
+    "key": "snsMethods",
+    "label": "SNS シェアボタン（Facebook／X／メッセンジャー／Instagram URL コピー／Instagram／Slack／Chatwork／リンク）",
+    "templateCount": 8
+   },
+   {
+    "key": "faceMethods",
+    "label": "対面ボタン（QR）",
+    "templateCount": 1
+   }
+  ],
+  "assets": [
+   {
+    "name": "var_share",
+    "note": "紹介方法アイコン。data-asset は var_share/<種別>（LINE / Mail / SMS / FB / X / Messenger / Instagram_URL / Instagram / Slack / Chatwork / Link / QR）。Figma では LINE は白丸 32px に 22px のアイコン、SMS（40x41）・Instagram・Slack・Chatwork（30px）は var_share ではなく貼り込み画像。ボタンの data-method がブランド色を決める"
+   },
+   {
+    "name": "icon/arrow_chev_right",
+    "note": "ボタン右端の矢印（16px）。CSS で描画"
+   }
+  ],
+  "colorRoles": {
+   "main": [
+    "ファイルを選択するボタンの背景",
+    "プライバシーポリシーのリンク文字"
+   ],
+   "sub": []
+  },
+  "notes": "Figma の design context なし。スクリーンショットとレイヤー構造から起こした。メールアドレス欄はエラー状態（--attention-bg / --attention-border、エラー文言 --attention）の見本。必須バッジは <span class=\"req\">必須</span>（41x24 に合わせてブロック内で 14px に上書き）。入力欄は見た目だけの div（高さ 48px、枠 --border）。生年月日の「年／月／日」は固定文字。body/md は Figma の行送りに合わせて 25px に上書き。SNS ボタンの背景はサービスのブランド色（LINE #1bb71f / メール #e87c21 / SMS #23abd1 / Facebook #1877f2 / X #222222 / メッセンジャー #6c4fe0 / Instagram #d02d92 / Slack #4a154b / Chatwork #f03848 / リンク #ff9f44 / QR #3e9ed9）で、Main/Sub ではないため data-method ごとに直書き（スクショから採色）。送信ボタンはない。"
+ },
+ "invite-form-c": {
+  "id": "invite-form-c",
+  "section": "紹介フォーム",
+  "variant": "紹介フォーム",
+  "figmaNode": "3119:13385",
+  "size": [
+   375,
+   1613
+  ],
+  "summary": "紹介方法のアイコンタイル一覧（11種）の下に、ブランド色のピル型紹介ボタンを「紹介方法選択」「SNSで複数人にシェア」「対面でシェア」の3グループで並べる。入力フォームなし",
+  "position": "flow",
+  "fields": [
+   {
+    "key": "tiles.label",
+    "label": "アイコンタイルの文言（改行は <br>）",
+    "kind": "text",
+    "example": "LINE\nで送る"
+   },
+   {
+    "key": "tiles.url",
+    "label": "アイコンタイルのリンク先",
+    "kind": "url",
+    "example": "https://example.com/"
+   },
+   {
+    "key": "methodsTitle",
+    "label": "紹介方法グループの見出し",
+    "kind": "text",
+    "example": "紹介方法選択"
+   },
+   {
+    "key": "methods.label",
+    "label": "個別に送るボタンの文言",
+    "kind": "text",
+    "example": "LINEで友達に送る"
+   },
+   {
+    "key": "methods.url",
+    "label": "個別に送るボタンのリンク先（<a> の data-href-field）",
+    "kind": "url",
+    "example": "https://example.com/"
+   },
+   {
+    "key": "snsTitle",
+    "label": "SNS シェアグループの見出し",
+    "kind": "text",
+    "example": "SNSで複数人に\nシェアするならこちら"
+   },
+   {
+    "key": "snsMethods.label",
+    "label": "SNS シェアボタンの文言",
+    "kind": "text",
+    "example": "Facebookでシェア"
+   },
+   {
+    "key": "snsMethods.url",
+    "label": "SNS シェアボタンのリンク先",
+    "kind": "url",
+    "example": "https://example.com/"
+   },
+   {
+    "key": "faceTitle",
+    "label": "対面グループの見出し",
+    "kind": "text",
+    "example": "対面でシェアするならこちら"
+   },
+   {
+    "key": "faceMethods.label",
+    "label": "対面ボタンの文言",
+    "kind": "text",
+    "example": "QRで送る"
+   },
+   {
+    "key": "faceMethods.url",
+    "label": "対面ボタンのリンク先",
+    "kind": "url",
+    "example": "https://example.com/"
+   }
+  ],
+  "images": [],
+  "repeats": [
+   {
+    "key": "tiles",
+    "label": "紹介方法アイコンタイル（80x106、4列・最終行中央寄せ）",
+    "templateCount": 11
+   },
+   {
+    "key": "methods",
+    "label": "個別に送るボタン（LINE／メール／SMS）",
+    "templateCount": 3
+   },
+   {
+    "key": "snsMethods",
+    "label": "SNS シェアボタン（Facebook／X／メッセンジャー／Instagram URL コピー／Instagram／Slack／Chatwork／リンク）",
+    "templateCount": 8
+   },
+   {
+    "key": "faceMethods",
+    "label": "対面ボタン（QR）",
+    "templateCount": 1
+   }
+  ],
+  "assets": [
+   {
+    "name": "var_share",
+    "note": "紹介方法アイコン。data-asset は var_share/<種別>（LINE / Mail / SMS / FB / X / Messenger / Instagram_URL / Instagram / Slack / Chatwork / Link / QR）。Figma では LINE は白丸 32px に 22px のアイコン、SMS（40x41）・Instagram・Slack・Chatwork（30px）は var_share ではなく貼り込み画像。ボタンの data-method がブランド色を決める"
+   },
+   {
+    "name": "icon/arrow_chev_right",
+    "note": "ボタン右端の矢印（16px）。CSS で描画"
+   }
+  ],
+  "colorRoles": {
+   "main": [],
+   "sub": []
+  },
+  "notes": "Figma の design context なし。スクリーンショットとレイヤー構造から起こした。上部のアイコンタイルは白地＋枠線＋下 2px の影、文字 10px/15px（テキストスタイル外）。タイルの文言は 64px 幅で折り返していたため <br> で改行を固定。ボタンはピル型、アイコン位置は左 20px（A／B は角型・左 16px）。Instagram URL コピーのアイコンは 26px（A では 32px）のため行の高さ 58px。SNS ボタンの背景はサービスのブランド色（LINE #1bb71f / メール #e87c21 / SMS #23abd1 / Facebook #1877f2 / X #222222 / メッセンジャー #6c4fe0 / Instagram #d02d92 / Slack #4a154b / Chatwork #f03848 / リンク #ff9f44 / QR #3e9ed9）で、Main/Sub ではないため data-method ごとに直書き（スクショから採色）。"
+ },
+ "invite-form-d": {
+  "id": "invite-form-d",
+  "section": "紹介フォーム",
+  "variant": "紹介フォーム",
+  "figmaNode": "3119:13498",
+  "size": [
+   375,
+   1567
+  ],
+  "summary": "invite-form-c と同じアイコンタイル一覧＋ピル型紹介ボタンだが、最初のグループの見出し「紹介方法選択」がない版",
+  "position": "flow",
+  "fields": [
+   {
+    "key": "tiles.label",
+    "label": "アイコンタイルの文言（改行は <br>）",
+    "kind": "text",
+    "example": "LINE\nで送る"
+   },
+   {
+    "key": "tiles.url",
+    "label": "アイコンタイルのリンク先",
+    "kind": "url",
+    "example": "https://example.com/"
+   },
+   {
+    "key": "methods.label",
+    "label": "個別に送るボタンの文言",
+    "kind": "text",
+    "example": "LINEで友達に送る"
+   },
+   {
+    "key": "methods.url",
+    "label": "個別に送るボタンのリンク先（<a> の data-href-field）",
+    "kind": "url",
+    "example": "https://example.com/"
+   },
+   {
+    "key": "snsTitle",
+    "label": "SNS シェアグループの見出し",
+    "kind": "text",
+    "example": "SNSで複数人に\nシェアするならこちら"
+   },
+   {
+    "key": "snsMethods.label",
+    "label": "SNS シェアボタンの文言",
+    "kind": "text",
+    "example": "Facebookでシェア"
+   },
+   {
+    "key": "snsMethods.url",
+    "label": "SNS シェアボタンのリンク先",
+    "kind": "url",
+    "example": "https://example.com/"
+   },
+   {
+    "key": "faceTitle",
+    "label": "対面グループの見出し",
+    "kind": "text",
+    "example": "対面でシェアするならこちら"
+   },
+   {
+    "key": "faceMethods.label",
+    "label": "対面ボタンの文言",
+    "kind": "text",
+    "example": "QRで送る"
+   },
+   {
+    "key": "faceMethods.url",
+    "label": "対面ボタンのリンク先",
+    "kind": "url",
+    "example": "https://example.com/"
+   }
+  ],
+  "images": [],
+  "repeats": [
+   {
+    "key": "tiles",
+    "label": "紹介方法アイコンタイル（80x106、4列・最終行中央寄せ）",
+    "templateCount": 11
+   },
+   {
+    "key": "methods",
+    "label": "個別に送るボタン（LINE／メール／SMS）",
+    "templateCount": 3
+   },
+   {
+    "key": "snsMethods",
+    "label": "SNS シェアボタン（Facebook／X／メッセンジャー／Instagram URL コピー／Instagram／Slack／Chatwork／リンク）",
+    "templateCount": 8
+   },
+   {
+    "key": "faceMethods",
+    "label": "対面ボタン（QR）",
+    "templateCount": 1
+   }
+  ],
+  "assets": [
+   {
+    "name": "var_share",
+    "note": "紹介方法アイコン。data-asset は var_share/<種別>（LINE / Mail / SMS / FB / X / Messenger / Instagram_URL / Instagram / Slack / Chatwork / Link / QR）。Figma では LINE は白丸 32px に 22px のアイコン、SMS（40x41）・Instagram・Slack・Chatwork（30px）は var_share ではなく貼り込み画像。ボタンの data-method がブランド色を決める"
+   },
+   {
+    "name": "icon/arrow_chev_right",
+    "note": "ボタン右端の矢印（16px）。CSS で描画"
+   }
+  ],
+  "colorRoles": {
+   "main": [],
+   "sub": []
+  },
+  "notes": "Figma の design context なし。スクリーンショットとレイヤー構造から起こした。Figma では「紹介方法選択」テキストが非表示。タイルとボタンの間は 40px。上部のアイコンタイルは白地＋枠線＋下 2px の影、文字 10px/15px（テキストスタイル外）。タイルの文言は 64px 幅で折り返していたため <br> で改行を固定。ボタンはピル型、アイコン位置は左 20px（A／B は角型・左 16px）。Instagram URL コピーのアイコンは 26px（A では 32px）のため行の高さ 58px。SNS ボタンの背景はサービスのブランド色（LINE #1bb71f / メール #e87c21 / SMS #23abd1 / Facebook #1877f2 / X #222222 / メッセンジャー #6c4fe0 / Instagram #d02d92 / Slack #4a154b / Chatwork #f03848 / リンク #ff9f44 / QR #3e9ed9）で、Main/Sub ではないため data-method ごとに直書き（スクショから採色）。"
+ },
+ "invite-form-b": {
+  "id": "invite-form-b",
+  "section": "紹介フォーム",
+  "variant": "紹介フォームB",
+  "figmaNode": "3119:13612",
+  "size": [
+   375,
+   5076
+  ],
+  "summary": "3ステップ型の紹介フォーム。各ステップに吹き出し付き見出し・1-2-3 の進捗・STEP 見出しを持ち、STEP1 で画像付きメッセージカード（横長）を1つ選択、STEP2 で情報入力、STEP3 で紹介方法ボタン（角型）を選ぶ。3つのパネルを縦に並べた状態見本",
+  "position": "flow",
+  "fields": [
+   {
+    "key": "eyebrow",
+    "label": "吹き出しの文言",
+    "kind": "text",
+    "example": "カンタン！たったの30秒！"
+   },
+   {
+    "key": "title",
+    "label": "見出し（3ステップ共通）",
+    "kind": "text",
+    "example": "ご家族・お友達に応援\nメッセージを送ろう！"
+   },
+   {
+    "key": "step1Text",
+    "label": "STEP1 の説明",
+    "kind": "text",
+    "example": "送るメッセージカードを選びます"
+   },
+   {
+    "key": "step2Text",
+    "label": "STEP2 の説明",
+    "kind": "text",
+    "example": "情報を入力します"
+   },
+   {
+    "key": "step3Text",
+    "label": "STEP3 の説明",
+    "kind": "text",
+    "example": "お好きな方法で応援メッセージを送りましょう"
+   },
+   {
+    "key": "choiceLabel",
+    "label": "カード選択の項目名",
+    "kind": "text",
+    "example": "１つ選択"
+   },
+   {
+    "key": "choices.label",
+    "label": "カードの文言",
+    "kind": "text",
+    "example": "新しい家族が増えた方へ"
+   },
+   {
+    "key": "nextLabel",
+    "label": "STEP1 のボタン文言",
+    "kind": "text",
+    "example": "つぎへ"
+   },
+   {
+    "key": "nextUrl",
+    "label": "STEP1 ボタンのリンク先",
+    "kind": "url",
+    "example": "#"
+   },
+   {
+    "key": "nameLabel",
+    "label": "お名前の項目名",
+    "kind": "text",
+    "example": "あなたのお名前"
+   },
+   {
+    "key": "namePlaceholder",
+    "label": "お名前の入力例",
+    "kind": "text",
+    "example": "例）山田　花子"
+   },
+   {
+    "key": "nameHelp",
+    "label": "お名前の補足",
+    "kind": "text",
+    "example": "※ 姓と名の間に空白を入れてください"
+   },
+   {
+    "key": "splitNameLabel",
+    "label": "姓名分割のお名前の項目名",
+    "kind": "text",
+    "example": "あなたのお名前"
+   },
+   {
+    "key": "lastNameLabel",
+    "label": "姓のラベル",
+    "kind": "text",
+    "example": "姓（漢字）"
+   },
+   {
+    "key": "lastNamePlaceholder",
+    "label": "姓の入力例",
+    "kind": "text",
+    "example": "例）山田"
+   },
+   {
+    "key": "firstNameLabel",
+    "label": "名のラベル",
+    "kind": "text",
+    "example": "名（漢字）"
+   },
+   {
+    "key": "firstNamePlaceholder",
+    "label": "名の入力例",
+    "kind": "text",
+    "example": "例）花子"
+   },
+   {
+    "key": "kanaLabel",
+    "label": "カナの項目名",
+    "kind": "text",
+    "example": "あなたのお名前（カナ）"
+   },
+   {
+    "key": "kanaPlaceholder",
+    "label": "カナの入力例",
+    "kind": "text",
+    "example": "例）ヤマダ　ハナコ"
+   },
+   {
+    "key": "kanaHelp",
+    "label": "カナの補足",
+    "kind": "text",
+    "example": "※ 姓と名の間に空白を入れてください"
+   },
+   {
+    "key": "genderLabel",
+    "label": "性別の項目名",
+    "kind": "text",
+    "example": "あなたの性別"
+   },
+   {
+    "key": "genderOptions.label",
+    "label": "性別の選択肢",
+    "kind": "text",
+    "example": "男性"
+   },
+   {
+    "key": "birthLabel",
+    "label": "生年月日の項目名",
+    "kind": "text",
+    "example": "あなたの生年月日"
+   },
+   {
+    "key": "shopLabel",
+    "label": "お取引店番の項目名",
+    "kind": "text",
+    "example": "あなたのお取引店番"
+   },
+   {
+    "key": "shopPlaceholder",
+    "label": "プルダウンの初期表示",
+    "kind": "text",
+    "example": "選択してください"
+   },
+   {
+    "key": "emailLabel",
+    "label": "メールアドレスの項目名",
+    "kind": "text",
+    "example": "あなたのメールアドレス"
+   },
+   {
+    "key": "emailPlaceholder",
+    "label": "メールアドレスの入力例",
+    "kind": "text",
+    "example": "例）info@invy.jp"
+   },
+   {
+    "key": "messageLabel",
+    "label": "メッセージの項目名",
+    "kind": "text",
+    "example": "お相手へのメッセージ"
+   },
+   {
+    "key": "messageDesc",
+    "label": "メッセージの説明",
+    "kind": "text",
+    "example": "ご記入いただいた内容をメッセージとして送信できます。"
+   },
+   {
+    "key": "messageValue",
+    "label": "メッセージの定型文",
+    "kind": "text",
+    "example": "スライドカードに連動した 定型文を表示する予定です"
+   },
+   {
+    "key": "uploadLabel",
+    "label": "画像アップロードの項目名",
+    "kind": "text",
+    "example": "画像アップロード"
+   },
+   {
+    "key": "uploadDesc",
+    "label": "アップロードの説明（上）",
+    "kind": "text",
+    "example": "テキスト入りますテキスト入ります…"
+   },
+   {
+    "key": "uploadDrop",
+    "label": "ドロップ領域の文言",
+    "kind": "text",
+    "example": "ファイルをここにドロップもしくは"
+   },
+   {
+    "key": "uploadButton",
+    "label": "ファイル選択ボタンの文言",
+    "kind": "text",
+    "example": "ファイルを選択する"
+   },
+   {
+    "key": "uploadNote",
+    "label": "アップロードの説明（下）",
+    "kind": "text",
+    "example": "テキスト入りますテキスト入ります…"
+   },
+   {
+    "key": "consentLabel",
+    "label": "掲載許諾の項目名",
+    "kind": "text",
+    "example": "送信メッセージの掲載について"
+   },
+   {
+    "key": "consentText",
+    "label": "掲載許諾の説明",
+    "kind": "text",
+    "example": "メッセージがキャンペーンサイトに掲載される可能性がございます。…"
+   },
+   {
+    "key": "consentOptions.label",
+    "label": "掲載許諾の選択肢（チェックボックス）",
+    "kind": "text",
+    "example": "了承する"
+   },
+   {
+    "key": "privacyLabel",
+    "label": "個人情報の項目名",
+    "kind": "text",
+    "example": "個人情報について"
+   },
+   {
+    "key": "privacyText",
+    "label": "個人情報の説明（リンクを含む）",
+    "kind": "richtext",
+    "example": "個人情報の取扱については以下のプライバシーポリシーをご覧ください。"
+   },
+   {
+    "key": "privacyUrl",
+    "label": "プライバシーポリシーのリンク先（<a> の data-href-field）",
+    "kind": "url",
+    "example": "https://example.com/privacy"
+   },
+   {
+    "key": "privacyAgree",
+    "label": "同意チェックの文言",
+    "kind": "text",
+    "example": "同意する"
+   },
+   {
+    "key": "submitLabel",
+    "label": "STEP2 のボタン文言（未入力で非活性）",
+    "kind": "text",
+    "example": "つぎへ（送信方法選択画面）"
+   },
+   {
+    "key": "submitUrl",
+    "label": "STEP2 ボタンのリンク先",
+    "kind": "url",
+    "example": "#"
+   },
+   {
+    "key": "methods.label",
+    "label": "個別に送るボタンの文言",
+    "kind": "text",
+    "example": "LINEで友達に送る"
+   },
+   {
+    "key": "methods.url",
+    "label": "個別に送るボタンのリンク先（<a> の data-href-field）",
+    "kind": "url",
+    "example": "https://example.com/"
+   },
+   {
+    "key": "snsTitle",
+    "label": "SNS シェアグループの見出し",
+    "kind": "text",
+    "example": "SNSで複数人に\nシェアするならこちら"
+   },
+   {
+    "key": "snsMethods.label",
+    "label": "SNS シェアボタンの文言",
+    "kind": "text",
+    "example": "Facebookでシェア"
+   },
+   {
+    "key": "snsMethods.url",
+    "label": "SNS シェアボタンのリンク先",
+    "kind": "url",
+    "example": "https://example.com/"
+   },
+   {
+    "key": "faceTitle",
+    "label": "対面グループの見出し",
+    "kind": "text",
+    "example": "対面でシェアするならこちら"
+   },
+   {
+    "key": "faceMethods.label",
+    "label": "対面ボタンの文言",
+    "kind": "text",
+    "example": "QRで送る"
+   },
+   {
+    "key": "faceMethods.url",
+    "label": "対面ボタンのリンク先",
+    "kind": "url",
+    "example": "https://example.com/"
+   }
+  ],
+  "images": [
+   {
+    "slot": "choices.image",
+    "label": "メッセージカードの画像",
+    "size": "120x80",
+    "note": "テンプレートに寸法表記なし。スクショ（縮小版）からの推定"
+   }
+  ],
+  "repeats": [
+   {
+    "key": "choices",
+    "label": "メッセージカード（ラジオカード）",
+    "templateCount": 5
+   },
+   {
+    "key": "genderOptions",
+    "label": "性別の選択肢（ラジオ）",
+    "templateCount": 2
+   },
+   {
+    "key": "consentOptions",
+    "label": "掲載許諾の選択肢（チェックボックス）",
+    "templateCount": 2
+   },
+   {
+    "key": "methods",
+    "label": "個別に送るボタン（LINE／メール／SMS）",
+    "templateCount": 3
+   },
+   {
+    "key": "snsMethods",
+    "label": "SNS シェアボタン（Facebook／X／メッセンジャー／Instagram URL コピー／Instagram／Slack／Chatwork／リンク）",
+    "templateCount": 8
+   },
+   {
+    "key": "faceMethods",
+    "label": "対面ボタン（QR）",
+    "templateCount": 1
+   }
+  ],
+  "assets": [
+   {
+    "name": "var_share",
+    "note": "紹介方法アイコン。data-asset は var_share/<種別>（LINE / Mail / SMS / FB / X / Messenger / Instagram_URL / Instagram / Slack / Chatwork / Link / QR）。Figma では LINE は白丸 32px に 22px のアイコン、SMS（40x41）・Instagram・Slack・Chatwork（30px）は var_share ではなく貼り込み画像。ボタンの data-method がブランド色を決める"
+   },
+   {
+    "name": "icon/arrow_chev_right",
+    "note": "ボタン右端の矢印（16px）。CSS で描画"
+   },
+   {
+    "name": "radio_card",
+    "note": "画像＋文言の選択カード。選択中は背景 Main・文字白"
+   },
+   {
+    "name": "step_headline",
+    "note": "STEP 番号（Main 背景）＋説明の帯。CSS で描画"
+   }
+  ],
+  "colorRoles": {
+   "main": [
+    "進捗の現在ステップの丸",
+    "STEP 番号の背景",
+    "選択中カードの背景",
+    "つぎへボタンの背景",
+    "ファイルを選択するボタンの背景",
+    "プライバシーポリシーのリンク文字"
+   ],
+   "sub": []
+  },
+  "notes": "Figma の design context なし。スクリーンショットとレイヤー構造から起こした。shots/invite-form-b.png は 76px 幅に縮小されていて文字が読めないため、STEP 説明・ボタン文言（つぎへ／つぎへ（送信方法選択画面））・メール入力例・カード画像寸法・STEP 帯の作りは推定。パネル間 16px の濃いグレー（#767676）は Figma の親フレームの地色がすき間から見えているもの（ステップ状態の区切り）で、変数に無いので直書き。吹き出しのしっぽは CSS。STEP2 の送信ボタンは非活性（--border 背景）。STEP3 の「紹介方法選択」見出しは Figma で非表示のため入れていない。必須バッジは <span class=\"req\">必須</span>（41x24 に合わせてブロック内で 14px に上書き）。入力欄は見た目だけの div（高さ 48px、枠 --border）。生年月日の「年／月／日」は固定文字。body/md は Figma の行送りに合わせて 25px に上書き。SNS ボタンの背景はサービスのブランド色（LINE #1bb71f / メール #e87c21 / SMS #23abd1 / Facebook #1877f2 / X #222222 / メッセンジャー #6c4fe0 / Instagram #d02d92 / Slack #4a154b / Chatwork #f03848 / リンク #ff9f44 / QR #3e9ed9）で、Main/Sub ではないため data-method ごとに直書き（スクショから採色）。"
+ },
+ "invite-form-e": {
+  "id": "invite-form-e",
+  "section": "紹介フォーム",
+  "variant": "紹介フォーム",
+  "figmaNode": "3119:13857",
+  "size": [
+   375,
+   650
+  ],
+  "summary": "「１つ選択」＋必須バッジの下に、画像付きメッセージカード（縦長 160px）を2列で5枚並べた選択フォーム。選択中のカードは Main 色で塗る",
+  "position": "flow",
+  "fields": [
+   {
+    "key": "choiceLabel",
+    "label": "カード選択の項目名",
+    "kind": "text",
+    "example": "１つ選択"
+   },
+   {
+    "key": "choices.label",
+    "label": "カードの文言",
+    "kind": "text",
+    "example": "新しい家族が増えた方へ"
+   }
+  ],
+  "images": [
+   {
+    "slot": "choices.image",
+    "label": "メッセージカードの画像",
+    "size": "144x80",
+    "note": "テンプレートに寸法表記なし。スクショ上の実寸"
+   }
+  ],
+  "repeats": [
+   {
+    "key": "choices",
+    "label": "メッセージカード（ラジオカード）",
+    "templateCount": 5
+   }
+  ],
+  "assets": [
+   {
+    "name": "radio_card",
+    "note": "画像＋文言の選択カード。選択中は背景 Main・文字白"
+   }
+  ],
+  "colorRoles": {
+   "main": [
+    "選択中カードの背景"
+   ],
+   "sub": []
+  },
+  "notes": "Figma の design context なし。スクリーンショットとレイヤー構造から起こした。背景は --bg-subtle。カード文言は 14px regular（t-label-md-r、21px 行送り）。カードは1行目が 152.65px、2・3行目が 173.65px（3行の文言に揃う）。必須バッジは 14px に上書き。"
+ },
+ "invitation-detail-a": {
+  "id": "invitation-detail-a",
+  "section": "ご紹介方法の詳細",
+  "variant": "ご紹介方法の詳細_close",
+  "figmaNode": "3119:13869",
+  "size": [
+   375,
+   588
+  ],
+  "summary": "見出し＋SNS ごとの紹介方法アコーディオン（閉じた状態）。アイコン・ラベル・＋アイコンの行を縦に並べる",
+  "position": "flow",
+  "fields": [
+   {
+    "key": "title",
+    "label": "見出し",
+    "kind": "text",
+    "example": "ご紹介方法の詳細"
+   },
+   {
+    "key": "items.label",
+    "label": "紹介方法の名前",
+    "kind": "text",
+    "example": "LINEの紹介方法"
+   }
+  ],
+  "images": [],
+  "repeats": [
+   {
+    "key": "items",
+    "label": "紹介方法の行",
+    "templateCount": 6
+   }
+  ],
+  "assets": [
+   {
+    "name": "var_share",
+    "note": "SNS アイコン（28px）。バリエーション LINE / FB / X / Messenger / Mail / Link（data-asset は var_share/<種別>）"
+   },
+   {
+    "name": "icon/plus",
+    "note": "開くアイコン（16px）。CSS で描画"
+   }
+  ],
+  "colorRoles": {
+   "main": [],
+   "sub": []
+  },
+  "notes": "Figma の行の枠線は内側線のため box-shadow inset で表現。開いた状態は invitation-detail-b"
+ },
+ "invitation-detail-b": {
+  "id": "invitation-detail-b",
+  "section": "ご紹介方法の詳細",
+  "variant": "ご紹介方法の詳細_open",
+  "figmaNode": "3119:13880",
+  "size": [
+   375,
+   3507
+  ],
+  "summary": "見出し＋SNS ごとの紹介方法アコーディオン（開いた状態）。各項目に操作画面のスクリーンショットと説明文が入る",
+  "position": "flow",
+  "fields": [
+   {
+    "key": "title",
+    "label": "見出し",
+    "kind": "text",
+    "example": "ご紹介方法の詳細"
+   },
+   {
+    "key": "items.label",
+    "label": "紹介方法の名前",
+    "kind": "text",
+    "example": "LINEの紹介方法"
+   },
+   {
+    "key": "items.text",
+    "label": "説明文",
+    "kind": "text",
+    "example": "本文テキスト…"
+   }
+  ],
+  "images": [
+   {
+    "slot": "items.image",
+    "label": "操作画面のスクリーンショット（赤枠で操作箇所を示す）",
+    "size": "305x394",
+    "note": "テンプレートに寸法表記なし。項目ごとに実寸が違う：LINE 305x394 / FB 305x394 / X 311x328 / Messenger 305x427 / Mail 295x306 / Link 305x316。表示幅は枠内 301px に収まる（Figma ではマスクではみ出し分を切っている）"
+   }
+  ],
+  "repeats": [
+   {
+    "key": "items",
+    "label": "紹介方法の項目",
+    "templateCount": 6
+   }
+  ],
+  "assets": [
+   {
+    "name": "var_share",
+    "note": "SNS アイコン（28px）。バリエーション LINE / FB / X / Messenger / Mail / Link（data-asset は var_share/<種別>）"
+   },
+   {
+    "name": "icon/minus",
+    "note": "閉じるアイコン（16px）。CSS で描画"
+   }
+  ],
+  "colorRoles": {
+   "main": [],
+   "sub": []
+  },
+  "notes": "Figma の variant 名は「_close」だが中身は開いた状態のため、data-variant は「ご紹介方法の詳細_open」とした。Figma では X・メッセンジャー・メールの見出し行にだけ余分な内枠線があるが、揃えて省いた。各スクリーンショットは Figma ではマスク＋赤枠の重ね合わせで、1枚の画像枠にまとめた"
+ },
+ "slider-text-s-square": {
+  "id": "slider-text-s-square",
+  "section": "画像スライダー（テキスト付き）",
+  "variant": "画像スライダー_小（四角）",
+  "figmaNode": "3119:13966",
+  "size": [
+   375,
+   516
+  ],
+  "summary": "見出し＋サブタイトルの下に、画像（270x180）とテキストの白カードを横スライドで見せる。1枚目と次のカードの端をのぞかせ、右矢印とページ送りの点つき。カードは角丸8px。",
+  "position": "flow",
+  "fields": [
+   {
+    "key": "title",
+    "label": "見出し",
+    "kind": "text",
+    "example": "スライダータイトル"
+   },
+   {
+    "key": "subtitle",
+    "label": "サブタイトル",
+    "kind": "text",
+    "example": "サブタイトル入ります"
+   },
+   {
+    "key": "slides.text",
+    "label": "スライドの説明文",
+    "kind": "text",
+    "example": "スライダーテキスト入りますスライダーテキスト入りますスライダーテキスト入りますスライダーテキスト入ります"
+   }
+  ],
+  "images": [
+   {
+    "slot": "slides.image",
+    "label": "スライド画像",
+    "size": "270x180",
+    "note": "Figma の枠に 270*180 の表記"
+   }
+  ],
+  "repeats": [
+   {
+    "key": "slides",
+    "label": "スライド（カード）",
+    "templateCount": 2
+   }
+  ],
+  "assets": [
+   {
+    "name": "slider/arrow_right",
+    "note": "右矢印ボタン（32px の白丸＋Sub 色のシェブロン）。CSS で描画"
+   }
+  ],
+  "colorRoles": {
+   "main": [],
+   "sub": [
+    "ページ送りの点（現在＝Sub、他＝Sub の薄色）",
+    "右矢印のシェブロン"
+   ]
+  },
+  "notes": "ページ送りの点は template では3個（スライド数に合わせて増減する想定）。非アクティブ点は Sub 色を opacity .2 で表現。サブタイトルは Figma の body/sm（12px / 行間1.75）で、t-caption-md に行間・字間を上書き。Figma のレイヤー名は「四角」だがカードは角丸8px（「角丸」版のほうが角なし）。デザインどおりに起こした。"
+ },
+ "slider-text-l-square": {
+  "id": "slider-text-l-square",
+  "section": "画像スライダー（テキスト付き）",
+  "variant": "画像スライダー_大（四角）",
+  "figmaNode": "3119:13986",
+  "size": [
+   375,
+   696
+  ],
+  "summary": "見出し＋サブタイトルの下に、画像（270x360）とテキストの白カードを横スライドで見せる。1枚目と次のカードの端をのぞかせ、右矢印とページ送りの点つき。カードは角丸8px。",
+  "position": "flow",
+  "fields": [
+   {
+    "key": "title",
+    "label": "見出し",
+    "kind": "text",
+    "example": "スライダータイトル"
+   },
+   {
+    "key": "subtitle",
+    "label": "サブタイトル",
+    "kind": "text",
+    "example": "サブタイトル入ります"
+   },
+   {
+    "key": "slides.text",
+    "label": "スライドの説明文",
+    "kind": "text",
+    "example": "スライダーテキスト入りますスライダーテキスト入りますスライダーテキスト入りますスライダーテキスト入ります"
+   }
+  ],
+  "images": [
+   {
+    "slot": "slides.image",
+    "label": "スライド画像",
+    "size": "270x360",
+    "note": "Figma の枠に 270*360 の表記"
+   }
+  ],
+  "repeats": [
+   {
+    "key": "slides",
+    "label": "スライド（カード）",
+    "templateCount": 2
+   }
+  ],
+  "assets": [
+   {
+    "name": "slider/arrow_right",
+    "note": "右矢印ボタン（32px の白丸＋Sub 色のシェブロン）。CSS で描画"
+   }
+  ],
+  "colorRoles": {
+   "main": [],
+   "sub": [
+    "ページ送りの点（現在＝Sub、他＝Sub の薄色）",
+    "右矢印のシェブロン"
+   ]
+  },
+  "notes": "ページ送りの点は template では3個（スライド数に合わせて増減する想定）。非アクティブ点は Sub 色を opacity .2 で表現。サブタイトルは Figma の body/sm（12px / 行間1.75）で、t-caption-md に行間・字間を上書き。Figma のレイヤー名は「四角」だがカードは角丸8px（「角丸」版のほうが角なし）。デザインどおりに起こした。"
+ },
+ "slider-text-m-square": {
+  "id": "slider-text-m-square",
+  "section": "画像スライダー（テキスト付き）",
+  "variant": "画像スライダー_中（四角）",
+  "figmaNode": "3119:14006",
+  "size": [
+   375,
+   606
+  ],
+  "summary": "見出し＋サブタイトルの下に、画像（270x270）とテキストの白カードを横スライドで見せる。1枚目と次のカードの端をのぞかせ、右矢印とページ送りの点つき。カードは角丸8px。",
+  "position": "flow",
+  "fields": [
+   {
+    "key": "title",
+    "label": "見出し",
+    "kind": "text",
+    "example": "スライダータイトル"
+   },
+   {
+    "key": "subtitle",
+    "label": "サブタイトル",
+    "kind": "text",
+    "example": "サブタイトル入ります"
+   },
+   {
+    "key": "slides.text",
+    "label": "スライドの説明文",
+    "kind": "text",
+    "example": "スライダーテキスト入りますスライダーテキスト入りますスライダーテキスト入りますスライダーテキスト入ります"
+   }
+  ],
+  "images": [
+   {
+    "slot": "slides.image",
+    "label": "スライド画像",
+    "size": "270x270",
+    "note": "Figma の枠に 270*270 の表記"
+   }
+  ],
+  "repeats": [
+   {
+    "key": "slides",
+    "label": "スライド（カード）",
+    "templateCount": 2
+   }
+  ],
+  "assets": [
+   {
+    "name": "slider/arrow_right",
+    "note": "右矢印ボタン（32px の白丸＋Sub 色のシェブロン）。CSS で描画"
+   }
+  ],
+  "colorRoles": {
+   "main": [],
+   "sub": [
+    "ページ送りの点（現在＝Sub、他＝Sub の薄色）",
+    "右矢印のシェブロン"
+   ]
+  },
+  "notes": "ページ送りの点は template では3個（スライド数に合わせて増減する想定）。非アクティブ点は Sub 色を opacity .2 で表現。サブタイトルは Figma の body/sm（12px / 行間1.75）で、t-caption-md に行間・字間を上書き。Figma のレイヤー名は「四角」だがカードは角丸8px（「角丸」版のほうが角なし）。デザインどおりに起こした。"
+ },
+ "slider-text-s-round": {
+  "id": "slider-text-s-round",
+  "section": "画像スライダー（テキスト付き）",
+  "variant": "画像スライダー_小（角丸）",
+  "figmaNode": "3119:14026",
+  "size": [
+   375,
+   508
+  ],
+  "summary": "見出し＋サブタイトルの下に、画像（270x180）とテキストの白カードを横スライドで見せる。1枚目と次のカードの端をのぞかせ、右矢印とページ送りの点つき。カードは角なし（四角）。",
+  "position": "flow",
+  "fields": [
+   {
+    "key": "title",
+    "label": "見出し",
+    "kind": "text",
+    "example": "スライダータイトル"
+   },
+   {
+    "key": "subtitle",
+    "label": "サブタイトル",
+    "kind": "text",
+    "example": "サブタイトル入ります"
+   },
+   {
+    "key": "slides.text",
+    "label": "スライドの説明文",
+    "kind": "text",
+    "example": "スライダーテキスト入りますスライダーテキスト入りますスライダーテキスト入りますスライダーテキスト入ります"
+   }
+  ],
+  "images": [
+   {
+    "slot": "slides.image",
+    "label": "スライド画像",
+    "size": "270x180",
+    "note": "Figma の枠に 270*180 の表記"
+   }
+  ],
+  "repeats": [
+   {
+    "key": "slides",
+    "label": "スライド（カード）",
+    "templateCount": 2
+   }
+  ],
+  "assets": [
+   {
+    "name": "slider/arrow_right",
+    "note": "右矢印ボタン（32px の白丸＋Sub 色のシェブロン）。CSS で描画"
+   }
+  ],
+  "colorRoles": {
+   "main": [],
+   "sub": [
+    "ページ送りの点（現在＝Sub、他＝Sub の薄色）",
+    "右矢印のシェブロン"
+   ]
+  },
+  "notes": "ページ送りの点は template では3個（スライド数に合わせて増減する想定）。非アクティブ点は Sub 色を opacity .2 で表現。サブタイトルは Figma の body/sm（12px / 行間1.75）で、t-caption-md に行間・字間を上書き。Figma のレイヤー名は「角丸」だがカードは角なし・上下余白16px（「四角」版のほうが角丸8px）。デザインどおりに起こした。"
+ },
+ "slider-text-l-round": {
+  "id": "slider-text-l-round",
+  "section": "画像スライダー（テキスト付き）",
+  "variant": "画像スライダー_大（角丸）",
+  "figmaNode": "3119:14046",
+  "size": [
+   375,
+   688
+  ],
+  "summary": "見出し＋サブタイトルの下に、画像（270x360）とテキストの白カードを横スライドで見せる。1枚目と次のカードの端をのぞかせ、右矢印とページ送りの点つき。カードは角なし（四角）。",
+  "position": "flow",
+  "fields": [
+   {
+    "key": "title",
+    "label": "見出し",
+    "kind": "text",
+    "example": "スライダータイトル"
+   },
+   {
+    "key": "subtitle",
+    "label": "サブタイトル",
+    "kind": "text",
+    "example": "サブタイトル入ります"
+   },
+   {
+    "key": "slides.text",
+    "label": "スライドの説明文",
+    "kind": "text",
+    "example": "スライダーテキスト入りますスライダーテキスト入りますスライダーテキスト入りますスライダーテキスト入ります"
+   }
+  ],
+  "images": [
+   {
+    "slot": "slides.image",
+    "label": "スライド画像",
+    "size": "270x360",
+    "note": "Figma の枠に 270*360 の表記"
+   }
+  ],
+  "repeats": [
+   {
+    "key": "slides",
+    "label": "スライド（カード）",
+    "templateCount": 2
+   }
+  ],
+  "assets": [
+   {
+    "name": "slider/arrow_right",
+    "note": "右矢印ボタン（32px の白丸＋Sub 色のシェブロン）。CSS で描画"
+   }
+  ],
+  "colorRoles": {
+   "main": [],
+   "sub": [
+    "ページ送りの点（現在＝Sub、他＝Sub の薄色）",
+    "右矢印のシェブロン"
+   ]
+  },
+  "notes": "ページ送りの点は template では3個（スライド数に合わせて増減する想定）。非アクティブ点は Sub 色を opacity .2 で表現。サブタイトルは Figma の body/sm（12px / 行間1.75）で、t-caption-md に行間・字間を上書き。Figma のレイヤー名は「角丸」だがカードは角なし・上下余白16px（「四角」版のほうが角丸8px）。デザインどおりに起こした。"
+ },
+ "slider-text-m-round": {
+  "id": "slider-text-m-round",
+  "section": "画像スライダー（テキスト付き）",
+  "variant": "画像スライダー_中（角丸）",
+  "figmaNode": "3119:14066",
+  "size": [
+   375,
+   598
+  ],
+  "summary": "見出し＋サブタイトルの下に、画像（270x270）とテキストの白カードを横スライドで見せる。1枚目と次のカードの端をのぞかせ、右矢印とページ送りの点つき。カードは角なし（四角）。",
+  "position": "flow",
+  "fields": [
+   {
+    "key": "title",
+    "label": "見出し",
+    "kind": "text",
+    "example": "スライダータイトル"
+   },
+   {
+    "key": "subtitle",
+    "label": "サブタイトル",
+    "kind": "text",
+    "example": "サブタイトル入ります"
+   },
+   {
+    "key": "slides.text",
+    "label": "スライドの説明文",
+    "kind": "text",
+    "example": "スライダーテキスト入りますスライダーテキスト入りますスライダーテキスト入りますスライダーテキスト入ります"
+   }
+  ],
+  "images": [
+   {
+    "slot": "slides.image",
+    "label": "スライド画像",
+    "size": "270x270",
+    "note": "Figma の枠に 270*270 の表記"
+   }
+  ],
+  "repeats": [
+   {
+    "key": "slides",
+    "label": "スライド（カード）",
+    "templateCount": 2
+   }
+  ],
+  "assets": [
+   {
+    "name": "slider/arrow_right",
+    "note": "右矢印ボタン（32px の白丸＋Sub 色のシェブロン）。CSS で描画"
+   }
+  ],
+  "colorRoles": {
+   "main": [],
+   "sub": [
+    "ページ送りの点（現在＝Sub、他＝Sub の薄色）",
+    "右矢印のシェブロン"
+   ]
+  },
+  "notes": "ページ送りの点は template では3個（スライド数に合わせて増減する想定）。非アクティブ点は Sub 色を opacity .2 で表現。サブタイトルは Figma の body/sm（12px / 行間1.75）で、t-caption-md に行間・字間を上書き。Figma のレイヤー名は「角丸」だがカードは角なし・上下余白16px（「四角」版のほうが角丸8px）。デザインどおりに起こした。"
+ },
+ "slider-s": {
+  "id": "slider-s",
+  "section": "画像スライダー（自動スライドあり／なし）",
+  "variant": "画像スライダー_小",
+  "figmaNode": "3119:14087",
+  "size": [
+   375,
+   260
+  ],
+  "summary": "画像（270x180）だけを横スライドで見せる。見出し・テキスト・点なし。1枚目の右に次の画像をのぞかせ、右矢印つき。自動スライドあり／なしで使う。",
+  "position": "flow",
+  "fields": [],
+  "images": [
+   {
+    "slot": "slides.image",
+    "label": "スライド画像",
+    "size": "270x180",
+    "note": "Figma の枠に 270*180 の表記"
+   }
+  ],
+  "repeats": [
+   {
+    "key": "slides",
+    "label": "スライド画像",
+    "templateCount": 2
+   }
+  ],
+  "assets": [
+   {
+    "name": "slider/arrow_right",
+    "note": "右矢印ボタン（32px の白丸＋Sub 色のシェブロン）。CSS で描画"
+   }
+  ],
+  "colorRoles": {
+   "main": [],
+   "sub": [
+    "右矢印のシェブロン"
+   ]
+  },
+  "notes": "自動スライドの有無は HTML では表さない（実装側の設定）。矢印は slider 内の absolute（Figma で重ねている）。"
+ },
+ "slider-l": {
+  "id": "slider-l",
+  "section": "画像スライダー（自動スライドあり／なし）",
+  "variant": "画像スライダー_大",
+  "figmaNode": "3119:14095",
+  "size": [
+   375,
+   440
+  ],
+  "summary": "画像（270x360）だけを横スライドで見せる。見出し・テキスト・点なし。1枚目の右に次の画像をのぞかせ、右矢印つき。自動スライドあり／なしで使う。",
+  "position": "flow",
+  "fields": [],
+  "images": [
+   {
+    "slot": "slides.image",
+    "label": "スライド画像",
+    "size": "270x360",
+    "note": "Figma の枠に 270*360 の表記"
+   }
+  ],
+  "repeats": [
+   {
+    "key": "slides",
+    "label": "スライド画像",
+    "templateCount": 2
+   }
+  ],
+  "assets": [
+   {
+    "name": "slider/arrow_right",
+    "note": "右矢印ボタン（32px の白丸＋Sub 色のシェブロン）。CSS で描画"
+   }
+  ],
+  "colorRoles": {
+   "main": [],
+   "sub": [
+    "右矢印のシェブロン"
+   ]
+  },
+  "notes": "自動スライドの有無は HTML では表さない（実装側の設定）。矢印は slider 内の absolute（Figma で重ねている）。"
+ },
+ "slider-m": {
+  "id": "slider-m",
+  "section": "画像スライダー（自動スライドあり／なし）",
+  "variant": "画像スライダー_中",
+  "figmaNode": "3119:14103",
+  "size": [
+   375,
+   350
+  ],
+  "summary": "画像（270x270）だけを横スライドで見せる。見出し・テキスト・点なし。1枚目の右に次の画像をのぞかせ、右矢印つき。自動スライドあり／なしで使う。",
+  "position": "flow",
+  "fields": [],
+  "images": [
+   {
+    "slot": "slides.image",
+    "label": "スライド画像",
+    "size": "270x270",
+    "note": "Figma の枠に 270*270 の表記"
+   }
+  ],
+  "repeats": [
+   {
+    "key": "slides",
+    "label": "スライド画像",
+    "templateCount": 2
+   }
+  ],
+  "assets": [
+   {
+    "name": "slider/arrow_right",
+    "note": "右矢印ボタン（32px の白丸＋Sub 色のシェブロン）。CSS で描画"
+   }
+  ],
+  "colorRoles": {
+   "main": [],
+   "sub": [
+    "右矢印のシェブロン"
+   ]
+  },
+  "notes": "自動スライドの有無は HTML では表さない（実装側の設定）。矢印は slider 内の absolute（Figma で重ねている）。"
+ },
+ "floating-1col-square": {
+  "id": "floating-1col-square",
+  "section": "フローティングバナー",
+  "variant": "フローティングバナー 1カラム（四角）",
+  "figmaNode": "3119:14112",
+  "size": [
+   375,
+   85
+  ],
+  "summary": "画面下に固定される角丸なしの1ボタン（右に矢印）のバナー",
+  "position": "bottom",
+  "fields": [
+   {
+    "key": "label",
+    "label": "ボタン文言",
+    "kind": "text",
+    "example": "今すぐ体験予約する"
+   },
+   {
+    "key": "url",
+    "label": "ボタンのリンク先",
+    "kind": "url",
+    "example": "https://"
+   }
+  ],
+  "images": [],
+  "repeats": [],
+  "assets": [
+   {
+    "name": "icon/arrow_chev_right",
+    "note": "右向きシェブロン。CSS で描画（1カラム16px／2カラム12px）"
+   }
+  ],
+  "colorRoles": {
+   "main": [
+    "ボタン背景"
+   ],
+   "sub": []
+  },
+  "notes": "ボタン文言は Figma label/bold/xl（18px）＝ t-headline-sm と同値なのでそれを使用。影 drop-shadow(0 -4px 8px rgba(0,0,0,.2)) は直書き。バナー自体の背景は透明"
+ },
+ "floating-timer-a": {
+  "id": "floating-timer-a",
+  "section": "フローティングバナー",
+  "variant": "タイマー付きフローティングバナーA",
+  "figmaNode": "3119:14114",
+  "size": [
+   375,
+   177
+  ],
+  "summary": "締切日と残り時間（日・時間・分・秒）のカウントダウンを大きく出し、その下に四角い1ボタンを置く画面下固定バナー",
+  "position": "bottom",
+  "fields": [
+   {
+    "key": "lead",
+    "label": "締切の前置き",
+    "kind": "text",
+    "example": "この紹介限定特典は"
+   },
+   {
+    "key": "deadline",
+    "label": "締切日",
+    "kind": "text",
+    "example": "10/31"
+   },
+   {
+    "key": "suffix",
+    "label": "締切の後ろの文言",
+    "kind": "text",
+    "example": "まで！"
+   },
+   {
+    "key": "label",
+    "label": "ボタン文言",
+    "kind": "text",
+    "example": "今すぐ体験予約する"
+   },
+   {
+    "key": "url",
+    "label": "ボタンのリンク先",
+    "kind": "url",
+    "example": "https://"
+   }
+  ],
+  "images": [],
+  "repeats": [],
+  "assets": [],
+  "colorRoles": {
+   "main": [
+    "バナー背景（白85%を重ねた淡色）",
+    "ボタン背景"
+   ],
+   "sub": []
+  },
+  "notes": "カウントダウンの数字（data-timer=days/hours/minutes/seconds）は締切日から自動計算する表示用で、編集項目ではない。背景は Main 色の上に白85%（rgba(255,255,255,.85)）を重ねた淡い色。影 0 -4px 16px rgba(0,0,0,.2) は直書き。 ボタンに矢印なし。"
+ },
+ "floating-timer-b": {
+  "id": "floating-timer-b",
+  "section": "フローティングバナー",
+  "variant": "タイマー付きフローティングバナーB",
+  "figmaNode": "3119:14116",
+  "size": [
+   375,
+   187
+  ],
+  "summary": "締切日（曜日つき）と「残り」＋白い枠に入ったカウントダウン、その下にピル型の1ボタンを置く画面下固定バナー",
+  "position": "bottom",
+  "fields": [
+   {
+    "key": "lead",
+    "label": "締切の前置き",
+    "kind": "text",
+    "example": "この紹介限定特典は"
+   },
+   {
+    "key": "deadline",
+    "label": "締切日",
+    "kind": "text",
+    "example": "10/31"
+   },
+   {
+    "key": "weekday",
+    "label": "締切の曜日",
+    "kind": "text",
+    "example": "（火）"
+   },
+   {
+    "key": "suffix",
+    "label": "締切の後ろの文言",
+    "kind": "text",
+    "example": "まで！"
+   },
+   {
+    "key": "remainLabel",
+    "label": "カウントダウン前の文言",
+    "kind": "text",
+    "example": "残り"
+   },
+   {
+    "key": "label",
+    "label": "ボタン文言",
+    "kind": "text",
+    "example": "今すぐ体験予約する"
+   },
+   {
+    "key": "url",
+    "label": "ボタンのリンク先",
+    "kind": "url",
+    "example": "https://"
+   }
+  ],
+  "images": [],
+  "repeats": [],
+  "assets": [],
+  "colorRoles": {
+   "main": [
+    "バナー背景（白85%を重ねた淡色）",
+    "ボタン背景"
+   ],
+   "sub": []
+  },
+  "notes": "カウントダウンの数字（data-timer=days/hours/minutes/seconds）は締切日から自動計算する表示用で、編集項目ではない。背景は Main 色の上に白85%（rgba(255,255,255,.85)）を重ねた淡い色。影 0 -4px 16px rgba(0,0,0,.2) は直書き。 A との違い：曜日表示、「残り」ラベル、数字が白い角丸枠（28px）に入る、ボタンがピル型。"
+ },
+ "floating-2col-square": {
+  "id": "floating-2col-square",
+  "section": "フローティングバナー",
+  "variant": "フローティングバナー 2カラム（四角）",
+  "figmaNode": "3119:14118",
+  "size": [
+   375,
+   84
+  ],
+  "summary": "画面下に固定される2つの角丸なしボタン（2行文言＋矢印）を横に並べたバナー",
+  "position": "bottom",
+  "fields": [
+   {
+    "key": "buttons.label",
+    "label": "ボタン文言",
+    "kind": "text",
+    "example": "オンライン\n相談予約"
+   },
+   {
+    "key": "buttons.url",
+    "label": "ボタンのリンク先",
+    "kind": "url",
+    "example": "https://"
+   }
+  ],
+  "images": [],
+  "repeats": [
+   {
+    "key": "buttons",
+    "label": "ボタン",
+    "templateCount": 2
+   }
+  ],
+  "assets": [
+   {
+    "name": "icon/arrow_chev_right",
+    "note": "右向きシェブロン。CSS で描画（1カラム16px／2カラム12px）"
+   }
+  ],
+  "colorRoles": {
+   "main": [
+    "ボタン背景"
+   ],
+   "sub": []
+  },
+  "notes": "影 drop-shadow(0 -4px 8px rgba(0,0,0,.2)) は直書き。バナー自体の背景は透明"
+ },
+ "floating-1col-pill": {
+  "id": "floating-1col-pill",
+  "section": "フローティングバナー",
+  "variant": "フローティングバナー 1カラム（ピル型）",
+  "figmaNode": "3119:14120",
+  "size": [
+   375,
+   85
+  ],
+  "summary": "画面下に固定されるピル型の1ボタン（右に矢印）のバナー",
+  "position": "bottom",
+  "fields": [
+   {
+    "key": "label",
+    "label": "ボタン文言",
+    "kind": "text",
+    "example": "今すぐ体験予約する"
+   },
+   {
+    "key": "url",
+    "label": "ボタンのリンク先",
+    "kind": "url",
+    "example": "https://"
+   }
+  ],
+  "images": [],
+  "repeats": [],
+  "assets": [
+   {
+    "name": "icon/arrow_chev_right",
+    "note": "右向きシェブロン。CSS で描画（1カラム16px／2カラム12px）"
+   }
+  ],
+  "colorRoles": {
+   "main": [
+    "ボタン背景"
+   ],
+   "sub": []
+  },
+  "notes": "四角版との違いは角丸（999px）と左右の余白のみ。ボタン文言は t-headline-sm（label/bold/xl 18px と同値）。影は直書き"
+ },
+ "floating-2col-pill": {
+  "id": "floating-2col-pill",
+  "section": "フローティングバナー",
+  "variant": "フローティングバナー 2カラム（ピル型）",
+  "figmaNode": "3119:14122",
+  "size": [
+   375,
+   84
+  ],
+  "summary": "画面下に固定される2つのピル型ボタン（2行文言＋矢印）を横に並べたバナー",
+  "position": "bottom",
+  "fields": [
+   {
+    "key": "buttons.label",
+    "label": "ボタン文言",
+    "kind": "text",
+    "example": "オンライン\n相談予約"
+   },
+   {
+    "key": "buttons.url",
+    "label": "ボタンのリンク先",
+    "kind": "url",
+    "example": "https://"
+   }
+  ],
+  "images": [],
+  "repeats": [
+   {
+    "key": "buttons",
+    "label": "ボタン",
+    "templateCount": 2
+   }
+  ],
+  "assets": [
+   {
+    "name": "icon/arrow_chev_right",
+    "note": "右向きシェブロン。CSS で描画（1カラム16px／2カラム12px）"
+   }
+  ],
+  "colorRoles": {
+   "main": [
+    "ボタン背景"
+   ],
+   "sub": []
+  },
+  "notes": "四角版との違いは角丸（999px）と左右の余白のみ。影は直書き"
+ },
+ "faq": {
+  "id": "faq",
+  "section": "よくあるご質問",
+  "variant": "よくあるご質問",
+  "figmaNode": "3119:14125",
+  "size": [
+   375,
+   482
+  ],
+  "summary": "中央見出し＋Q&Aを枠付きカードで縦に並べたFAQ。閉じた表示状態（質問行と＋アイコンのみ）。回答はタップで開く（開いた状態は faq-open）",
+  "position": "flow",
+  "fields": [
+   {
+    "key": "title",
+    "label": "見出し",
+    "kind": "text",
+    "example": "よくあるご質問"
+   },
+   {
+    "key": "items.question",
+    "label": "質問",
+    "kind": "text",
+    "example": "テキストが入りますテキストが入りますテキストが入ります"
+   },
+   {
+    "key": "items.answer",
+    "label": "回答",
+    "kind": "richtext",
+    "example": "本文テキスト本文テキスト…"
+   }
+  ],
+  "images": [],
+  "repeats": [
+   {
+    "key": "items",
+    "label": "Q&A",
+    "templateCount": 4
+   }
+  ],
+  "assets": [
+   {
+    "name": "icon/plus",
+    "note": "閉じている印（＋） 16px。CSS で描画"
+   }
+  ],
+  "colorRoles": {
+   "main": [],
+   "sub": []
+  },
+  "notes": "閉じた状態では回答（items.answer）は非表示だが入力項目としては存在する。Q/A の文字は固定（編集項目ではない）。カード枠・区切り線は --border"
+ },
+ "faq-open": {
+  "id": "faq-open",
+  "section": "よくあるご質問",
+  "variant": "よくあるご質問_open",
+  "figmaNode": "3119:14144",
+  "size": [
+   375,
+   1804
+  ],
+  "summary": "中央見出し＋Q&Aを枠付きカードで縦に並べたFAQ。回答を開いた表示状態（Q行の下に区切り線を挟んでA行）。CMS上は faq と同じブロックで、開閉は閲覧者の操作",
+  "position": "flow",
+  "fields": [
+   {
+    "key": "title",
+    "label": "見出し",
+    "kind": "text",
+    "example": "よくあるご質問"
+   },
+   {
+    "key": "items.question",
+    "label": "質問",
+    "kind": "text",
+    "example": "テキストが入りますテキストが入りますテキストが入ります"
+   },
+   {
+    "key": "items.answer",
+    "label": "回答",
+    "kind": "richtext",
+    "example": "本文テキスト本文テキスト…"
+   }
+  ],
+  "images": [],
+  "repeats": [
+   {
+    "key": "items",
+    "label": "Q&A",
+    "templateCount": 4
+   }
+  ],
+  "assets": [
+   {
+    "name": "icon/minus",
+    "note": "開いている印（−） 16px。CSS で描画"
+   }
+  ],
+  "colorRoles": {
+   "main": [],
+   "sub": []
+  },
+  "notes": "Q/A の文字は固定（編集項目ではない）。カード枠・区切り線は --border"
+ },
+ "accordion": {
+  "id": "accordion",
+  "section": "アコーディオンリスト",
+  "variant": "アコーディオンリスト",
+  "figmaNode": "3119:14164",
+  "size": [
+   375,
+   400
+  ],
+  "summary": "見出しなしで、タイトル行（＋/−）と本文の開閉リストを縦に並べたもの。閉じた表示状態（四角い枠のタイトル行のみ）。開いた状態は accordion-open",
+  "position": "flow",
+  "fields": [
+   {
+    "key": "items.title",
+    "label": "アコーディオンタイトル",
+    "kind": "text",
+    "example": "テキストが入りますテキストが入りますテキストが入ります"
+   },
+   {
+    "key": "items.body",
+    "label": "本文",
+    "kind": "richtext",
+    "example": "本文テキスト本文テキスト…"
+   }
+  ],
+  "images": [],
+  "repeats": [
+   {
+    "key": "items",
+    "label": "アコーディオン",
+    "templateCount": 4
+   }
+  ],
+  "assets": [
+   {
+    "name": "icon/plus",
+    "note": "16px。CSS で描画"
+   }
+  ],
+  "colorRoles": {
+   "main": [],
+   "sub": []
+  },
+  "notes": "閉じた状態は角丸なしの1px枠。本文（items.body）は非表示だが入力項目としては存在する。FAQ と違いブロック見出しや Q/A 記号はない"
+ },
+ "accordion-open": {
+  "id": "accordion-open",
+  "section": "アコーディオンリスト",
+  "variant": "アコーディオンリスト_open",
+  "figmaNode": "3119:14170",
+  "size": [
+   375,
+   1664
+  ],
+  "summary": "見出しなしで、タイトル行（＋/−）と本文の開閉リストを縦に並べたもの。本文を開いた表示状態。CMS上は accordion と同じブロック",
+  "position": "flow",
+  "fields": [
+   {
+    "key": "items.title",
+    "label": "アコーディオンタイトル",
+    "kind": "text",
+    "example": "テキストが入りますテキストが入りますテキストが入ります"
+   },
+   {
+    "key": "items.body",
+    "label": "本文",
+    "kind": "richtext",
+    "example": "本文テキスト本文テキスト…"
+   }
+  ],
+  "images": [],
+  "repeats": [
+   {
+    "key": "items",
+    "label": "アコーディオン",
+    "templateCount": 4
+   }
+  ],
+  "assets": [
+   {
+    "name": "icon/minus",
+    "note": "16px。CSS で描画"
+   }
+  ],
+  "colorRoles": {
+   "main": [],
+   "sub": []
+  },
+  "notes": "開いた状態は角丸4pxの外枠の中に、枠付きのタイトル行と本文を1px の区切りで重ねる（Figma どおりタイトル行にも枠があるので線が二重に近く見える）。FAQ と違いブロック見出しや Q/A 記号はない"
+ },
+ "please-read-list": {
+  "id": "please-read-list",
+  "section": "必ずお読みください",
+  "variant": "必ずお読みください（リスト）",
+  "figmaNode": "3119:14185",
+  "size": [
+   375,
+   361
+  ],
+  "summary": "info アイコン付きの見出し＋黒点の箇条書き。規約・注意事項を全文そのまま並べる版",
+  "position": "flow",
+  "fields": [
+   {
+    "key": "title",
+    "label": "見出し",
+    "kind": "text",
+    "example": "必ずお読みください"
+   },
+   {
+    "key": "bullets.text",
+    "label": "箇条書きの本文",
+    "kind": "richtext",
+    "example": "本文テキスト本文テキスト本文テキスト本文テキスト本文テキスト本文テキスト本文テキスト本文テキスト本文テキスト"
+   }
+  ],
+  "images": [],
+  "repeats": [
+   {
+    "key": "bullets",
+    "label": "箇条書き",
+    "templateCount": 3
+   }
+  ],
+  "assets": [
+   {
+    "name": "icon/info",
+    "note": "見出し左のアイコン（24px）。黒丸に iを CSS で近似"
+   },
+   {
+    "name": "Frame 625406",
+    "note": "箇条書きの黒点（25px 枠の中央に小さな丸）。CSS で描画"
+   }
+  ],
+  "colorRoles": {
+   "main": [],
+   "sub": []
+  },
+  "notes": "見出しは左寄せ（headline/xs）。箇条書きの間隔 4px"
+ },
+ "please-read-iframe": {
+  "id": "please-read-iframe",
+  "section": "必ずお読みください",
+  "variant": "必ずお読みください（iFrame）",
+  "figmaNode": "3119:14199",
+  "size": [
+   375,
+   408
+  ],
+  "summary": "info アイコン付きの見出し＋高さ固定のスクロール枠。長い規約文を枠内スクロールで見せる版",
+  "position": "flow",
+  "fields": [
+   {
+    "key": "title",
+    "label": "見出し",
+    "kind": "text",
+    "example": "必ずお読みください"
+   },
+   {
+    "key": "body",
+    "label": "枠内に埋め込む本文（規約・注意事項など）",
+    "kind": "richtext",
+    "example": "本文テキスト本文テキスト…"
+   }
+  ],
+  "images": [],
+  "repeats": [],
+  "assets": [
+   {
+    "name": "icon/info",
+    "note": "見出し左のアイコン（24px）。CSS で近似"
+   }
+  ],
+  "colorRoles": {
+   "main": [],
+   "sub": []
+  },
+  "notes": "高さ280px固定・1px枠の中に長文を入れ、枠内だけを縦スクロールさせる表示（iFrame 版）。外部の規約ページや長い注意事項テキストを埋め込む想定で、リスト版と違い箇条書きの繰り返しは持たない。右端のスクロールバー（6×185px、#c1c1c1）は Figma 上の見た目用の飾りで、変数に該当色がないため直書き"
+ },
+ "please-read-c": {
+  "id": "please-read-c",
+  "section": "必ずお読みください（追加）",
+  "variant": "必ずお読みください",
+  "figmaNode": "3220:3781",
+  "size": [
+   375,
+   631
+  ],
+  "summary": "必ずお読みくださいの文例入り版（紹介者ページ向け：「ご紹介したお友達」）。キャンペーン期間・特典の渡し方・問い合わせ先・メール受信設定の5項目",
+  "position": "flow",
+  "fields": [
+   {
+    "key": "title",
+    "label": "見出し",
+    "kind": "text",
+    "example": "必ずお読みください"
+   },
+   {
+    "key": "bullets.text",
+    "label": "箇条書きの本文",
+    "kind": "richtext",
+    "example": "特典の進呈は、キャンペーン期間内に、弊社が定める方法にてご紹介したお友達が紹介状経由で○○○をご契約いただいたことを確認できた場合に限ります。<br>キャンペーン期間は2025年00月00日～00月00日までです。"
+   },
+   {
+    "key": "bullets.heading",
+    "label": "項目内の小見出し（任意。使う項目だけ）",
+    "kind": "text",
+    "example": "特典のお渡し方法について"
+   }
+  ],
+  "images": [],
+  "repeats": [
+   {
+    "key": "bullets",
+    "label": "箇条書き",
+    "templateCount": 5
+   }
+  ],
+  "assets": [
+   {
+    "name": "icon/info",
+    "note": "見出し左のアイコン（24px）。黒丸に iを CSS で近似"
+   },
+   {
+    "name": "Frame 625406",
+    "note": "箇条書きの黒点（25px 枠の中央に小さな丸）。CSS で描画"
+   }
+  ],
+  "colorRoles": {
+   "main": [],
+   "sub": []
+  },
+  "notes": "Figma 上はセクションの外に置かれた単独フレーム。please-read-list と同じ構成（info アイコン＋見出し＋黒点の箇条書き）に、実案件の文例を入れたもの。項目の1つは太字の小見出し＋本文の2段（bullets.heading）。Figma には SHElikes 固有の文言の項目が非表示（hidden）で残っているが、HTML には入れていない。Figma のレート制限でスクリーンショットとデザイン詳細を取得できなかったため、メタデータ（レイヤー構造・寸法）と please-read-list の実装から起こした。本文中の改行（<br>）位置は推定"
+ },
+ "please-read-d": {
+  "id": "please-read-d",
+  "section": "必ずお読みください（追加）",
+  "variant": "必ずお読みください",
+  "figmaNode": "3221:3776",
+  "size": [
+   375,
+   710
+  ],
+  "summary": "必ずお読みくださいの文例入り版（ゲストページ向け：「ご紹介を受けたお客様」）。c の5項目の前に「契約経験がない方に限る」の項目を足した6項目",
+  "position": "flow",
+  "fields": [
+   {
+    "key": "title",
+    "label": "見出し",
+    "kind": "text",
+    "example": "必ずお読みください"
+   },
+   {
+    "key": "bullets.text",
+    "label": "箇条書きの本文",
+    "kind": "richtext",
+    "example": "本紹介状は○○○のご契約経験がないお客様をご紹介いただく場合に限りご利用いただけます。"
+   },
+   {
+    "key": "bullets.heading",
+    "label": "項目内の小見出し（任意。使う項目だけ）",
+    "kind": "text",
+    "example": "特典のお渡し方法について"
+   }
+  ],
+  "images": [],
+  "repeats": [
+   {
+    "key": "bullets",
+    "label": "箇条書き",
+    "templateCount": 6
+   }
+  ],
+  "assets": [
+   {
+    "name": "icon/info",
+    "note": "見出し左のアイコン（24px）。黒丸に iを CSS で近似"
+   },
+   {
+    "name": "Frame 625406",
+    "note": "箇条書きの黒点（25px 枠の中央に小さな丸）。CSS で描画"
+   }
+  ],
+  "colorRoles": {
+   "main": [],
+   "sub": []
+  },
+  "notes": "Figma 上はセクションの外に置かれた単独フレーム。please-read-list と同じ構成（info アイコン＋見出し＋黒点の箇条書き）に、実案件の文例を入れたもの。項目の1つは太字の小見出し＋本文の2段（bullets.heading）。Figma には SHElikes 固有の文言の項目が非表示（hidden）で残っているが、HTML には入れていない。Figma のレート制限でスクリーンショットとデザイン詳細を取得できなかったため、メタデータ（レイヤー構造・寸法）と please-read-list の実装から起こした。本文中の改行（<br>）位置は推定"
+ },
+ "notice-list": {
+  "id": "notice-list",
+  "section": "注意点などの箇条書きリスト",
+  "variant": "注意点などの箇条書き（リスト）",
+  "figmaNode": "3119:14207",
+  "size": [
+   375,
+   361
+  ],
+  "summary": "注意アイコン付きの見出し「注意点」＋黒点の箇条書き。必ずお読みください（リスト）とアイコン・見出し以外は同じ構成",
+  "position": "flow",
+  "fields": [
+   {
+    "key": "title",
+    "label": "見出し",
+    "kind": "text",
+    "example": "注意点"
+   },
+   {
+    "key": "bullets.text",
+    "label": "箇条書きの本文",
+    "kind": "richtext",
+    "example": "本文テキスト本文テキスト本文テキスト本文テキスト本文テキスト本文テキスト本文テキスト本文テキスト本文テキスト"
+   }
+  ],
+  "images": [],
+  "repeats": [
+   {
+    "key": "bullets",
+    "label": "箇条書き",
+    "templateCount": 3
+   }
+  ],
+  "assets": [
+   {
+    "name": "icon/caution",
+    "note": "見出し左のアイコン（24px）。注意（三角に !）を CSS で近似"
+   },
+   {
+    "name": "Frame 625406",
+    "note": "箇条書きの黒点（25px 枠の中央に小さな丸）。CSS で描画"
+   }
+  ],
+  "colorRoles": {
+   "main": [],
+   "sub": []
+  },
+  "notes": "見出しは左寄せ（headline/xs）。箇条書きの間隔 4px。Figma のレート制限でスクリーンショットとデザイン詳細を取得できず、メタデータ（レイヤー構造・寸法が please-read-list と同一）から起こした。icon/caution の形は推定"
+ },
+ "notice-iframe": {
+  "id": "notice-iframe",
+  "section": "注意点などの箇条書きリスト",
+  "variant": "注意点などの箇条書き（iFrame）",
+  "figmaNode": "3119:14221",
+  "size": [
+   375,
+   408
+  ],
+  "summary": "注意アイコン付きの見出し「注意点」＋高さ固定のスクロール枠。必ずお読みください（iFrame）とアイコン・見出し以外は同じ構成",
+  "position": "flow",
+  "fields": [
+   {
+    "key": "title",
+    "label": "見出し",
+    "kind": "text",
+    "example": "注意点"
+   },
+   {
+    "key": "body",
+    "label": "枠内に埋め込む本文（規約・注意事項など）",
+    "kind": "richtext",
+    "example": "本文テキスト本文テキスト…"
+   }
+  ],
+  "images": [],
+  "repeats": [],
+  "assets": [
+   {
+    "name": "icon/caution",
+    "note": "見出し左のアイコン（24px）。CSS で近似"
+   }
+  ],
+  "colorRoles": {
+   "main": [],
+   "sub": []
+  },
+  "notes": "高さ280px固定・1px枠の中に長文を入れ、枠内だけを縦スクロールさせる表示（iFrame 版）。外部の規約ページや長い注意事項テキストを埋め込む想定で、リスト版と違い箇条書きの繰り返しは持たない。右端のスクロールバー（6×185px、#c1c1c1）は Figma 上の見た目用の飾りで、変数に該当色がないため直書き。Figma のレート制限でスクリーンショットとデザイン詳細を取得できず、メタデータ（レイヤー構造・寸法が please-read-iframe と同一）から起こした。icon/caution の形は推定"
+ },
+ "footer-1col": {
+  "id": "footer-1col",
+  "section": "フッター",
+  "variant": "フッター：1カラム",
+  "figmaNode": "3119:14229",
+  "size": [
+   375,
+   69
+  ],
+  "summary": "リンク1つ（全幅）とコピーライト帯だけのフッター",
+  "position": "flow",
+  "fields": [
+   {
+    "key": "links.label",
+    "label": "リンク文言",
+    "kind": "text",
+    "example": "プライバシーポリシー"
+   },
+   {
+    "key": "links.url",
+    "label": "リンク先",
+    "kind": "url",
+    "example": "https://"
+   },
+   {
+    "key": "copyright",
+    "label": "コピーライト",
+    "kind": "text",
+    "example": "Copyright © 2025 INVY All Rights Reserved."
+   }
+  ],
+  "images": [],
+  "repeats": [
+   {
+    "key": "links",
+    "label": "フッターリンク",
+    "templateCount": 1
+   }
+  ],
+  "assets": [],
+  "colorRoles": {
+   "main": [],
+   "sub": [
+    "コピーライト帯の背景"
+   ]
+  },
+  "notes": "ページ末尾に置く。リンク間の区切り線は --border 背景の1px 隙間で表現。コピーライトは 10px（テキストスタイルなし）を直書き"
+ },
+ "footer-2col": {
+  "id": "footer-2col",
+  "section": "フッター",
+  "variant": "フッター：2カラム",
+  "figmaNode": "3119:14231",
+  "size": [
+   375,
+   69
+  ],
+  "summary": "リンク2つを横並び（2カラム）にし、下にコピーライト帯を置くフッター",
+  "position": "flow",
+  "fields": [
+   {
+    "key": "links.label",
+    "label": "リンク文言",
+    "kind": "text",
+    "example": "プライバシーポリシー"
+   },
+   {
+    "key": "links.url",
+    "label": "リンク先",
+    "kind": "url",
+    "example": "https://"
+   },
+   {
+    "key": "copyright",
+    "label": "コピーライト",
+    "kind": "text",
+    "example": "Copyright © 2025 INVY All Rights Reserved."
+   }
+  ],
+  "images": [],
+  "repeats": [
+   {
+    "key": "links",
+    "label": "フッターリンク",
+    "templateCount": 2
+   }
+  ],
+  "assets": [],
+  "colorRoles": {
+   "main": [],
+   "sub": [
+    "コピーライト帯の背景"
+   ]
+  },
+  "notes": "ページ末尾に置く。リンク間の区切り線は --border 背景の1px 隙間で表現。コピーライトは 10px（テキストスタイルなし）を直書き"
+ },
+ "footer-1col-plus": {
+  "id": "footer-1col-plus",
+  "section": "フッター",
+  "variant": "フッター：1カラム +1カラム",
+  "figmaNode": "3119:14233",
+  "size": [
+   375,
+   112
+  ],
+  "summary": "全幅のリンクを2段縦に積み、下にコピーライト帯を置くフッター",
+  "position": "flow",
+  "fields": [
+   {
+    "key": "links.label",
+    "label": "リンク文言",
+    "kind": "text",
+    "example": "プライバシーポリシー"
+   },
+   {
+    "key": "links.url",
+    "label": "リンク先",
+    "kind": "url",
+    "example": "https://"
+   },
+   {
+    "key": "copyright",
+    "label": "コピーライト",
+    "kind": "text",
+    "example": "Copyright © 2025 INVY All Rights Reserved."
+   }
+  ],
+  "images": [],
+  "repeats": [
+   {
+    "key": "links",
+    "label": "フッターリンク",
+    "templateCount": 2
+   }
+  ],
+  "assets": [],
+  "colorRoles": {
+   "main": [],
+   "sub": [
+    "コピーライト帯の背景"
+   ]
+  },
+  "notes": "リンクは縦積み（1カラム×2段）。ページ末尾に置く。リンク間の区切り線は --border 背景の1px 隙間で表現。コピーライトは 10px（テキストスタイルなし）を直書き"
+ },
+ "footer-2col-plus": {
+  "id": "footer-2col-plus",
+  "section": "フッター",
+  "variant": "フッター：2カラム +1カラム",
+  "figmaNode": "3119:14235",
+  "size": [
+   375,
+   112
+  ],
+  "summary": "横並びリンク2つの段＋全幅リンク1つの段、その下にコピーライト帯を置くフッター",
+  "position": "flow",
+  "fields": [
+   {
+    "key": "links.label",
+    "label": "リンク文言",
+    "kind": "text",
+    "example": "プライバシーポリシー"
+   },
+   {
+    "key": "links.url",
+    "label": "リンク先",
+    "kind": "url",
+    "example": "https://"
+   },
+   {
+    "key": "extraLabel",
+    "label": "2段目（全幅）のリンク文言",
+    "kind": "text",
+    "example": "特定商取引法"
+   },
+   {
+    "key": "extraUrl",
+    "label": "2段目（全幅）のリンク先",
+    "kind": "url",
+    "example": "https://"
+   },
+   {
+    "key": "copyright",
+    "label": "コピーライト",
+    "kind": "text",
+    "example": "Copyright © 2025 INVY All Rights Reserved."
+   }
+  ],
+  "images": [],
+  "repeats": [
+   {
+    "key": "links",
+    "label": "フッターリンク",
+    "templateCount": 2
+   }
+  ],
+  "assets": [],
+  "colorRoles": {
+   "main": [],
+   "sub": [
+    "コピーライト帯の背景"
+   ]
+  },
+  "notes": "1段目は links の2カラム、2段目は extraLabel/extraUrl の全幅リンク。ページ末尾に置く。リンク間の区切り線は --border 背景の1px 隙間で表現。コピーライトは 10px（テキストスタイルなし）を直書き"
+ },
+ "image": {
+  "id": "image",
+  "section": "画像",
+  "variant": "画像",
+  "figmaNode": "3119:14238",
+  "size": [
+   375,
+   270
+  ],
+  "summary": "画像1枚（335x190）を上下余白つきで置くだけのブロック。ページ冒頭の KV（キービジュアル）ブロックとしても使う",
+  "position": "flow",
+  "fields": [],
+  "images": [
+   {
+    "slot": "image",
+    "label": "画像（KV としても使用）",
+    "size": "335x190",
+    "note": "テンプレートに寸法表記なし。枠の実寸。KV として使う場合もこの枠"
+   }
+  ],
+  "repeats": [],
+  "assets": [],
+  "colorRoles": {
+   "main": [],
+   "sub": []
+  },
+  "notes": "Figma の枠色は #b5b5b5（--placeholder で代用）"
+ },
+ "pdf": {
+  "id": "pdf",
+  "section": "PDFファイル",
+  "variant": "PDFファイル",
+  "figmaNode": "3119:14242",
+  "size": [
+   375,
+   130
+  ],
+  "summary": "PDF ファイルへのリンク（ファイル名＋サイズ）と PDF アイコンを1行で置くブロック。資料配布用",
+  "position": "flow",
+  "fields": [
+   {
+    "key": "label",
+    "label": "リンク文言（ファイル名・サイズ）",
+    "kind": "text",
+    "example": "prS13vVAJraKmCPX6UTKz5d5zlym5P3O5gp1nUzQ.pdf ( 485KB )"
+   },
+   {
+    "key": "url",
+    "label": "PDF の URL（<a> の data-href-field）",
+    "kind": "url",
+    "example": "https://example.com/file.pdf"
+   }
+  ],
+  "images": [],
+  "repeats": [],
+  "assets": [
+   {
+    "name": "icon/pdf",
+    "note": "PDF アイコン（20px）。リンク文言の後ろに置く。Figma では Main 色"
+   }
+  ],
+  "colorRoles": {
+   "main": [
+    "リンク文言",
+    "PDF アイコン"
+   ],
+   "sub": []
+  },
+  "notes": "Figma ではアイコンを absolute で文言に重ねているが、HTML では文言の直後にインライン配置"
+ },
+ "table": {
+  "id": "table",
+  "section": "表",
+  "variant": "表",
+  "figmaNode": "3119:14247",
+  "size": [
+   375,
+   411
+  ],
+  "summary": "見出し列（幅89px）＋説明列の2列の表。行は横罫線のみ。文字14px の表と12px の表を縦に2つ並べた構成",
+  "position": "flow",
+  "fields": [
+   {
+    "key": "rows.head",
+    "label": "表の見出し（左列）",
+    "kind": "text",
+    "example": "表の見出し"
+   },
+   {
+    "key": "rows.value",
+    "label": "説明（右列）",
+    "kind": "text",
+    "example": "説明入ります説明入ります"
+   },
+   {
+    "key": "rowsSmall.head",
+    "label": "表の見出し（左列）",
+    "kind": "text",
+    "example": "表の見出し"
+   },
+   {
+    "key": "rowsSmall.value",
+    "label": "説明（右列）",
+    "kind": "text",
+    "example": "説明入ります説明入ります"
+   }
+  ],
+  "images": [],
+  "repeats": [
+   {
+    "key": "rows",
+    "label": "表の行（文字14px）",
+    "templateCount": 3
+   },
+   {
+    "key": "rowsSmall",
+    "label": "表の行（文字12px）",
+    "templateCount": 3
+   }
+  ],
+  "assets": [],
+  "colorRoles": {
+   "main": [],
+   "sub": []
+  },
+  "notes": "テンプレートは標準サイズ（label/regular/md 14px）と小サイズ（label/regular/sm 12px）の表を両方含む。片方だけ使う場合は不要な表を削除。12px は t-caption-md に letter-spacing 4% を足して表現"
+ },
+ "youtube-a": {
+  "id": "youtube-a",
+  "section": "YouTube",
+  "variant": "YouTube",
+  "figmaNode": "3119:14269",
+  "size": [
+   375,
+   268
+  ],
+  "summary": "YouTube 動画の埋め込み枠（横長 16:9、335x188）。サムネイル画像の上に再生ボタン",
+  "position": "flow",
+  "fields": [
+   {
+    "key": "url",
+    "label": "YouTube の URL",
+    "kind": "url",
+    "example": "https://www.youtube.com/watch?v=xxxx"
+   }
+  ],
+  "images": [
+   {
+    "slot": "thumbnail",
+    "label": "動画サムネイル",
+    "size": "335x188",
+    "note": "枠の実寸（335x188.44、16:9）。埋め込み時は iframe に置き換え"
+   }
+  ],
+  "repeats": [],
+  "assets": [
+   {
+    "name": "play_button",
+    "note": "再生ボタン（直径56px の濃グレー円＋白三角）。Figma では Ellipse＋Polygon。HTML では CSS で描画"
+   }
+  ],
+  "colorRoles": {
+   "main": [],
+   "sub": []
+  },
+  "notes": "url は HTML 上には要素なし（埋め込み時に使用）。再生ボタン色 rgba(0,0,0,.65) は変数に無いので直書き"
+ },
+ "youtube-b": {
+  "id": "youtube-b",
+  "section": "YouTube",
+  "variant": "YouTube",
+  "figmaNode": "3119:14274",
+  "size": [
+   375,
+   676
+  ],
+  "summary": "YouTube ショート等の縦長動画の埋め込み枠（335x596、9:16）。サムネイル画像の上に再生ボタン",
+  "position": "flow",
+  "fields": [
+   {
+    "key": "url",
+    "label": "YouTube の URL",
+    "kind": "url",
+    "example": "https://www.youtube.com/shorts/xxxx"
+   }
+  ],
+  "images": [
+   {
+    "slot": "thumbnail",
+    "label": "動画サムネイル（縦長）",
+    "size": "335x596",
+    "note": "枠の実寸。埋め込み時は iframe に置き換え"
+   }
+  ],
+  "repeats": [],
+  "assets": [
+   {
+    "name": "play_button",
+    "note": "再生ボタン（直径56px の濃グレー円＋白三角）。Figma では Ellipse＋Polygon。HTML では CSS で描画"
+   }
+  ],
+  "colorRoles": {
+   "main": [],
+   "sub": []
+  },
+  "notes": "url は HTML 上には要素なし（埋め込み時に使用）。再生ボタン色 rgba(0,0,0,.65) は変数に無いので直書き"
+ },
+ "video": {
+  "id": "video",
+  "section": "ビデオ",
+  "variant": "ビデオ",
+  "figmaNode": "3119:14280",
+  "size": [
+   375,
+   336
+  ],
+  "summary": "見出し（ビデオタイトル）＋横長動画枠（335x188）。自前の動画ファイルを置くブロック",
+  "position": "flow",
+  "fields": [
+   {
+    "key": "title",
+    "label": "ビデオタイトル",
+    "kind": "text",
+    "example": "ビデオタイトル"
+   },
+   {
+    "key": "url",
+    "label": "動画ファイルの URL",
+    "kind": "url",
+    "example": "https://example.com/movie.mp4"
+   }
+  ],
+  "images": [
+   {
+    "slot": "thumbnail",
+    "label": "動画サムネイル（ポスター）",
+    "size": "335x188",
+    "note": "枠の実寸（16:9）。video 要素に置き換え"
+   }
+  ],
+  "repeats": [],
+  "assets": [
+   {
+    "name": "play_button",
+    "note": "再生ボタン（直径56px の濃グレー円＋白三角）。Figma では Ellipse＋Polygon。HTML では CSS で描画"
+   }
+  ],
+  "colorRoles": {
+   "main": [],
+   "sub": []
+  },
+  "notes": "url は HTML 上には要素なし。再生ボタン色 rgba(0,0,0,.65) は変数に無いので直書き"
+ },
+ "download-square": {
+  "id": "download-square",
+  "section": "ダウンロードボタン",
+  "variant": "ダウンロードボタン（四角）",
+  "figmaNode": "3119:14287",
+  "size": [
+   375,
+   149
+  ],
+  "summary": "Main 色の角ばった全幅ボタン（335px、高さ69px）1つ。資料ダウンロード用",
+  "position": "flow",
+  "fields": [
+   {
+    "key": "label",
+    "label": "ボタン文言",
+    "kind": "text",
+    "example": "ダウンロードする"
+   },
+   {
+    "key": "url",
+    "label": "リンク先（<a> の data-href-field）",
+    "kind": "url",
+    "example": "https://example.com/"
+   }
+  ],
+  "images": [],
+  "repeats": [],
+  "assets": [],
+  "colorRoles": {
+   "main": [
+    "ボタン背景"
+   ],
+   "sub": []
+  },
+  "notes": "文字は label/bold/xl（18px Bold）。_base.css にクラスが無いのでブロック内で指定。"
+ },
+ "download-pill": {
+  "id": "download-pill",
+  "section": "ダウンロードボタン",
+  "variant": "ダウンロードボタン（ピル型）",
+  "figmaNode": "3119:14289",
+  "size": [
+   375,
+   149
+  ],
+  "summary": "Main 色のピル型（角丸）全幅ボタン1つ。資料ダウンロード用",
+  "position": "flow",
+  "fields": [
+   {
+    "key": "label",
+    "label": "ボタン文言",
+    "kind": "text",
+    "example": "ダウンロードする"
+   },
+   {
+    "key": "url",
+    "label": "リンク先（<a> の data-href-field）",
+    "kind": "url",
+    "example": "https://example.com/"
+   }
+  ],
+  "images": [],
+  "repeats": [],
+  "assets": [],
+  "colorRoles": {
+   "main": [
+    "ボタン背景"
+   ],
+   "sub": []
+  },
+  "notes": "文字は label/bold/xl（18px Bold）。_base.css にクラスが無いのでブロック内で指定。"
+ },
+ "cta-square": {
+  "id": "cta-square",
+  "section": "CTA",
+  "variant": "ダウンロードボタン（四角）",
+  "figmaNode": "3119:14292",
+  "size": [
+   375,
+   149
+  ],
+  "summary": "CTA ボタン（Main 色の角ばった全幅ボタン、高さ69px）1つ。紹介アクションへの誘導用",
+  "position": "flow",
+  "fields": [
+   {
+    "key": "label",
+    "label": "ボタン文言",
+    "kind": "text",
+    "example": "今すぐ紹介する"
+   },
+   {
+    "key": "url",
+    "label": "リンク先（<a> の data-href-field）",
+    "kind": "url",
+    "example": "https://example.com/"
+   }
+  ],
+  "images": [],
+  "repeats": [],
+  "assets": [],
+  "colorRoles": {
+   "main": [
+    "ボタン背景"
+   ],
+   "sub": []
+  },
+  "notes": "文字は label/bold/xl（18px Bold）。_base.css にクラスが無いのでブロック内で指定。Figma のレイヤー名は「ダウンロードボタン（四角）」だが CTA セクションにあるため CTA ボタンとして扱う"
+ },
+ "cta-pill": {
+  "id": "cta-pill",
+  "section": "CTA",
+  "variant": "ダウンロードボタン（ピル型）",
+  "figmaNode": "3119:14294",
+  "size": [
+   375,
+   149
+  ],
+  "summary": "CTA ボタン（Main 色のピル型全幅ボタン）1つ。紹介アクションへの誘導用",
+  "position": "flow",
+  "fields": [
+   {
+    "key": "label",
+    "label": "ボタン文言",
+    "kind": "text",
+    "example": "今すぐ紹介する"
+   },
+   {
+    "key": "url",
+    "label": "リンク先（<a> の data-href-field）",
+    "kind": "url",
+    "example": "https://example.com/"
+   }
+  ],
+  "images": [],
+  "repeats": [],
+  "assets": [],
+  "colorRoles": {
+   "main": [
+    "ボタン背景"
+   ],
+   "sub": []
+  },
+  "notes": "文字は label/bold/xl（18px Bold）。_base.css にクラスが無いのでブロック内で指定。Figma のレイヤー名は「ダウンロードボタン（ピル型）」だが CTA セクションにあるため CTA ボタンとして扱う"
+ },
+ "hint": {
+  "id": "hint",
+  "section": "紹介上手になるためのヒント",
+  "variant": "紹介上手になるためのヒント",
+  "figmaNode": "3119:14297",
+  "size": [
+   375,
+   516
+  ],
+  "summary": "見出し＋本文の下に、イラスト＋短い説明のヒントカード（164px幅）を横スライドで並べる。シェア方法や紹介の切り出し方のコツを伝える。右矢印とページ送りの点つき。",
+  "position": "flow",
+  "fields": [
+   {
+    "key": "title",
+    "label": "見出し",
+    "kind": "text",
+    "example": "紹介上手になるための\nヒント"
+   },
+   {
+    "key": "lead",
+    "label": "本文（リード）",
+    "kind": "text",
+    "example": "本文テキスト本文テキスト本文テキスト本文テキスト本文テキスト本文テキス"
+   },
+   {
+    "key": "items.text",
+    "label": "ヒントの説明",
+    "kind": "text",
+    "example": "LINEグループでのシェアも可能です。"
+   }
+  ],
+  "images": [
+   {
+    "slot": "items.image",
+    "label": "ヒントのイラスト",
+    "size": "140x106",
+    "note": "枠の実寸 140x105.66。テンプレートは線画イラスト（LINE・SNS投稿・ブログ・Instagram・会話など）。差し替え候補のイラスト一式は shots/asset-hint-1〜8.png（Figma の Mask group 3119:14437 ほか）"
+   }
+  ],
+  "repeats": [
+   {
+    "key": "items",
+    "label": "ヒントカード",
+    "templateCount": 7
+   }
+  ],
+  "assets": [
+   {
+    "name": "hint-illust-1〜7",
+    "note": "テンプレートのイラスト（LINEグループ／体験エピソード投稿／URLコピー・ブログ／Instagramリンクスタンプ／会話で伝える／こだわりポイント／後輩・上司との会話）。Figma の Mask group 3119:14302 内"
+   },
+   {
+    "name": "slider/arrow_right",
+    "note": "右矢印ボタン（32px の白丸＋Sub 色のシェブロン）。CSS で描画"
+   }
+  ],
+  "colorRoles": {
+   "main": [
+    "ページ送りの点（現在＝Main、他＝Main の薄色）"
+   ],
+   "sub": [
+    "右矢印のシェブロン"
+   ]
+  },
+  "notes": "カード列は Figma で drop-shadow(0 0 8px rgba(0,0,0,.1))（変数なしのため直書き）。カード説明は body/sm（12px / 行間1.75）で t-caption-md に行間・字間を上書き。非アクティブ点は Main 色を opacity .2。"
+ },
+ "frame-round": {
+  "id": "frame-round",
+  "section": "フレーム",
+  "variant": "フレーム角丸",
+  "figmaNode": "3119:15546",
+  "size": [
+   375,
+   461
+  ],
+  "summary": "見出し＋白い角丸（8px）フレーム1枚（本文テキスト＋画像）。自由な説明エリアに使う",
+  "position": "flow",
+  "fields": [
+   {
+    "key": "title",
+    "label": "見出し",
+    "kind": "text",
+    "example": "フレーム角丸"
+   },
+   {
+    "key": "text",
+    "label": "本文",
+    "kind": "text",
+    "example": "テキストが入りますテキストが入りますテキストが入りますテキストが入りますテキストが入ります"
+   }
+  ],
+  "images": [
+   {
+    "slot": "image",
+    "label": "画像",
+    "size": "295x166",
+    "note": "テンプレートに寸法表記なし。枠の実寸（比率 335:188.44）"
+   }
+  ],
+  "repeats": [],
+  "assets": [],
+  "colorRoles": {
+   "main": [],
+   "sub": []
+  },
+  "notes": "角丸版と四角版の違いはフレームの border-radius（8px / 0）のみ"
+ },
+ "frame-square": {
+  "id": "frame-square",
+  "section": "フレーム",
+  "variant": "フレーム四角",
+  "figmaNode": "3119:15562",
+  "size": [
+   375,
+   461
+  ],
+  "summary": "見出し＋白い角なしフレーム1枚（本文テキスト＋画像）。自由な説明エリアに使う",
+  "position": "flow",
+  "fields": [
+   {
+    "key": "title",
+    "label": "見出し",
+    "kind": "text",
+    "example": "フレーム四角"
+   },
+   {
+    "key": "text",
+    "label": "本文",
+    "kind": "text",
+    "example": "テキストが入りますテキストが入りますテキストが入りますテキストが入りますテキストが入ります"
+   }
+  ],
+  "images": [
+   {
+    "slot": "image",
+    "label": "画像",
+    "size": "295x166",
+    "note": "テンプレートに寸法表記なし。枠の実寸（比率 335:188.44）"
+   }
+  ],
+  "repeats": [],
+  "assets": [],
+  "colorRoles": {
+   "main": [],
+   "sub": []
+  },
+  "notes": "角丸版と四角版の違いはフレームの border-radius（8px / 0）のみ"
+ },
+ "coupon-code": {
+  "id": "coupon-code",
+  "section": "クーポンコード",
+  "variant": "クーポンコード",
+  "figmaNode": "3119:15579",
+  "size": [
+   375,
+   373
+  ],
+  "summary": "白い角丸ボックスに説明文、その下の Sub 色の淡い帯にコード名・コード番号と「コピーする」ボタン。クーポンコードを配るときに使う",
+  "position": "flow",
+  "fields": [
+   {
+    "key": "text",
+    "label": "説明文",
+    "kind": "text",
+    "example": "テキストが入りますテキストが入りますテキストが入りますテキストが入りますテキストが入ります"
+   },
+   {
+    "key": "codeLabel",
+    "label": "コード名",
+    "kind": "text",
+    "example": "コード名"
+   },
+   {
+    "key": "code",
+    "label": "クーポンコード",
+    "kind": "text",
+    "example": "0000000"
+   },
+   {
+    "key": "buttonLabel",
+    "label": "ボタン文言",
+    "kind": "text",
+    "example": "コピーする"
+   }
+  ],
+  "images": [],
+  "repeats": [],
+  "assets": [
+   {
+    "name": "icon/copy",
+    "note": "ボタン右のコピーアイコン（14px）。Figma の layer 名は icon/arrow_chev_right だが中身はコピーアイコン。HTMLでは CSS で代用"
+   }
+  ],
+  "colorRoles": {
+   "main": [],
+   "sub": [
+    "コード帯の背景（Sub の上に白 85% を重ねた淡色）",
+    "コード名・コード番号の文字",
+    "コピーボタンの背景"
+   ]
+  },
+  "notes": "コード帯の淡色は Sub 塗りの上に rgba(255,255,255,.85) を重ねて作る（Figma の構成どおり）。ボタンは button/primary だが色は Main ではなく Sub"
+ },
+ "frame-list-round": {
+  "id": "frame-list-round",
+  "section": "フレーム（リスト）",
+  "variant": "フレーム角丸",
+  "figmaNode": "3119:15587",
+  "size": [
+   375,
+   1119
+  ],
+  "summary": "見出し＋白い角丸（8px）フレーム（本文テキスト＋画像）を3つ縦に並べたリスト",
+  "position": "flow",
+  "fields": [
+   {
+    "key": "title",
+    "label": "見出し",
+    "kind": "text",
+    "example": "フレームリスト角丸"
+   },
+   {
+    "key": "items.text",
+    "label": "本文",
+    "kind": "text",
+    "example": "テキストが入りますテキストが入りますテキストが入りますテキストが入りますテキストが入ります"
+   }
+  ],
+  "images": [
+   {
+    "slot": "items.image",
+    "label": "画像",
+    "size": "295x166",
+    "note": "テンプレートに寸法表記なし。枠の実寸（比率 335:188.44）"
+   }
+  ],
+  "repeats": [
+   {
+    "key": "items",
+    "label": "フレーム",
+    "templateCount": 3
+   }
+  ],
+  "assets": [],
+  "colorRoles": {
+   "main": [],
+   "sub": []
+  },
+  "notes": "角丸版と四角版の違いはフレームの border-radius（8px / 0）のみ"
+ },
+ "frame-list-square": {
+  "id": "frame-list-square",
+  "section": "フレーム（リスト）",
+  "variant": "フレーム四角",
+  "figmaNode": "3119:15628",
+  "size": [
+   375,
+   1119
+  ],
+  "summary": "見出し＋白い角なしフレーム（本文テキスト＋画像）を3つ縦に並べたリスト",
+  "position": "flow",
+  "fields": [
+   {
+    "key": "title",
+    "label": "見出し",
+    "kind": "text",
+    "example": "フレームリスト四角"
+   },
+   {
+    "key": "items.text",
+    "label": "本文",
+    "kind": "text",
+    "example": "テキストが入りますテキストが入りますテキストが入りますテキストが入りますテキストが入ります"
+   }
+  ],
+  "images": [
+   {
+    "slot": "items.image",
+    "label": "画像",
+    "size": "295x166",
+    "note": "テンプレートに寸法表記なし。枠の実寸（比率 335:188.44）"
+   }
+  ],
+  "repeats": [
+   {
+    "key": "items",
+    "label": "フレーム",
+    "templateCount": 3
+   }
+  ],
+  "assets": [],
+  "colorRoles": {
+   "main": [],
+   "sub": []
+  },
+  "notes": "角丸版と四角版の違いはフレームの border-radius（8px / 0）のみ"
+ },
+ "review": {
+  "id": "review",
+  "section": "口コミ",
+  "variant": "口コミ_close",
+  "figmaNode": "3119:15670",
+  "size": [
+   375,
+   598
+  ],
+  "summary": "見出し＋口コミカード（左に写真80px＋名前、右に口コミ画像）を並べ、下に開閉ボタン。折りたたみ時の表示（2件＋「口コミをもっと見る」）",
+  "position": "flow",
+  "fields": [
+   {
+    "key": "title",
+    "label": "見出し",
+    "kind": "text",
+    "example": "口コミ"
+   },
+   {
+    "key": "items.name",
+    "label": "投稿者名",
+    "kind": "text",
+    "example": "テキストが入ります"
+   },
+   {
+    "key": "buttonLabel",
+    "label": "ボタン文言",
+    "kind": "text",
+    "example": "口コミをもっと見る"
+   }
+  ],
+  "images": [
+   {
+    "slot": "items.photo",
+    "label": "投稿者の写真",
+    "size": "80x80",
+    "note": "テンプレートに寸法表記なし。枠の実寸"
+   },
+   {
+    "slot": "items.image",
+    "label": "口コミ本文の画像",
+    "size": "199x124",
+    "note": "幅は残り全部、高さは左列（写真＋名前）に合わせて伸びる。実寸"
+   }
+  ],
+  "repeats": [
+   {
+    "key": "items",
+    "label": "口コミカード",
+    "templateCount": 2
+   }
+  ],
+  "assets": [
+   {
+    "name": "icon/plus",
+    "note": "ボタン右のアイコン（16px）。Figma の layer 名は icon/copy。HTMLでは CSS で代用"
+   }
+  ],
+  "colorRoles": {
+   "main": [
+    "ボタンの枠線と文字・アイコン（button/secondary）"
+   ],
+   "sub": []
+  },
+  "notes": "対になるバリエーション：口コミ_open（展開後・3件＋「閉じる」）。違いはカードの件数とボタン文言・アイコン（＋／−）のみ"
+ },
+ "review-open": {
+  "id": "review-open",
+  "section": "口コミ",
+  "variant": "口コミ_open",
+  "figmaNode": "3119:15704",
+  "size": [
+   375,
+   786
+  ],
+  "summary": "見出し＋口コミカード（左に写真80px＋名前、右に口コミ画像）を並べ、下に開閉ボタン。展開時の表示（3件＋「閉じる」）",
+  "position": "flow",
+  "fields": [
+   {
+    "key": "title",
+    "label": "見出し",
+    "kind": "text",
+    "example": "口コミ"
+   },
+   {
+    "key": "items.name",
+    "label": "投稿者名",
+    "kind": "text",
+    "example": "テキストが入ります"
+   },
+   {
+    "key": "buttonLabel",
+    "label": "ボタン文言",
+    "kind": "text",
+    "example": "閉じる"
+   }
+  ],
+  "images": [
+   {
+    "slot": "items.photo",
+    "label": "投稿者の写真",
+    "size": "80x80",
+    "note": "テンプレートに寸法表記なし。枠の実寸"
+   },
+   {
+    "slot": "items.image",
+    "label": "口コミ本文の画像",
+    "size": "199x124",
+    "note": "幅は残り全部、高さは左列（写真＋名前）に合わせて伸びる。実寸"
+   }
+  ],
+  "repeats": [
+   {
+    "key": "items",
+    "label": "口コミカード",
+    "templateCount": 3
+   }
+  ],
+  "assets": [
+   {
+    "name": "icon/minus",
+    "note": "ボタン右のアイコン（16px）。Figma の layer 名は icon/copy。HTMLでは CSS で代用"
+   }
+  ],
+  "colorRoles": {
+   "main": [
+    "ボタンの枠線と文字・アイコン（button/secondary）"
+   ],
+   "sub": []
+  },
+  "notes": "対になるバリエーション：口コミ_close（折りたたみ時・2件＋「口コミをもっと見る」）。違いはカードの件数とボタン文言・アイコン（＋／−）のみ"
+ },
+ "gallery": {
+  "id": "gallery",
+  "section": "口コミ",
+  "variant": "ギャラリー",
+  "figmaNode": "3119:15753",
+  "size": [
+   375,
+   404
+  ],
+  "summary": "見出し＋画像を2列グリッド（4:3）で並べるギャラリー",
+  "position": "flow",
+  "fields": [
+   {
+    "key": "title",
+    "label": "見出し",
+    "kind": "text",
+    "example": "ギャラリー"
+   }
+  ],
+  "images": [
+   {
+    "slot": "images.image",
+    "label": "ギャラリー画像",
+    "size": "160x120",
+    "note": "テンプレートに寸法表記なし。枠の実寸（4:3）"
+   }
+  ],
+  "repeats": [
+   {
+    "key": "images",
+    "label": "ギャラリー画像",
+    "templateCount": 4
+   }
+  ],
+  "assets": [],
+  "colorRoles": {
+   "main": [],
+   "sub": []
+  },
+  "notes": "Figma では2枚ずつの行（横 gap 15px・縦 gap 16px）。HTML では2列グリッドの繰り返しにしている"
+ }
+}

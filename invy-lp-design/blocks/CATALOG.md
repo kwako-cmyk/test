@@ -1,6 +1,6 @@
 # ブロック一覧（CMS テンプレート）
 
-> `scripts/catalog_md.py` で生成。直接直さず、`blocks/meta/*.json` を直して再生成する。
+> `scripts/catalog_md.py` で生成。直接直さず、`blocks/meta.json` を直して再生成する。
 
 出典：Figma fileKey `1UwJ64MnV8cHs9F39pSAeH`「テンプレート」ページ。全 68 バリエーション。
 見た目は `blocks/shots/<ID>.png`、構造は `blocks/html/<ID>.html`。制約（個数・文字数）は CMS 制約表を見る。

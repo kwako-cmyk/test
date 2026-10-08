@@ -21,9 +21,9 @@ COLS = ['ブロックID', 'セクション', 'バリエーション', '区分', 
 def template():
     inv = json.load(open(os.path.join(ROOT, 'blocks', 'inventory.json'), encoding='utf-8'))
     out = io.StringIO(); w = csv.writer(out); w.writerow(COLS)
+    metas = json.load(open(os.path.join(ROOT, 'blocks', 'meta.json'), encoding='utf-8'))
     for v in inv['variants']:
-        p = os.path.join(ROOT, 'blocks', 'meta', v['id'] + '.json')
-        m = json.load(open(p, encoding='utf-8')) if os.path.exists(p) else {}
+        m = metas.get(v['id'], {})
         base = [v['id'], v['section'], v['name']]
         w.writerow(base + ['ブロック', '', 'ブロック全体', f"{v['w']}x{v['h']}"] + [''] * 7)
         for r in m.get('repeats', []):

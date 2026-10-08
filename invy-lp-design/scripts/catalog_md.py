@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""blocks/meta/*.json から blocks/CATALOG.md（ブロック一覧）を作る。
+"""blocks/meta.json から blocks/CATALOG.md（ブロック一覧）を作る。
 
   python3 scripts/catalog_md.py > blocks/CATALOG.md
 
@@ -15,9 +15,10 @@ POS = {'top': '上部固定', 'bottom': '下部固定', 'overlay': '重ねて表
 def main():
     inv = json.load(open(os.path.join(B, 'inventory.json'), encoding='utf-8'))
     L = ['# ブロック一覧（CMS テンプレート）', '',
-         '> `scripts/catalog_md.py` で生成。直接直さず、`blocks/meta/*.json` を直して再生成する。', '',
+         '> `scripts/catalog_md.py` で生成。直接直さず、`blocks/meta.json` を直して再生成する。', '',
          f"出典：Figma fileKey `{inv['fileKey']}`「テンプレート」ページ。全 {len(inv['variants'])} バリエーション。",
          '見た目は `blocks/shots/<ID>.png`、構造は `blocks/html/<ID>.html`。制約（個数・文字数）は CMS 制約表を見る。', '']
+    metas = json.load(open(os.path.join(B, 'meta.json'), encoding='utf-8'))
     sections = []
     for v in inv['variants']:
         if v['section'] not in sections:
@@ -26,10 +27,9 @@ def main():
     for sec in sections:
         L += [f'## {sec}', '']
         for v in [x for x in inv['variants'] if x['section'] == sec]:
-            p = os.path.join(B, 'meta', v['id'] + '.json')
-            if not os.path.exists(p):
+            m = metas.get(v['id'])
+            if m is None:
                 missing.append(v['id']); L += [f"### `{v['id']}`　{v['name']}（未作成）", '']; continue
-            m = json.load(open(p, encoding='utf-8'))
             pos = POS.get(m.get('position', 'flow'), '')
             L.append(f"### `{v['id']}`　{v['name']}" + (f"（{pos}）" if pos else ''))
             if m.get('summary'):

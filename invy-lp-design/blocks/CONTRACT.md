@@ -2,14 +2,14 @@
 
 Figma「テンプレート」ページ（fileKey `1UwJ64MnV8cHs9F39pSAeH`）の各バリエーションを、1つずつ
 HTML ブロック＋メタ情報 JSON に起こしたもの。ブロック一覧は `blocks/inventory.json`。
-見本：`blocks/html/benefits-b.html`、`blocks/meta/benefits-b.json`。
+見本：`blocks/html/benefits-b.html`、`blocks/meta.json` の `"benefits-b"`。
 
 ## ファイル
 
 | ファイル | 中身 |
 |---|---|
 | `blocks/html/<id>.html` | HTML 断片。`<section class="blk" data-block="<id>" ...>` 1つだけ |
-| `blocks/meta/<id>.json` | 編集できる項目・画像枠・繰り返し・色の役割など |
+| `blocks/meta.json` | ブロック ID ごとのメタ情報（`{"<id>": {...}}`）。編集できる項目・画像枠・繰り返し・色の役割など |
 | `blocks/shots/<id>.png` | Figma のスクリーンショット（見た目の正） |
 | `blocks/_base.css` | 全ブロック共通 CSS（色・フォント・テキストスタイル・画像枠・ボタン） |
 
@@ -37,6 +37,8 @@ HTML ブロック＋メタ情報 JSON に起こしたもの。ブロック一覧
 12. 文言はテンプレートのダミー文言をそのまま入れる
 
 ## メタ JSON のルール
+
+`blocks/meta.json` の中に、ブロック ID をキーにして次の形で1つずつ書く。
 
 ```json
 {

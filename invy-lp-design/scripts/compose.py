@@ -166,8 +166,7 @@ KNOWN, CUR = {}, ['']
 def known_keys(block):
     """メタ情報にある項目（画面に出ていない状態の項目も含む）"""
     if block not in KNOWN:
-        p = os.path.join(BLOCKS, 'meta', block + '.json')
-        m = json.load(open(p, encoding='utf-8')) if os.path.exists(p) else {}
+        m = json.load(open(os.path.join(BLOCKS, 'meta.json'), encoding='utf-8')).get(block, {})
         KNOWN[block] = {f['key'] for f in m.get('fields', [])} | {i['slot'] for i in m.get('images', [])}
     return KNOWN[block]
 

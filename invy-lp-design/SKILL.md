@@ -57,7 +57,7 @@ invy-lp-design/
 │   ├── inventory.json      ブロック ID ↔ Figma ノード
 │   ├── _base.css           共通 CSS（色・フォント・テキストスタイル）
 │   ├── html/<id>.html      HTML ブロック（グレースケール）
-│   ├── meta/<id>.json      入力項目・画像枠・繰り返し・色の役割
+│   ├── meta.json           ブロックごとの入力項目・画像枠・繰り返し・色の役割
 │   └── shots/<id>.png      Figma のスクリーンショット（見た目の正）
 ├── references/
 │   ├── 01-flow.md  02-copy-rules.md  05-checklist.md  A-invy-facts.md
