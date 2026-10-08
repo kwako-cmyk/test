@@ -151,10 +151,23 @@ def apply_repeat(blk, key, items, base, warns, where):
     if not tmpl:
         return
     others = [k for k in cont.kids if not (isinstance(k, El) and 'data-item' in k.attrs)]
+    def keys_of(t):
+        return {e.attrs.get(a)[len(key) + 1:] for e in t.walk() for a in ('data-field', 'data-href-field', 'data-slot')
+                if (e.attrs.get(a) or '').startswith(key + '.')}
+
     new = []
     for i, it in enumerate(items):
-        c = clone(tmpl[min(i, len(tmpl) - 1)], cont)
-        fill(c, it, key + '.', base, warns, f'{where} {key}[{i + 1}]')
+        # 項目の組み合わせが合うテンプレート（例：小見出しありの行）を選ぶ。同点なら同じ位置のもの
+        want = {k for k, v in it.items() if not isinstance(v, (list, dict))}
+        pos = min(i, len(tmpl) - 1)
+        pick = max(range(len(tmpl)), key=lambda j: (want <= keys_of(tmpl[j]), -len(keys_of(tmpl[j]) ^ want), j == pos))
+        c = clone(tmpl[pick], cont)
+        here = f'{where} {key}[{i + 1}]'
+        fill(c, it, key + '.', base, warns, here)
+        left = sorted({e.attrs['data-field'][len(key) + 1:] for e in c.walk()
+                       if (e.attrs.get('data-field') or '').startswith(key + '.')} - want)
+        if left:
+            warns.append(f'{here}: 項目「{"」「".join(left)}」が未入力のため、テンプレートの文言が残ります')
         new.append(c)
     first = next((i for i, k in enumerate(cont.kids) if isinstance(k, El) and 'data-item' in k.attrs), len(cont.kids))
     cont.kids = [k for k in cont.kids[:first] if k in others] + new + [k for k in cont.kids[first:] if k in others]
