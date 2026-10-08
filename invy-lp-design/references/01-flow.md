@@ -5,7 +5,10 @@
 1. CMS 制約表を読む：`references/config.json` の `constraintsSheetId` を Google Drive の
    `download_file_content`（`exportMimeType: "text/csv"`）で CSV として取り出し、
    `python3 scripts/constraints.py load <csv> > <案件>/constraints.json` で変換する。
-   Drive が使えないときは制約チェックなしで進め、そのことを伝える
+   CSV で取れるのは先頭のシートだけなので、「CMS制約表」シートは先頭に置いたままにする。
+   `constraintsSheetId` が空、または Drive が使えないときは制約チェックなしで進め、そのことを伝える。
+   表の原本（制約が空の初期版）は `references/CMS制約表.xlsx`。ブロックを足したときは
+   `constraints.py template` で出した行をスプレッドシートに追記する
 2. `blocks/CATALOG.md` を読み、使えるブロックを把握する。迷ったら `blocks/shots/<id>.png` を見る
 
 ---

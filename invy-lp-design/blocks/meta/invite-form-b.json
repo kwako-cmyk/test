@@ -1,0 +1,396 @@
+{
+  "id": "invite-form-b",
+  "section": "紹介フォーム",
+  "variant": "紹介フォームB",
+  "figmaNode": "3119:13612",
+  "size": [
+    375,
+    5076
+  ],
+  "summary": "3ステップ型の紹介フォーム。各ステップに吹き出し付き見出し・1-2-3 の進捗・STEP 見出しを持ち、STEP1 で画像付きメッセージカード（横長）を1つ選択、STEP2 で情報入力、STEP3 で紹介方法ボタン（角型）を選ぶ。3つのパネルを縦に並べた状態見本",
+  "position": "flow",
+  "fields": [
+    {
+      "key": "eyebrow",
+      "label": "吹き出しの文言",
+      "kind": "text",
+      "example": "カンタン！たったの30秒！"
+    },
+    {
+      "key": "title",
+      "label": "見出し（3ステップ共通）",
+      "kind": "text",
+      "example": "ご家族・お友達に応援\nメッセージを送ろう！"
+    },
+    {
+      "key": "step1Text",
+      "label": "STEP1 の説明",
+      "kind": "text",
+      "example": "送るメッセージカードを選びます"
+    },
+    {
+      "key": "step2Text",
+      "label": "STEP2 の説明",
+      "kind": "text",
+      "example": "情報を入力します"
+    },
+    {
+      "key": "step3Text",
+      "label": "STEP3 の説明",
+      "kind": "text",
+      "example": "お好きな方法で応援メッセージを送りましょう"
+    },
+    {
+      "key": "choiceLabel",
+      "label": "カード選択の項目名",
+      "kind": "text",
+      "example": "１つ選択"
+    },
+    {
+      "key": "choices.label",
+      "label": "カードの文言",
+      "kind": "text",
+      "example": "新しい家族が増えた方へ"
+    },
+    {
+      "key": "nextLabel",
+      "label": "STEP1 のボタン文言",
+      "kind": "text",
+      "example": "つぎへ"
+    },
+    {
+      "key": "nextUrl",
+      "label": "STEP1 ボタンのリンク先",
+      "kind": "url",
+      "example": "#"
+    },
+    {
+      "key": "nameLabel",
+      "label": "お名前の項目名",
+      "kind": "text",
+      "example": "あなたのお名前"
+    },
+    {
+      "key": "namePlaceholder",
+      "label": "お名前の入力例",
+      "kind": "text",
+      "example": "例）山田　花子"
+    },
+    {
+      "key": "nameHelp",
+      "label": "お名前の補足",
+      "kind": "text",
+      "example": "※ 姓と名の間に空白を入れてください"
+    },
+    {
+      "key": "splitNameLabel",
+      "label": "姓名分割のお名前の項目名",
+      "kind": "text",
+      "example": "あなたのお名前"
+    },
+    {
+      "key": "lastNameLabel",
+      "label": "姓のラベル",
+      "kind": "text",
+      "example": "姓（漢字）"
+    },
+    {
+      "key": "lastNamePlaceholder",
+      "label": "姓の入力例",
+      "kind": "text",
+      "example": "例）山田"
+    },
+    {
+      "key": "firstNameLabel",
+      "label": "名のラベル",
+      "kind": "text",
+      "example": "名（漢字）"
+    },
+    {
+      "key": "firstNamePlaceholder",
+      "label": "名の入力例",
+      "kind": "text",
+      "example": "例）花子"
+    },
+    {
+      "key": "kanaLabel",
+      "label": "カナの項目名",
+      "kind": "text",
+      "example": "あなたのお名前（カナ）"
+    },
+    {
+      "key": "kanaPlaceholder",
+      "label": "カナの入力例",
+      "kind": "text",
+      "example": "例）ヤマダ　ハナコ"
+    },
+    {
+      "key": "kanaHelp",
+      "label": "カナの補足",
+      "kind": "text",
+      "example": "※ 姓と名の間に空白を入れてください"
+    },
+    {
+      "key": "genderLabel",
+      "label": "性別の項目名",
+      "kind": "text",
+      "example": "あなたの性別"
+    },
+    {
+      "key": "genderOptions.label",
+      "label": "性別の選択肢",
+      "kind": "text",
+      "example": "男性"
+    },
+    {
+      "key": "birthLabel",
+      "label": "生年月日の項目名",
+      "kind": "text",
+      "example": "あなたの生年月日"
+    },
+    {
+      "key": "shopLabel",
+      "label": "お取引店番の項目名",
+      "kind": "text",
+      "example": "あなたのお取引店番"
+    },
+    {
+      "key": "shopPlaceholder",
+      "label": "プルダウンの初期表示",
+      "kind": "text",
+      "example": "選択してください"
+    },
+    {
+      "key": "emailLabel",
+      "label": "メールアドレスの項目名",
+      "kind": "text",
+      "example": "あなたのメールアドレス"
+    },
+    {
+      "key": "emailPlaceholder",
+      "label": "メールアドレスの入力例",
+      "kind": "text",
+      "example": "例）info@invy.jp"
+    },
+    {
+      "key": "messageLabel",
+      "label": "メッセージの項目名",
+      "kind": "text",
+      "example": "お相手へのメッセージ"
+    },
+    {
+      "key": "messageDesc",
+      "label": "メッセージの説明",
+      "kind": "text",
+      "example": "ご記入いただいた内容をメッセージとして送信できます。"
+    },
+    {
+      "key": "messageValue",
+      "label": "メッセージの定型文",
+      "kind": "text",
+      "example": "スライドカードに連動した 定型文を表示する予定です"
+    },
+    {
+      "key": "uploadLabel",
+      "label": "画像アップロードの項目名",
+      "kind": "text",
+      "example": "画像アップロード"
+    },
+    {
+      "key": "uploadDesc",
+      "label": "アップロードの説明（上）",
+      "kind": "text",
+      "example": "テキスト入りますテキスト入ります…"
+    },
+    {
+      "key": "uploadDrop",
+      "label": "ドロップ領域の文言",
+      "kind": "text",
+      "example": "ファイルをここにドロップもしくは"
+    },
+    {
+      "key": "uploadButton",
+      "label": "ファイル選択ボタンの文言",
+      "kind": "text",
+      "example": "ファイルを選択する"
+    },
+    {
+      "key": "uploadNote",
+      "label": "アップロードの説明（下）",
+      "kind": "text",
+      "example": "テキスト入りますテキスト入ります…"
+    },
+    {
+      "key": "consentLabel",
+      "label": "掲載許諾の項目名",
+      "kind": "text",
+      "example": "送信メッセージの掲載について"
+    },
+    {
+      "key": "consentText",
+      "label": "掲載許諾の説明",
+      "kind": "text",
+      "example": "メッセージがキャンペーンサイトに掲載される可能性がございます。…"
+    },
+    {
+      "key": "consentOptions.label",
+      "label": "掲載許諾の選択肢（チェックボックス）",
+      "kind": "text",
+      "example": "了承する"
+    },
+    {
+      "key": "privacyLabel",
+      "label": "個人情報の項目名",
+      "kind": "text",
+      "example": "個人情報について"
+    },
+    {
+      "key": "privacyText",
+      "label": "個人情報の説明（リンクを含む）",
+      "kind": "richtext",
+      "example": "個人情報の取扱については以下のプライバシーポリシーをご覧ください。"
+    },
+    {
+      "key": "privacyUrl",
+      "label": "プライバシーポリシーのリンク先（<a> の data-href-field）",
+      "kind": "url",
+      "example": "https://example.com/privacy"
+    },
+    {
+      "key": "privacyAgree",
+      "label": "同意チェックの文言",
+      "kind": "text",
+      "example": "同意する"
+    },
+    {
+      "key": "submitLabel",
+      "label": "STEP2 のボタン文言（未入力で非活性）",
+      "kind": "text",
+      "example": "つぎへ（送信方法選択画面）"
+    },
+    {
+      "key": "submitUrl",
+      "label": "STEP2 ボタンのリンク先",
+      "kind": "url",
+      "example": "#"
+    },
+    {
+      "key": "methods.label",
+      "label": "個別に送るボタンの文言",
+      "kind": "text",
+      "example": "LINEで友達に送る"
+    },
+    {
+      "key": "methods.url",
+      "label": "個別に送るボタンのリンク先（<a> の data-href-field）",
+      "kind": "url",
+      "example": "https://example.com/"
+    },
+    {
+      "key": "snsTitle",
+      "label": "SNS シェアグループの見出し",
+      "kind": "text",
+      "example": "SNSで複数人に\nシェアするならこちら"
+    },
+    {
+      "key": "snsMethods.label",
+      "label": "SNS シェアボタンの文言",
+      "kind": "text",
+      "example": "Facebookでシェア"
+    },
+    {
+      "key": "snsMethods.url",
+      "label": "SNS シェアボタンのリンク先",
+      "kind": "url",
+      "example": "https://example.com/"
+    },
+    {
+      "key": "faceTitle",
+      "label": "対面グループの見出し",
+      "kind": "text",
+      "example": "対面でシェアするならこちら"
+    },
+    {
+      "key": "faceMethods.label",
+      "label": "対面ボタンの文言",
+      "kind": "text",
+      "example": "QRで送る"
+    },
+    {
+      "key": "faceMethods.url",
+      "label": "対面ボタンのリンク先",
+      "kind": "url",
+      "example": "https://example.com/"
+    }
+  ],
+  "images": [
+    {
+      "slot": "choices.image",
+      "label": "メッセージカードの画像",
+      "size": "120x80",
+      "note": "テンプレートに寸法表記なし。スクショ（縮小版）からの推定"
+    }
+  ],
+  "repeats": [
+    {
+      "key": "choices",
+      "label": "メッセージカード（ラジオカード）",
+      "templateCount": 5
+    },
+    {
+      "key": "genderOptions",
+      "label": "性別の選択肢（ラジオ）",
+      "templateCount": 2
+    },
+    {
+      "key": "consentOptions",
+      "label": "掲載許諾の選択肢（チェックボックス）",
+      "templateCount": 2
+    },
+    {
+      "key": "methods",
+      "label": "個別に送るボタン（LINE／メール／SMS）",
+      "templateCount": 3
+    },
+    {
+      "key": "snsMethods",
+      "label": "SNS シェアボタン（Facebook／X／メッセンジャー／Instagram URL コピー／Instagram／Slack／Chatwork／リンク）",
+      "templateCount": 8
+    },
+    {
+      "key": "faceMethods",
+      "label": "対面ボタン（QR）",
+      "templateCount": 1
+    }
+  ],
+  "assets": [
+    {
+      "name": "var_share",
+      "note": "紹介方法アイコン。data-asset は var_share/<種別>（LINE / Mail / SMS / FB / X / Messenger / Instagram_URL / Instagram / Slack / Chatwork / Link / QR）。Figma では LINE は白丸 32px に 22px のアイコン、SMS（40x41）・Instagram・Slack・Chatwork（30px）は var_share ではなく貼り込み画像。ボタンの data-method がブランド色を決める"
+    },
+    {
+      "name": "icon/arrow_chev_right",
+      "note": "ボタン右端の矢印（16px）。CSS で描画"
+    },
+    {
+      "name": "radio_card",
+      "note": "画像＋文言の選択カード。選択中は背景 Main・文字白"
+    },
+    {
+      "name": "step_headline",
+      "note": "STEP 番号（Main 背景）＋説明の帯。CSS で描画"
+    }
+  ],
+  "colorRoles": {
+    "main": [
+      "進捗の現在ステップの丸",
+      "STEP 番号の背景",
+      "選択中カードの背景",
+      "つぎへボタンの背景",
+      "ファイルを選択するボタンの背景",
+      "プライバシーポリシーのリンク文字"
+    ],
+    "sub": []
+  },
+  "notes": "Figma の design context なし。スクリーンショットとレイヤー構造から起こした。shots/invite-form-b.png は 76px 幅に縮小されていて文字が読めないため、STEP 説明・ボタン文言（つぎへ／つぎへ（送信方法選択画面））・メール入力例・カード画像寸法・STEP 帯の作りは推定。パネル間 16px の濃いグレー（#767676）は Figma の親フレームの地色がすき間から見えているもの（ステップ状態の区切り）で、変数に無いので直書き。吹き出しのしっぽは CSS。STEP2 の送信ボタンは非活性（--border 背景）。STEP3 の「紹介方法選択」見出しは Figma で非表示のため入れていない。必須バッジは <span class=\"req\">必須</span>（41x24 に合わせてブロック内で 14px に上書き）。入力欄は見た目だけの div（高さ 48px、枠 --border）。生年月日の「年／月／日」は固定文字。body/md は Figma の行送りに合わせて 25px に上書き。SNS ボタンの背景はサービスのブランド色（LINE #1bb71f / メール #e87c21 / SMS #23abd1 / Facebook #1877f2 / X #222222 / メッセンジャー #6c4fe0 / Instagram #d02d92 / Slack #4a154b / Chatwork #f03848 / リンク #ff9f44 / QR #3e9ed9）で、Main/Sub ではないため data-method ごとに直書き（スクショから採色）。"
+}

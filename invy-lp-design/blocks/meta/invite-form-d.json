@@ -1,0 +1,112 @@
+{
+  "id": "invite-form-d",
+  "section": "紹介フォーム",
+  "variant": "紹介フォーム",
+  "figmaNode": "3119:13498",
+  "size": [
+    375,
+    1567
+  ],
+  "summary": "invite-form-c と同じアイコンタイル一覧＋ピル型紹介ボタンだが、最初のグループの見出し「紹介方法選択」がない版",
+  "position": "flow",
+  "fields": [
+    {
+      "key": "tiles.label",
+      "label": "アイコンタイルの文言（改行は <br>）",
+      "kind": "text",
+      "example": "LINE\nで送る"
+    },
+    {
+      "key": "tiles.url",
+      "label": "アイコンタイルのリンク先",
+      "kind": "url",
+      "example": "https://example.com/"
+    },
+    {
+      "key": "methods.label",
+      "label": "個別に送るボタンの文言",
+      "kind": "text",
+      "example": "LINEで友達に送る"
+    },
+    {
+      "key": "methods.url",
+      "label": "個別に送るボタンのリンク先（<a> の data-href-field）",
+      "kind": "url",
+      "example": "https://example.com/"
+    },
+    {
+      "key": "snsTitle",
+      "label": "SNS シェアグループの見出し",
+      "kind": "text",
+      "example": "SNSで複数人に\nシェアするならこちら"
+    },
+    {
+      "key": "snsMethods.label",
+      "label": "SNS シェアボタンの文言",
+      "kind": "text",
+      "example": "Facebookでシェア"
+    },
+    {
+      "key": "snsMethods.url",
+      "label": "SNS シェアボタンのリンク先",
+      "kind": "url",
+      "example": "https://example.com/"
+    },
+    {
+      "key": "faceTitle",
+      "label": "対面グループの見出し",
+      "kind": "text",
+      "example": "対面でシェアするならこちら"
+    },
+    {
+      "key": "faceMethods.label",
+      "label": "対面ボタンの文言",
+      "kind": "text",
+      "example": "QRで送る"
+    },
+    {
+      "key": "faceMethods.url",
+      "label": "対面ボタンのリンク先",
+      "kind": "url",
+      "example": "https://example.com/"
+    }
+  ],
+  "images": [],
+  "repeats": [
+    {
+      "key": "tiles",
+      "label": "紹介方法アイコンタイル（80x106、4列・最終行中央寄せ）",
+      "templateCount": 11
+    },
+    {
+      "key": "methods",
+      "label": "個別に送るボタン（LINE／メール／SMS）",
+      "templateCount": 3
+    },
+    {
+      "key": "snsMethods",
+      "label": "SNS シェアボタン（Facebook／X／メッセンジャー／Instagram URL コピー／Instagram／Slack／Chatwork／リンク）",
+      "templateCount": 8
+    },
+    {
+      "key": "faceMethods",
+      "label": "対面ボタン（QR）",
+      "templateCount": 1
+    }
+  ],
+  "assets": [
+    {
+      "name": "var_share",
+      "note": "紹介方法アイコン。data-asset は var_share/<種別>（LINE / Mail / SMS / FB / X / Messenger / Instagram_URL / Instagram / Slack / Chatwork / Link / QR）。Figma では LINE は白丸 32px に 22px のアイコン、SMS（40x41）・Instagram・Slack・Chatwork（30px）は var_share ではなく貼り込み画像。ボタンの data-method がブランド色を決める"
+    },
+    {
+      "name": "icon/arrow_chev_right",
+      "note": "ボタン右端の矢印（16px）。CSS で描画"
+    }
+  ],
+  "colorRoles": {
+    "main": [],
+    "sub": []
+  },
+  "notes": "Figma の design context なし。スクリーンショットとレイヤー構造から起こした。Figma では「紹介方法選択」テキストが非表示。タイルとボタンの間は 40px。上部のアイコンタイルは白地＋枠線＋下 2px の影、文字 10px/15px（テキストスタイル外）。タイルの文言は 64px 幅で折り返していたため <br> で改行を固定。ボタンはピル型、アイコン位置は左 20px（A／B は角型・左 16px）。Instagram URL コピーのアイコンは 26px（A では 32px）のため行の高さ 58px。SNS ボタンの背景はサービスのブランド色（LINE #1bb71f / メール #e87c21 / SMS #23abd1 / Facebook #1877f2 / X #222222 / メッセンジャー #6c4fe0 / Instagram #d02d92 / Slack #4a154b / Chatwork #f03848 / リンク #ff9f44 / QR #3e9ed9）で、Main/Sub ではないため data-method ごとに直書き（スクショから採色）。"
+}

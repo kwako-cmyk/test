@@ -30,7 +30,7 @@ def template():
             w.writerow(base + ['繰り返し', r['key'], r['label'], f"テンプレート {r['templateCount']}個"] + [''] * 7)
         for f in m.get('fields', []):
             kind = 'リンク' if f.get('kind') == 'url' else 'テキスト'
-            ex = str(f.get('example', '')).replace('\n', ' ')[:40]
+            ex = str(f.get('example', '')).replace('\n', ' ')[:20]
             w.writerow(base + [kind, f['key'], f['label'], ex] + [''] * 7)
         for im in m.get('images', []):
             w.writerow(base + ['画像', im['slot'], im['label'], im['size']] + [''] * 7)

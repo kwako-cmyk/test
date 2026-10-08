@@ -93,15 +93,48 @@
 
 ## 紹介フォーム
 
-### `invite-form-a`　紹介フォームA（未作成）
+### `invite-form-a`　紹介フォームA
+見出し・リード文＋入力フォーム一式（名前・メール・姓名・カナ・性別・生年月日・取引店番・メッセージ・画像アップロード・掲載許諾・個人情報同意）の下に、ブランド色の角型紹介ボタン（個別送信／SNS シェア／対面 QR の3グループ）を並べた1画面完結型
+- 項目：`title` 見出し、`lead` リード文、`nameLabel` お名前の項目名、`namePlaceholder` お名前の入力例、`nameHelp` お名前の補足、`emailLabel` メールアドレスの項目名、`emailValue` メールアドレスの入力値（エラー状態の見本）、`emailError` エラー文言、`splitNameLabel` 姓名分割のお名前の項目名、`lastNameLabel` 姓のラベル、`lastNamePlaceholder` 姓の入力例、`firstNameLabel` 名のラベル、`firstNamePlaceholder` 名の入力例、`kanaLabel` カナの項目名、`kanaPlaceholder` カナの入力例、`kanaHelp` カナの補足、`genderLabel` 性別の項目名、`birthLabel` 生年月日の項目名、`shopLabel` お取引店番の項目名、`shopPlaceholder` プルダウンの初期表示、`messageLabel` メッセージの項目名、`messageDesc` メッセージの説明、`messageValue` メッセージの定型文、`uploadLabel` 画像アップロードの項目名、`uploadDesc` アップロードの説明（上）、`uploadDrop` ドロップ領域の文言、`uploadButton` ファイル選択ボタンの文言、`uploadNote` アップロードの説明（下）、`consentLabel` 掲載許諾の項目名、`consentText` 掲載許諾の説明、`privacyLabel` 個人情報の項目名、`privacyText` 個人情報の説明（リンクを含む）、`privacyUrl` プライバシーポリシーのリンク先（<a> の data-href-field）、`privacyAgree` 同意チェックの文言、`methodsTitle` 紹介方法グループの見出し、`snsTitle` SNS シェアグループの見出し、`faceTitle` 対面グループの見出し
+- 繰り返し `genderOptions`（性別の選択肢（ラジオ）、テンプレート 2個）：`label` 性別の選択肢
+- 繰り返し `consentOptions`（掲載許諾の選択肢（チェックボックス）、テンプレート 2個）：`label` 掲載許諾の選択肢（チェックボックス）
+- 繰り返し `methods`（個別に送るボタン（LINE／メール／SMS）、テンプレート 3個）：`label` 個別に送るボタンの文言、`url` 個別に送るボタンのリンク先（<a> の data-href-field）
+- 繰り返し `snsMethods`（SNS シェアボタン（Facebook／X／メッセンジャー／Instagram URL コピー／Instagram／Slack／Chatwork／リンク）、テンプレート 8個）：`label` SNS シェアボタンの文言、`url` SNS シェアボタンのリンク先
+- 繰り返し `faceMethods`（対面ボタン（QR）、テンプレート 1個）：`label` 対面ボタンの文言、`url` 対面ボタンのリンク先
+- 色：Main＝ファイルを選択するボタンの背景・プライバシーポリシーのリンク文字
 
-### `invite-form-c`　紹介フォーム（未作成）
+### `invite-form-c`　紹介フォーム
+紹介方法のアイコンタイル一覧（11種）の下に、ブランド色のピル型紹介ボタンを「紹介方法選択」「SNSで複数人にシェア」「対面でシェア」の3グループで並べる。入力フォームなし
+- 項目：`methodsTitle` 紹介方法グループの見出し、`snsTitle` SNS シェアグループの見出し、`faceTitle` 対面グループの見出し
+- 繰り返し `tiles`（紹介方法アイコンタイル（80x106、4列・最終行中央寄せ）、テンプレート 11個）：`label` アイコンタイルの文言（改行は <br>）、`url` アイコンタイルのリンク先
+- 繰り返し `methods`（個別に送るボタン（LINE／メール／SMS）、テンプレート 3個）：`label` 個別に送るボタンの文言、`url` 個別に送るボタンのリンク先（<a> の data-href-field）
+- 繰り返し `snsMethods`（SNS シェアボタン（Facebook／X／メッセンジャー／Instagram URL コピー／Instagram／Slack／Chatwork／リンク）、テンプレート 8個）：`label` SNS シェアボタンの文言、`url` SNS シェアボタンのリンク先
+- 繰り返し `faceMethods`（対面ボタン（QR）、テンプレート 1個）：`label` 対面ボタンの文言、`url` 対面ボタンのリンク先
 
-### `invite-form-d`　紹介フォーム（未作成）
+### `invite-form-d`　紹介フォーム
+invite-form-c と同じアイコンタイル一覧＋ピル型紹介ボタンだが、最初のグループの見出し「紹介方法選択」がない版
+- 項目：`snsTitle` SNS シェアグループの見出し、`faceTitle` 対面グループの見出し
+- 繰り返し `tiles`（紹介方法アイコンタイル（80x106、4列・最終行中央寄せ）、テンプレート 11個）：`label` アイコンタイルの文言（改行は <br>）、`url` アイコンタイルのリンク先
+- 繰り返し `methods`（個別に送るボタン（LINE／メール／SMS）、テンプレート 3個）：`label` 個別に送るボタンの文言、`url` 個別に送るボタンのリンク先（<a> の data-href-field）
+- 繰り返し `snsMethods`（SNS シェアボタン（Facebook／X／メッセンジャー／Instagram URL コピー／Instagram／Slack／Chatwork／リンク）、テンプレート 8個）：`label` SNS シェアボタンの文言、`url` SNS シェアボタンのリンク先
+- 繰り返し `faceMethods`（対面ボタン（QR）、テンプレート 1個）：`label` 対面ボタンの文言、`url` 対面ボタンのリンク先
 
-### `invite-form-b`　紹介フォームB（未作成）
+### `invite-form-b`　紹介フォームB
+3ステップ型の紹介フォーム。各ステップに吹き出し付き見出し・1-2-3 の進捗・STEP 見出しを持ち、STEP1 で画像付きメッセージカード（横長）を1つ選択、STEP2 で情報入力、STEP3 で紹介方法ボタン（角型）を選ぶ。3つのパネルを縦に並べた状態見本
+- 項目：`eyebrow` 吹き出しの文言、`title` 見出し（3ステップ共通）、`step1Text` STEP1 の説明、`step2Text` STEP2 の説明、`step3Text` STEP3 の説明、`choiceLabel` カード選択の項目名、`nextLabel` STEP1 のボタン文言、`nextUrl` STEP1 ボタンのリンク先、`nameLabel` お名前の項目名、`namePlaceholder` お名前の入力例、`nameHelp` お名前の補足、`splitNameLabel` 姓名分割のお名前の項目名、`lastNameLabel` 姓のラベル、`lastNamePlaceholder` 姓の入力例、`firstNameLabel` 名のラベル、`firstNamePlaceholder` 名の入力例、`kanaLabel` カナの項目名、`kanaPlaceholder` カナの入力例、`kanaHelp` カナの補足、`genderLabel` 性別の項目名、`birthLabel` 生年月日の項目名、`shopLabel` お取引店番の項目名、`shopPlaceholder` プルダウンの初期表示、`emailLabel` メールアドレスの項目名、`emailPlaceholder` メールアドレスの入力例、`messageLabel` メッセージの項目名、`messageDesc` メッセージの説明、`messageValue` メッセージの定型文、`uploadLabel` 画像アップロードの項目名、`uploadDesc` アップロードの説明（上）、`uploadDrop` ドロップ領域の文言、`uploadButton` ファイル選択ボタンの文言、`uploadNote` アップロードの説明（下）、`consentLabel` 掲載許諾の項目名、`consentText` 掲載許諾の説明、`privacyLabel` 個人情報の項目名、`privacyText` 個人情報の説明（リンクを含む）、`privacyUrl` プライバシーポリシーのリンク先（<a> の data-href-field）、`privacyAgree` 同意チェックの文言、`submitLabel` STEP2 のボタン文言（未入力で非活性）、`submitUrl` STEP2 ボタンのリンク先、`snsTitle` SNS シェアグループの見出し、`faceTitle` 対面グループの見出し
+- 繰り返し `choices`（メッセージカード（ラジオカード）、テンプレート 5個）：`label` カードの文言、`image` 画像 120x80
+- 繰り返し `genderOptions`（性別の選択肢（ラジオ）、テンプレート 2個）：`label` 性別の選択肢
+- 繰り返し `consentOptions`（掲載許諾の選択肢（チェックボックス）、テンプレート 2個）：`label` 掲載許諾の選択肢（チェックボックス）
+- 繰り返し `methods`（個別に送るボタン（LINE／メール／SMS）、テンプレート 3個）：`label` 個別に送るボタンの文言、`url` 個別に送るボタンのリンク先（<a> の data-href-field）
+- 繰り返し `snsMethods`（SNS シェアボタン（Facebook／X／メッセンジャー／Instagram URL コピー／Instagram／Slack／Chatwork／リンク）、テンプレート 8個）：`label` SNS シェアボタンの文言、`url` SNS シェアボタンのリンク先
+- 繰り返し `faceMethods`（対面ボタン（QR）、テンプレート 1個）：`label` 対面ボタンの文言、`url` 対面ボタンのリンク先
+- 色：Main＝進捗の現在ステップの丸・STEP 番号の背景・選択中カードの背景・つぎへボタンの背景・ファイルを選択するボタンの背景・プライバシーポリシーのリンク文字
 
-### `invite-form-e`　紹介フォーム（未作成）
+### `invite-form-e`　紹介フォーム
+「１つ選択」＋必須バッジの下に、画像付きメッセージカード（縦長 160px）を2列で5枚並べた選択フォーム。選択中のカードは Main 色で塗る
+- 項目：`choiceLabel` カード選択の項目名
+- 繰り返し `choices`（メッセージカード（ラジオカード）、テンプレート 5個）：`label` カードの文言、`image` 画像 144x80
+- 色：Main＝選択中カードの背景
 
 ## ご紹介方法の詳細
 
